@@ -61,43 +61,44 @@ def _font(size: int, bold: bool = True) -> Any:
 
 def fetch_or_generate_comic_art(prompt: str, dest_path: Path, seed: int = 101) -> Path:
     """
-    Si la ilustración cómic 2D ya existe en `dest_path`, la reutiliza.
-    Si no existe, intenta generarla con `gemini-nano-banana-2.1` o con el motor
-    gratuito Flux (Pollinations) en formato vertical 9:16.
+    Obtiene o genera una ilustración cómic 2D en formato vertical sin bloqueos de red.
+    1. Si ya existe en disco y es válida, la usa al instante.
+    2. Intenta generarla con Flux 2D Cartoon (timeout estricto de 10s, sin reintentos).
+    3. Respaldo inmediato (<0.5s): usa el banco local de ilustraciones 2D estilo
+       Don Zombi / Curiosamente Graficado / Sobrevive con Bruno con encuadre único.
     """
     if dest_path.exists() and dest_path.stat().st_size > 15_000:
         return dest_path
 
     dest_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # 1. Intentar con Gemini Nano Banana 2.1 (si la cuenta tiene cuota habilitada)
-    if GEMINI_API_KEY and GEMINI_API_KEY != "tu_api_key_de_gemini_aqui":
-        try:
-            client = genai.Client(api_key=GEMINI_API_KEY, http_options={"timeout": 20000})
-            interaction = client.interactions.create(
-                model="gemini-nano-banana-2.1",
-                input=prompt,
-                response_format={"type": "image", "aspect_ratio": "9:16"},
-            )
-            if getattr(interaction, "output_image", None) and getattr(interaction.output_image, "data", None):
-                raw_bytes = base64.b64decode(interaction.output_image.data)
-                im = Image.open(BytesIO(raw_bytes)).convert("RGB")
-                im.save(dest_path)
-                return dest_path
-        except Exception:
-            pass
-
-    # 2. Respaldo gratuito Flux 2D Cartoon (Pollinations API)
+    # 1. Intento rápido con Flux 2D Cartoon (timeout corto de 10s para nunca colgar GitHub Actions)
     try:
         encoded = urllib.parse.quote(prompt)
         url = f"https://image.pollinations.ai/prompt/{encoded}?width=1080&height=1920&seed={seed}&model=flux&nologo=true"
-        r = requests.get(url, timeout=25)
+        r = requests.get(url, timeout=10)
         if r.status_code == 200 and len(r.content) > 15_000:
             im = Image.open(BytesIO(r.content)).convert("RGB")
             im.save(dest_path)
             return dest_path
     except Exception:
         pass
+
+    # 2. Respaldo garantizado instantáneo: banco local de ilustraciones 2D cómic
+    local_comic_bank = [
+        OUTPUT_DIR / "zombi_1.png",
+        OUTPUT_DIR / "selva_1.png",
+        OUTPUT_DIR / "zombi_2.png",
+        OUTPUT_DIR / "selva_2.png",
+        OUTPUT_DIR / "zombi_3.png",
+    ]
+    existing_bank = [p for p in local_comic_bank if p.exists()]
+    if existing_bank:
+        chosen = existing_bank[seed % len(existing_bank)]
+        im = Image.open(chosen).convert("RGB")
+        im = ImageEnhance.Color(im).enhance(1.05 + (seed % 3) * 0.06)
+        im.save(dest_path)
+        return dest_path
 
     return dest_path
 

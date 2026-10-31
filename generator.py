@@ -39,11 +39,50 @@ except ImportError:
     MOVIEPY_V2 = False
 
 
+def _call_gemini_fast(prompt: str, system_instruction: str = "", timeout_sec: float = 10.0) -> str:
+    """
+    Llama directamente al endpoint REST de Gemini con timeout estricto de 10s
+    y CERO bucles de reintento ante errores 429/503 para que nunca se cuelgue en la nube.
+    """
+    if not GEMINI_API_KEY or GEMINI_API_KEY == "tu_api_key_de_gemini_aqui":
+        return ""
+    try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}"
+        payload: Dict[str, Any] = {
+            "contents": [{"parts": [{"text": prompt}]}],
+        }
+        if system_instruction:
+            payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
+        resp = requests.post(url, json=payload, timeout=timeout_sec)
+        if resp.status_code == 200:
+            data = resp.json()
+            candidates = data.get("candidates", [])
+            if candidates:
+                parts = candidates[0].get("content", {}).get("parts", [])
+                if parts:
+                    return (parts[0].get("text") or "").strip()
+    except Exception:
+        pass
+    return ""
+
+
+CURATED_COMIC_TOPICS = [
+    "¿Qué pasaría en las primeras 72 horas si se apagara todo el internet y la electricidad del mundo?",
+    "3 lugares prohibidos de la Tierra donde nadie tiene permitido entrar jamás",
+    "Cómo sobrevivirías si quedaras atrapado en una isla desierta sin herramientas durante 30 días",
+    "El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
+    "¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
+    "Los 3 errores que el 95 por ciento de las personas cometería en el día 1 de una evacuación",
+    "Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
+    "Qué ocurriría con las ciudades del planeta si los humanos desaparecieran por 100 años",
+]
+
+
 def discover_trending_topic() -> tuple[str, str]:
     """
     Consulta en tiempo real Google Trends México y Google News en español,
     filtra temas ya publicados en `output/published_topics.json`, y usa Gemini
-    para elegir el tema en tendencia más atractivo del día junto con su descripción.
+    (o el banco de historias estilo Don Zombi / Curiosamente Graficado) para elegir el tema.
     """
     print("[Tendencias] Buscando qué está en tendencia hoy en tiempo real...")
     headlines: List[str] = []
@@ -61,7 +100,7 @@ def discover_trending_topic() -> tuple[str, str]:
                 for item in root.findall(".//item/title")[:15]:
                     if item.text:
                         clean_t = item.text.split(" - ")[0].strip()
-                        if clean_t and clean_t not in headlines:
+                        if clean_t and len(clean_t) > 12 and clean_t not in headlines:
                             headlines.append(clean_t)
         except Exception:
             pass
@@ -75,26 +114,24 @@ def discover_trending_topic() -> tuple[str, str]:
             published = []
 
     today_str = datetime.now().strftime("%Y-%m-%d")
-    trends_block = "\n".join(f"- {h}" for h in headlines[:20]) if headlines else "Ciencia, tecnología, descubrimientos espaciales y fenómenos virales del momento."
+    trends_block = "\n".join(f"- {h}" for h in headlines[:15]) if headlines else "Supervivencia, misterios sin resolver y ciencia."
     avoid_block = ", ".join(published[-15:]) if published else "ninguno"
 
-    if GEMINI_API_KEY and GEMINI_API_KEY != "tu_api_key_de_gemini_aqui":
-        try:
-            client = genai.Client(api_key=GEMINI_API_KEY, http_options={"timeout": 12000})
-            prompt = (
-                f"Fecha actual: {today_str}.\n"
-                f"Titulares y búsquedas en tendencia hoy:\n{trends_block}\n\n"
-                f"Temas ya usados recientemente (NO repetir): {avoid_block}\n\n"
-                "Elige o adapta 1 tema sumamente interesante, curioso o viral del momento que haga que todos se detengan a ver el Reel (puede estar conectado a una tendencia actual de tecnología, ciencia, historia, naturaleza, espacio o cultura general con 3 datos/ejemplos asombrosos).\n"
-                "Devuelve ÚNICAMENTE un JSON con estas 2 claves exactas:\n"
-                '- "topic": título del tema para generar el guion con 3 ejemplos\n'
-                '- "caption": texto llamativo para la publicación de Facebook en ERPA VARDE incluyendo 4 hashtags en tendencia (#reels #viral etc.)\n'
-                "Sin bloques markdown, solo JSON puro."
-            )
-            interaction = client.interactions.create(model=GEMINI_MODEL, input=prompt)
-            raw = (interaction.output_text or "").strip()
-            match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
-            if match:
+    prompt = (
+        f"Fecha actual: {today_str}.\n"
+        f"Titulares en tendencia hoy:\n{trends_block}\n\n"
+        f"Temas ya usados recientemente (NO repetir): {avoid_block}\n\n"
+        "Elige o adapta 1 tema sumamente interesante de supervivencia, misterio, ciencia o curiosidad viral estilo 'Curiosamente Graficado' o 'Sobrevive con Bruno'.\n"
+        "Devuelve ÚNICAMENTE un JSON con estas 2 claves exactas:\n"
+        '- "topic": título del tema para generar el guion\n'
+        '- "caption": descripción interesante con una pregunta para debatir en comentarios y 4 hashtags (#reels #viral etc.)\n'
+        "Sin bloques markdown, solo JSON puro."
+    )
+    raw = _call_gemini_fast(prompt, timeout_sec=10.0)
+    if raw:
+        match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
+        if match:
+            try:
                 data = json.loads(match.group(0))
                 topic = data.get("topic", "").strip()
                 caption = data.get("caption", "").strip()
@@ -102,61 +139,66 @@ def discover_trending_topic() -> tuple[str, str]:
                     published.append(topic)
                     history_path.write_text(json.dumps(published[-50:], ensure_ascii=False, indent=2), encoding="utf-8")
                     print(f"      [Tendencia elegida]: '{topic}'")
-                    return topic, caption or f"{topic} | Síguenos en ERPA VARDE #reels #tendencia #curiosidades #viral"
-        except Exception as exc:
-            print(f"      Aviso al analizar tendencias con Gemini: {exc}")
+                    return topic, caption or f"{topic} ¿Tú qué opinas? #reels #misterios #curiosidades #viral"
+            except Exception:
+                pass
 
-    fallback_topic = headlines[0] if headlines else "3 descubrimientos recientes que están sorprendiendo al mundo hoy"
-    fallback_caption = f"¡Todos están hablando de esto hoy! {fallback_topic} | Síguenos en ERPA VARDE #reels #tendencias #viral"
+    # Elegir un tema fresco que no esté en los últimos publicados
+    candidates = [t for t in CURATED_COMIC_TOPICS if t not in published[-8:]] + headlines
+    fallback_topic = candidates[len(published) % len(candidates)] if candidates else CURATED_COMIC_TOPICS[0]
+    published.append(fallback_topic)
+    history_path.write_text(json.dumps(published[-50:], ensure_ascii=False, indent=2), encoding="utf-8")
+    fallback_caption = (
+        f"¿Te imaginas vivir esto en la vida real? {fallback_topic}. "
+        "¿Tú qué harías en esta situación? ¡Te leo en los comentarios! #reels #supervivencia #misterios #curiosidades #viral"
+    )
     return fallback_topic, fallback_caption
 
 
 def generate_script(topic: str) -> str:
     """
-    Genera el guion usando Gemini API o FreeLLM (g4f) como respaldo gratuito.
+    Genera el guion usando Gemini REST rápido (10s max), FreeLLM (g4f) o guion narrativo dinámico.
     """
     system_instruction = (
-        "Eres un guionista experto en videos virales cortos para Facebook Reels. "
-        "Escribe únicamente el texto hablado del narrador en español con ejemplos claros. "
+        "Eres un guionista experto en videos animados de supervivencia y misterios estilo Don Zombi y Curiosamente Graficado. "
+        "Escribe únicamente el texto hablado del narrador en español. "
         "Reglas estrictas:\n"
         "- Duración de lectura: 25 a 35 segundos (entre 65 y 85 palabras).\n"
-        "- Comienza con un gancho muy potente en la primera oración y da 3 ejemplos claros.\n"
-        "- NO incluyas etiquetas como '[Música]', 'Narrador:', asteriscos, emojis ni títulos.\n"
+        "- Comienza con una pregunta o gancho muy potente y desarrolla 3 fases o datos sorprendentes.\n"
+        "- NO incluyas etiquetas como '[Música]', 'Narrador:', asteriscos, emojis ni acotaciones de escena.\n"
         "- Devuelve solo el párrafo limpio que leerá la voz artificial."
     )
 
     print(f"[1/4] Generando guion sobre: '{topic}'...")
 
-    if GEMINI_API_KEY and GEMINI_API_KEY != "tu_api_key_de_gemini_aqui":
-        try:
-            client = genai.Client(api_key=GEMINI_API_KEY)
-            interaction = client.interactions.create(
-                model=GEMINI_MODEL,
-                system_instruction=system_instruction,
-                input=f"Crea un guion corto con 3 ejemplos impactantes para Facebook sobre: {topic}",
-            )
-            script_text = (interaction.output_text or "").strip()
-            if script_text:
-                script_path = OUTPUT_DIR / "guion.txt"
-                script_path.write_text(script_text, encoding="utf-8")
-                print(f"      Guion generado con Gemini ({GEMINI_MODEL}) en: {script_path}")
-                return script_text
-        except Exception as exc:
-            print(f"      Aviso Gemini ({exc}), cambiando a FreeLLM (g4f)...")
+    script_text = _call_gemini_fast(
+        f"Crea un guion narrativo atrapante en español sobre: {topic}",
+        system_instruction=system_instruction,
+        timeout_sec=10.0,
+    )
+    if script_text:
+        script_path = OUTPUT_DIR / "guion.txt"
+        script_path.write_text(script_text, encoding="utf-8")
+        print(f"      Guion generado con Gemini en: {script_path}")
+        return script_text
 
     try:
         from g4f.client import Client as G4FClient  # type: ignore
 
-        g4f_client = G4FClient()
-        response = g4f_client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": system_instruction},
-                {"role": "user", "content": f"Crea un guion corto con 3 ejemplos sobre: {topic}"},
-            ],
-        )
-        script_text = response.choices[0].message.content.strip()
-        if script_text:
+        def _g4f_call() -> str:
+            g4f_client = G4FClient()
+            response = g4f_client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": system_instruction},
+                    {"role": "user", "content": f"Crea un guion narrativo corto en español sobre: {topic}"},
+                ],
+            )
+            return (response.choices[0].message.content or "").strip()
+
+        with ThreadPoolExecutor(max_workers=1) as ex:
+            script_text = ex.submit(_g4f_call).result(timeout=12)
+        if script_text and len(script_text.split()) >= 25:
             script_path = OUTPUT_DIR / "guion.txt"
             script_path.write_text(script_text, encoding="utf-8")
             print(f"      Guion generado con FreeLLM (g4f) en: {script_path}")
@@ -164,64 +206,73 @@ def generate_script(topic: str) -> str:
     except Exception as exc:
         print(f"      Aviso FreeLLM: {exc}")
 
+    # Respaldo narrativo dinámico garantizado (sin repeticiones ni bloqueos)
+    fallback_scripts = [
+        (
+            f"¿Alguna vez te has preguntado qué pasaría realmente con {topic}? "
+            "En las primeras veinticuatro horas, el noventa por ciento de las personas subestima por completo la situación y agota los recursos básicos en cuestión de minutos. "
+            "Para el tercer día, cuando las comunicaciones fallan y nadie puede pedir ayuda externa, solo quienes conocen las reglas básicas de supervivencia logran mantenerse a salvo. "
+            "Al final, el mayor peligro nunca es el fenómeno en sí, sino el pánico colectivo."
+        ),
+        (
+            f"Existe un detalle oculto detrás de {topic} que muy pocas personas conocen hasta que es demasiado tarde. "
+            "Aunque la ciencia moderna ha intentado explicarlo con satélites y sensores avanzados, las condiciones extremas destruyen cualquier equipo en pocas horas. "
+            "Quienes han investigado este misterio coinciden en tres señales de alerta que jamás debes ignorar si quieres salir con vida. "
+            "Y tú, ¿te atreverías a comprobarlo por tu cuenta?"
+        ),
+    ]
+    chosen_script = fallback_scripts[abs(hash(topic)) % len(fallback_scripts)]
     script_path = OUTPUT_DIR / "guion.txt"
-    if script_path.exists():
-        return script_path.read_text(encoding="utf-8").strip()
-
-    raise RuntimeError("No se pudo generar el guion.")
+    script_path.write_text(chosen_script, encoding="utf-8")
+    return chosen_script
 
 
 def _plan_visual_scenes(script_text: str, num_scenes: int = 4) -> List[Dict[str, str]]:
     """
-    Usa Gemini para extraer 4 escenas con términos de búsqueda reales en inglés
-    y etiquetas explicativas en español (Ejemplos visuales) para mostrar en pantalla.
+    Usa Gemini REST rápido para extraer escenas con etiquetas explicativas en español.
     """
     default_scenes = [
         {
-            "query": "Deep space galaxy cluster Hubble",
-            "title": "MISTERIOS DEL COSMOS",
-            "subtitle": "Lo que la ciencia aún no logra explicar",
+            "query": "survival bunker emergency supplies cartoon",
+            "title": "FASE 1: LAS PRIMERAS 24H",
+            "subtitle": "El error que comete el 90% de la gente",
         },
         {
-            "query": "Norma Cluster Great Attractor galaxy",
-            "title": "EJEMPLO 1: EL GRAN ATRACTOR",
-            "subtitle": "Anomalía gravitacional que arrastra galaxias",
+            "query": "dark city blackout survival comic",
+            "title": "FASE 2: DÍA 3 SIN SEÑAL",
+            "subtitle": "Cuando fallan todas las comunicaciones",
         },
         {
-            "query": "Dark matter cosmic web simulation",
-            "title": "EJEMPLO 2: MATERIA OSCURA (95%)",
-            "subtitle": "Estructura invisible que domina el universo",
+            "query": "remote island lighthouse rescue comic",
+            "title": "FASE 3: SUPERVIVENCIA EXTREMA",
+            "subtitle": "La regla clave para resistir hasta el final",
         },
         {
-            "query": "Radio telescope deep space signal nebula",
-            "title": "EJEMPLO 3: SEÑALES DE RADIO FRB",
-            "subtitle": "Destellos repetitivos a millones de años luz",
+            "query": "deep jungle mystery expedition cartoon",
+            "title": "FASE 4: EL DATO OCULTO",
+            "subtitle": "Lo que nadie te cuenta sobre este misterio",
         },
     ]
 
-    if not GEMINI_API_KEY or GEMINI_API_KEY == "tu_api_key_de_gemini_aqui":
-        return default_scenes[:num_scenes]
-
-    try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        prompt = (
-            f"A partir de este guion:\n\"{script_text}\"\n\n"
-            f"Devuelve ÚNICAMENTE un JSON array válido con {num_scenes} objetos. "
-            "Cada objeto debe tener exactamente estas 3 claves:\n"
-            '- "query": término de búsqueda fotográfico en inglés (2 a 4 palabras simples, ej. "Hubble galaxy nebula", "black hole accretion disk", "radio telescope stars")\n'
-            '- "title": título corto en mayúsculas en español (ej. "EJEMPLO 1: EL GRAN ATRACTOR")\n'
-            '- "subtitle": dato clave o explicación corta en español (máximo 7 palabras)\n'
-            "No incluyas bloques markdown ```json, solo el JSON puro."
-        )
-        interaction = client.interactions.create(model=GEMINI_MODEL, input=prompt)
-        raw = (interaction.output_text or "").strip()
+    prompt = (
+        f"A partir de este guion:\n\"{script_text}\"\n\n"
+        f"Devuelve ÚNICAMENTE un JSON array válido con {num_scenes} objetos. "
+        "Cada objeto debe tener exactamente estas 3 claves:\n"
+        '- "query": descripción corta en inglés de la escena (2 a 4 palabras)\n'
+        '- "title": título corto impactante en mayúsculas en español (máximo 3 palabras)\n'
+        '- "subtitle": subtítulo corto en mayúsculas en español (máximo 4 palabras)\n'
+        "No incluyas bloques markdown ```json, solo el JSON puro."
+    )
+    raw = _call_gemini_fast(prompt, timeout_sec=10.0)
+    if raw:
         match = re.search(r"\[.*\]", raw, flags=re.DOTALL)
         if match:
-            parsed = json.loads(match.group(0))
-            if isinstance(parsed, list) and len(parsed) >= num_scenes:
-                return parsed[:num_scenes]
-    except Exception:
-        pass
+            try:
+                parsed = json.loads(match.group(0))
+                if isinstance(parsed, list) and len(parsed) >= num_scenes:
+                    return parsed[:num_scenes]
+            except Exception:
+                pass
 
     return default_scenes[:num_scenes]
 
@@ -411,50 +462,48 @@ def assemble_video(
 def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path | None]:
     """
     Genera una publicación narrativa (historia en tendencia / curiosidad profunda)
-    lista para el muro de Facebook, acompañada opcionalmente de una infografía/fotografía HD 4:5 (1080x1350).
+    lista para el muro de Facebook, acompañada opcionalmente de una postal cómic 2D 4:5 (1080x1350).
     """
     print(f"[Historia] Redactando historia viral para Facebook sobre: '{topic}'...")
     story_text = ""
-    img_query = "Hubble galaxy cosmos"
-    headline = topic[:36].upper()
-    subheadline = "Una historia real que todos están comentando hoy"
+    img_query = "mystery jungle survival comic"
+    headline = topic[:30].upper()
+    subheadline = "EL DATO QUE POCOS CONOCEN"
 
-    if GEMINI_API_KEY and GEMINI_API_KEY != "tu_api_key_de_gemini_aqui":
-        try:
-            client = genai.Client(api_key=GEMINI_API_KEY, http_options={"timeout": 12000})
-            prompt = (
-                f"Escribe una publicación fascinante para Facebook en español contando una historia real o explicando de forma atrapante el tema: '{topic}'.\n"
-                "Estructura de la historia:\n"
-                "- Primera línea: Un título o pregunta gancho muy potente.\n"
-                "- Desarrollo: 2 a 3 párrafos cortos contando la historia, datos reales o ejemplos sorprendentes de forma clara y amena.\n"
-                "- Cierre: Una pregunta abierta para que los seguidores opinen en los comentarios + 4 hashtags.\n"
-                "- NO uses caracteres especiales raros, escribe en texto limpio.\n\n"
-                "Devuelve ÚNICAMENTE un JSON válido con estas 4 claves:\n"
-                '- "story": el texto completo de la publicación (con saltos de línea \\n)\n'
-                '- "query": término de búsqueda fotográfico en inglés (2 a 4 palabras simples)\n'
-                '- "headline": titular corto impactante en español (máximo 5 palabras en mayúsculas)\n'
-                '- "subheadline": subtítulo explicativo en español (máximo 8 palabras)\n'
-                "Sin bloques markdown, solo JSON puro."
-            )
-            interaction = client.interactions.create(model=GEMINI_MODEL, input=prompt)
-            raw = (interaction.output_text or "").strip()
-            match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
-            if match:
+    prompt = (
+        f"Escribe una publicación fascinante para Facebook en español contando una historia o caso de supervivencia/misterio sobre: '{topic}'.\n"
+        "Estructura de la historia:\n"
+        "- Primera línea: Un título o pregunta gancho muy potente.\n"
+        "- Desarrollo: 2 a 3 párrafos cortos contando la historia, datos reales o reglas de supervivencia de forma clara y atrapante.\n"
+        "- Cierre: Una pregunta abierta para que los seguidores debatan en los comentarios + 4 hashtags.\n"
+        "- NO uses caracteres especiales raros, escribe en texto limpio.\n\n"
+        "Devuelve ÚNICAMENTE un JSON válido con estas 4 claves:\n"
+        '- "story": el texto completo de la publicación (con saltos de línea \\n)\n'
+        '- "query": descripción de la escena en inglés (2 a 4 palabras)\n'
+        '- "headline": titular corto impactante en español (máximo 4 palabras en mayúsculas)\n'
+        '- "subheadline": subtítulo explicativo en español (máximo 6 palabras)\n'
+        "Sin bloques markdown, solo JSON puro."
+    )
+    raw = _call_gemini_fast(prompt, timeout_sec=10.0)
+    if raw:
+        match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
+        if match:
+            try:
                 data = json.loads(match.group(0))
                 story_text = data.get("story", "").strip()
                 img_query = data.get("query", img_query).strip()
                 headline = data.get("headline", headline).strip()
                 subheadline = data.get("subheadline", subheadline).strip()
-        except Exception as exc:
-            print(f"      Aviso al generar historia con Gemini: {exc}")
+            except Exception:
+                pass
 
     if not story_text:
         story_text = (
-            f"¿Alguna vez te has puesto a pensar en esto sobre {topic}?\n\n"
-            "Cada día la ciencia y la tecnología nos revelan detalles que parecen sacados de una película, "
-            "pero están ocurriendo ahora mismo frente a nuestros ojos.\n\n"
-            "¿Qué opinas tú sobre este fenómeno? Te leo en los comentarios.\n\n"
-            "#curiosidades #historia #tendencias #ciencia"
+            f"¿Qué harías tú si tuvieras que enfrentarte a esto? {topic}\n\n"
+            "La mayoría de las personas cree que sabría exactamente cómo reaccionar en una situación límite, "
+            "pero los expertos en supervivencia revelan que las decisiones de los primeros 15 minutos lo definen todo.\n\n"
+            "¿Cuál sería tu primer movimiento o qué objeto llevarías contigo? ¡Déjalo en los comentarios y veamos quién sobreviviría más tiempo!\n\n"
+            "#supervivencia #misterios #curiosidades #historias #tendencias"
         )
 
     story_path = OUTPUT_DIR / "story_post.txt"
@@ -463,6 +512,7 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
     if not with_image:
         return story_text, None
 
+    seed_val = abs(hash(topic)) % 900 + 100
     print(f"[Imagen] Creando postal ilustrada estilo cómic 2D (1080x1350) para '{img_query}'...")
     from youtube_story_animator import fetch_or_generate_comic_art
 
@@ -471,7 +521,7 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
         "clean bold black outlines, vibrant comic shading, expressive white round-headed cartoon character "
         f"exploring: {img_query}, vertical 4:5, no text"
     )
-    art_path = fetch_or_generate_comic_art(art_prompt, OUTPUT_DIR / "post_comic_raw.png", seed=305)
+    art_path = fetch_or_generate_comic_art(art_prompt, OUTPUT_DIR / f"post_comic_{seed_val}.png", seed=seed_val)
     if art_path.exists():
         raw_img = Image.open(art_path).convert("RGB")
     else:
@@ -516,25 +566,19 @@ def generate_engaging_video_caption(topic: str, script_text: str) -> str:
     Genera una descripción interesante para el video acompañada de una pregunta
     de debate directamente relacionada con el contenido del video para impulsar comentarios.
     """
-    if GEMINI_API_KEY and GEMINI_API_KEY != "tu_api_key_de_gemini_aqui":
-        try:
-            client = genai.Client(api_key=GEMINI_API_KEY, http_options={"timeout": 12000})
-            prompt = (
-                f"Tema del video: '{topic}'\n"
-                f"Guion del video: \"{script_text}\"\n\n"
-                "Escribe una descripción sumamente atractiva en español para publicar este Reel en Facebook.\n"
-                "Estructura obligatoria:\n"
-                "1. Un gancho o dato intrigante de 1 a 2 líneas sobre lo que revela el video.\n"
-                "2. Una pregunta abierta muy interesante acerca del video para que la gente debata y deje su opinión en los comentarios (ej. '¿Tú qué harías en esta situación?' o '¿Cuánto tiempo crees que sobrevivirías?').\n"
-                "3. 5 hashtags relevantes en tendencia (#reels #curiosidades #misterios #supervivencia #viral).\n"
-                "Devuelve únicamente el texto limpio listo para copiar y pegar, sin caracteres raros ni bloques markdown."
-            )
-            interaction = client.interactions.create(model=GEMINI_MODEL, input=prompt)
-            text = (interaction.output_text or "").strip()
-            if text:
-                return text
-        except Exception:
-            pass
+    prompt = (
+        f"Tema del video: '{topic}'\n"
+        f"Guion del video: \"{script_text}\"\n\n"
+        "Escribe una descripción sumamente atractiva en español para publicar este Reel en Facebook.\n"
+        "Estructura obligatoria:\n"
+        "1. Un gancho o dato intrigante de 1 a 2 líneas sobre lo que revela el video.\n"
+        "2. Una pregunta abierta muy interesante acerca del video para que la gente debata y deje su opinión en los comentarios (ej. '¿Tú qué harías en esta situación?' o '¿Cuánto tiempo crees que sobrevivirías?').\n"
+        "3. 5 hashtags relevantes en tendencia (#reels #curiosidades #misterios #supervivencia #viral).\n"
+        "Devuelve únicamente el texto limpio listo para copiar y pegar, sin caracteres raros ni bloques markdown."
+    )
+    text = _call_gemini_fast(prompt, timeout_sec=10.0)
+    if text:
+        return text
 
     return (
         f"¿Te imaginas estar en medio de esto? {topic}. "
@@ -546,8 +590,10 @@ def generate_engaging_video_caption(topic: str, script_text: str) -> str:
 
 def run_generation_pipeline(topic: str) -> tuple[Path, Path]:
     script_text = generate_script(topic)
-    generate_scene_images(script_text, num_scenes=4)
-    audio_path = generate_voice(script_text)
+    scenes_meta = _plan_visual_scenes(script_text, num_scenes=3)
+    meta_path = OUTPUT_DIR / "scenes_meta.json"
+    meta_path.write_text(json.dumps(scenes_meta, ensure_ascii=False, indent=2), encoding="utf-8")
+    audio_path = OUTPUT_DIR / "narration.mp3"
     video_base_path = OUTPUT_DIR / "video_base.mp4"
     return video_base_path, audio_path
 

@@ -36,18 +36,31 @@ def _create_driver(headless: bool = False) -> webdriver.Remote:
     edge_options = EdgeOptions()
     if edge_bin:
         edge_options.binary_location = edge_bin
-    edge_options.add_argument(f"--user-data-dir={BROWSER_PROFILE_DIR.resolve()}")
-    edge_options.add_argument("--profile-directory=Default")
+
+    is_cloud = os.getenv("GITHUB_ACTIONS", "").lower() == "true"
+    if is_cloud:
+        cloud_prof = OUTPUT_DIR / "cloud_edge_profile"
+        cloud_prof.mkdir(parents=True, exist_ok=True)
+        edge_options.add_argument(f"--user-data-dir={cloud_prof.resolve()}")
+        edge_options.add_argument("--no-sandbox")
+        edge_options.add_argument("--disable-gpu")
+        edge_options.add_argument("--disable-dev-shm-usage")
+    else:
+        edge_options.add_argument(f"--user-data-dir={BROWSER_PROFILE_DIR.resolve()}")
+        edge_options.add_argument("--profile-directory=Default")
+
     edge_options.add_argument("--disable-notifications")
+    edge_options.add_argument("--lang=es-LA")
     edge_options.add_argument("--window-size=1366,900")
     edge_options.add_argument("--disable-blink-features=AutomationControlled")
     edge_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     edge_options.add_experimental_option("useAutomationExtension", False)
 
-    if headless:
+    if headless or is_cloud:
         edge_options.add_argument("--headless=new")
 
     driver = webdriver.Edge(options=edge_options)
+    driver.set_page_load_timeout(60)
     return driver
 
 
@@ -74,12 +87,11 @@ def _ensure_logged_in(driver: webdriver.Remote) -> None:
     driver.get("https://www.facebook.com/")
     time.sleep(4)
 
-    email_inputs = driver.find_elements(By.NAME, "email")
-    pass_inputs = driver.find_elements(By.NAME, "pass")
-
-    # Si estamos en la nube (GitHub Actions) y tenemos FB_COOKIES_B64, inyectar cookies de sesión activa
+    has_c_user = any(c.get("name") == "c_user" for c in driver.get_cookies())
     cookies_b64 = os.getenv("FB_COOKIES_B64", "").strip()
-    if email_inputs and pass_inputs and cookies_b64:
+
+    # Si no hay cookie c_user activa y tenemos FB_COOKIES_B64, inyectar cookies de inmediato
+    if not has_c_user and cookies_b64:
         try:
             print("[Login] Restaurando sesión activa desde FB_COOKIES_B64 (Modo Nube)...")
             cookies = json.loads(base64.b64decode(cookies_b64).decode("utf-8"))
@@ -97,14 +109,16 @@ def _ensure_logged_in(driver: webdriver.Remote) -> None:
                     driver.add_cookie(cookie_dict)
                 except Exception:
                     pass
-            driver.get("https://www.facebook.com/")
-            time.sleep(4)
-            email_inputs = driver.find_elements(By.NAME, "email")
-            pass_inputs = driver.find_elements(By.NAME, "pass")
+            driver.get("https://www.facebook.com/me")
+            time.sleep(5)
+            has_c_user = any(c.get("name") == "c_user" for c in driver.get_cookies())
         except Exception as exc:
             print(f"      Aviso al restaurar FB_COOKIES_B64: {exc}")
 
-    if email_inputs and pass_inputs:
+    email_inputs = driver.find_elements(By.NAME, "email")
+    pass_inputs = driver.find_elements(By.NAME, "pass")
+
+    if not has_c_user and email_inputs and pass_inputs:
         print(f"[Login] Iniciando sesión en Facebook con '{FB_EMAIL}'...")
         email_el = email_inputs[0]
         pass_el = pass_inputs[0]

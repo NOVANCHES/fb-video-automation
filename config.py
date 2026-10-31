@@ -1,4 +1,4 @@
-﻿import os
+import os
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -9,26 +9,25 @@ IMAGES_DIR = BASE_DIR / "assets" / "images"
 OUTPUT_DIR = BASE_DIR / "output"
 BROWSER_PROFILE_DIR = BASE_DIR / "browser_profile"
 
-# Crear directorios automÃ¡ticamente si no existen
+# Crear directorios automáticamente si no existen
 IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
 
-# ConfiguraciÃ³n de Gemini API
+# Configuración de Gemini API
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = "gemini-3.8-flash"
+GEMINI_MODEL = "gemini-2.5-flash"
 
-# ConfiguraciÃ³n de Voz y SubtÃ­tulos
+# Configuración de Voz y Subtítulos
 TTS_VOICE = os.getenv("TTS_VOICE", "es-MX-JorgeNeural")
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")
 
-# ResoluciÃ³n de video (Formato Vertical 9:16 para Facebook Reels / Videos)
+# Resolución de video (Formato Vertical 9:16 para Facebook Reels / Videos)
 VIDEO_WIDTH = 1080
 VIDEO_HEIGHT = 1920
-VIDEO_FPS = 12
+VIDEO_FPS = 24
 
-# ConfiguraciÃ³n de Facebook
+# Configuración de Facebook (vacío = publicar directamente en el perfil de creador principal Bruno Schiller)
 FB_EMAIL = os.getenv("FB_EMAIL", "")
 FB_PASSWORD = os.getenv("FB_PASSWORD", "")
-FB_PAGE_NAME = os.getenv("FB_PAGE_NAME", "ERPA VARDE")
-
+FB_PAGE_NAME = os.getenv("FB_PAGE_NAME", "")
