@@ -1,0 +1,39 @@
+name: Video Diario Animado en Facebook (24/7 Sin PC)
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 7:00 PM hora Ciudad de México (01:00 UTC)
+    - cron: '0 1 * * *'
+  # Permite disparar un video nuevo en cualquier momento desde la app de GitHub en tu Xiaomi Redmi Note 10S
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Tema del video (deja "auto" para usar tendencias del día)'
+        required: false
+        default: 'auto'
+
+jobs:
+  crear-y-publicar-video:
+    runs-on: windows-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias (Gemini, Edge-TTS, MoviePy, Selenium)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generar y publicar video animado del día
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FB_EMAIL: ${{ secrets.FB_EMAIL }}
+          FB_PASSWORD: ${{ secrets.FB_PASSWORD }}
+          FB_COOKIES_B64: ${{ secrets.FB_COOKIES_B64 }}
+        run: |
+          python main.py --topic "${{ github.event.inputs.topic || 'auto' }}" --format video --headless

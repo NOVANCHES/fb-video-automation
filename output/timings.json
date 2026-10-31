@@ -1,0 +1,32 @@
+[
+  {
+    "type": "SentenceBoundary",
+    "start": 0.1,
+    "end": 5.4666669,
+    "text": "Luis Malagón no es suerte, es la pesadilla de cualquier delantero que pisa México."
+  },
+  {
+    "type": "SentenceBoundary",
+    "start": 5.4166669,
+    "end": 11.5833338,
+    "text": "Primero, salvó a la Selección atajando los penales decisivos contra Honduras en una noche infernal."
+  },
+  {
+    "type": "SentenceBoundary",
+    "start": 11.5833338,
+    "end": 17.8690483,
+    "text": "Segundo, blindó la catorce del América sacando un cabezazo imposible a quemarropa frente a Tigres."
+  },
+  {
+    "type": "SentenceBoundary",
+    "start": 17.8690484,
+    "end": 24.4285725,
+    "text": "Y tercero, frenó en seco a Cruz Azul con dos atajadas brutales que sellaron el histórico bicampeonato."
+  },
+  {
+    "type": "SentenceBoundary",
+    "start": 24.4285725,
+    "end": 28.4761917,
+    "text": "Malagón demostró que los títulos se ganan bajo los tres postes."
+  }
+]

@@ -1,0 +1,8 @@
+google-genai>=2.30.1
+edge-tts>=6.1.12
+moviepy>=1.0.3
+Pillow>=10.0.0
+openai-whisper>=20231117
+selenium>=4.20.0
+webdriver-manager>=4.0.1
+python-dotenv>=1.0.1

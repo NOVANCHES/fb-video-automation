@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+browser_profile/
+.env
+output/*.mp4
+output/*.b64
+output/*.wav
+output/*.mp3
+output/sub_frames/
+output/processed_frames/
+output/sitcom_audio*/
+output/sketch_*_audio/
+output/yt_*/
+output/.bin/
