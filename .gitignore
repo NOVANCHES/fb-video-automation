@@ -12,3 +12,5 @@ output/sitcom_audio*/
 output/sketch_*_audio/
 output/yt_*/
 output/.bin/
+output/fb_*.png
+output/run.*

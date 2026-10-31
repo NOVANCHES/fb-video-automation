@@ -463,38 +463,45 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
     if not with_image:
         return story_text, None
 
-    print(f"[Imagen] Creando postal fotográfica HD (1080x1350) para '{img_query}'...")
-    raw_img = _fetch_real_hd_image(img_query, 1)
+    print(f"[Imagen] Creando postal ilustrada estilo cómic 2D (1080x1350) para '{img_query}'...")
+    from youtube_story_animator import fetch_or_generate_comic_art
+
+    art_prompt = (
+        "2D cartoon comic illustration in the style of Curiosamente Graficado and Don Zombi, "
+        "clean bold black outlines, vibrant comic shading, expressive white round-headed cartoon character "
+        f"exploring: {img_query}, vertical 4:5, no text"
+    )
+    art_path = fetch_or_generate_comic_art(art_prompt, OUTPUT_DIR / "post_comic_raw.png", seed=305)
+    if art_path.exists():
+        raw_img = Image.open(art_path).convert("RGB")
+    else:
+        raw_img = _fetch_real_hd_image(img_query, 1)
+
     card = ImageOps.fit(raw_img, (1080, 1350), method=Image.Resampling.LANCZOS)
-    card = ImageEnhance.Color(card).enhance(1.2)
+    card = ImageEnhance.Color(card).enhance(1.15)
     draw = ImageDraw.Draw(card, "RGBA")
 
-    bold_path = r"C:\Windows\Fonts\arialbd.ttf"
-    reg_path = r"C:\Windows\Fonts\segoeui.ttf"
-    font_h = ImageFont.truetype(bold_path, 52) if Path(bold_path).exists() else ImageFont.load_default()
-    font_s = ImageFont.truetype(reg_path if Path(reg_path).exists() else bold_path, 34)
+    bold_path = r"C:\Windows\Fonts\impact.ttf" if Path(r"C:\Windows\Fonts\impact.ttf").exists() else r"C:\Windows\Fonts\arialbd.ttf"
+    reg_path = r"C:\Windows\Fonts\arialbd.ttf"
+    font_h = ImageFont.truetype(bold_path, 62) if Path(bold_path).exists() else ImageFont.load_default()
+    font_s = ImageFont.truetype(reg_path if Path(reg_path).exists() else bold_path, 36)
 
-    draw.rounded_rectangle(
-        [45, 1020, 1035, 1295],
-        radius=28,
-        fill=(8, 14, 28, 225),
-        outline=(0, 225, 255, 240),
-        width=4,
-    )
+    draw.rectangle([0, 980, 1080, 1350], fill=(0, 0, 0, 165))
     draw.text(
-        (540, 1110),
-        headline[:34].upper(),
+        (540, 1095),
+        headline[:32].upper(),
         font=font_h,
-        fill=(255, 235, 0, 255),
+        fill=(255, 255, 255, 255),
         anchor="mm",
-        stroke_width=3,
+        stroke_width=6,
         stroke_fill=(0, 0, 0, 255),
     )
+    draw.rounded_rectangle([140, 1155, 940, 1235], radius=14, fill=(215, 35, 35, 245), outline=(0, 0, 0, 255), width=4)
     draw.text(
-        (540, 1205),
-        subheadline[:52],
+        (540, 1195),
+        subheadline[:44].upper(),
         font=font_s,
-        fill=(235, 245, 255, 255),
+        fill=(255, 255, 255, 255),
         anchor="mm",
     )
 
@@ -502,6 +509,39 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
     card.save(img_out, quality=95)
     print(f"      Imagen para publicación guardada en: {img_out}")
     return story_text, img_out
+
+
+def generate_engaging_video_caption(topic: str, script_text: str) -> str:
+    """
+    Genera una descripción interesante para el video acompañada de una pregunta
+    de debate directamente relacionada con el contenido del video para impulsar comentarios.
+    """
+    if GEMINI_API_KEY and GEMINI_API_KEY != "tu_api_key_de_gemini_aqui":
+        try:
+            client = genai.Client(api_key=GEMINI_API_KEY, http_options={"timeout": 12000})
+            prompt = (
+                f"Tema del video: '{topic}'\n"
+                f"Guion del video: \"{script_text}\"\n\n"
+                "Escribe una descripción sumamente atractiva en español para publicar este Reel en Facebook.\n"
+                "Estructura obligatoria:\n"
+                "1. Un gancho o dato intrigante de 1 a 2 líneas sobre lo que revela el video.\n"
+                "2. Una pregunta abierta muy interesante acerca del video para que la gente debata y deje su opinión en los comentarios (ej. '¿Tú qué harías en esta situación?' o '¿Cuánto tiempo crees que sobrevivirías?').\n"
+                "3. 5 hashtags relevantes en tendencia (#reels #curiosidades #misterios #supervivencia #viral).\n"
+                "Devuelve únicamente el texto limpio listo para copiar y pegar, sin caracteres raros ni bloques markdown."
+            )
+            interaction = client.interactions.create(model=GEMINI_MODEL, input=prompt)
+            text = (interaction.output_text or "").strip()
+            if text:
+                return text
+        except Exception:
+            pass
+
+    return (
+        f"¿Te imaginas estar en medio de esto? {topic}. "
+        "Mira el video hasta el final porque el último dato cambia todo. "
+        "¿Tú qué harías en esta situación o cuál sería tu plan para sobrevivir? ¡Te leo en los comentarios! "
+        "#reels #curiosidades #supervivencia #misterios #viral"
+    )
 
 
 def run_generation_pipeline(topic: str) -> tuple[Path, Path]:

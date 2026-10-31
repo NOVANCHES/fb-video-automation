@@ -1,19 +1,31 @@
-name: Video Diario Animado en Facebook (24/7 Sin PC)
+name: Publicación Automática Día, Tarde y Noche (Videos, Fotos y Textos)
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 7:00 PM hora Ciudad de México (01:00 UTC)
-    - cron: '0 1 * * *'
-  # Permite disparar un video nuevo en cualquier momento desde la app de GitHub en tu Xiaomi Redmi Note 10S
+    # 1. DÍA: 9:00 AM hora Ciudad de México (15:00 UTC)
+    - cron: '0 15 * * *'
+    # 2. TARDE: 2:00 PM hora Ciudad de México (20:00 UTC)
+    - cron: '0 20 * * *'
+    # 3. NOCHE: 8:00 PM hora Ciudad de México (02:00 UTC)
+    - cron: '0 2 * * *'
+
+  # Control manual desde la app de GitHub en tu Xiaomi Redmi Note 10S
   workflow_dispatch:
     inputs:
       topic:
-        description: 'Tema del video (deja "auto" para usar tendencias del día)'
+        description: 'Tema (deja "auto" para usar tendencias del momento)'
+        required: false
+        default: 'auto'
+      format:
+        description: 'Formato: "auto" (rota entre video, foto y texto), "video", "photo" o "text"'
         required: false
         default: 'auto'
 
+permissions:
+  contents: write
+
 jobs:
-  crear-y-publicar-video:
+  publicar-contenido-facebook:
     runs-on: windows-latest
     steps:
       - name: Descargar repositorio
@@ -29,11 +41,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generar y publicar video animado del día
+      - name: Generar y publicar (Video con pregunta, Foto con historia o Texto de debate)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FB_EMAIL: ${{ secrets.FB_EMAIL }}
           FB_PASSWORD: ${{ secrets.FB_PASSWORD }}
           FB_COOKIES_B64: ${{ secrets.FB_COOKIES_B64 }}
         run: |
-          python main.py --topic "${{ github.event.inputs.topic || 'auto' }}" --format video --headless
+          python main.py --topic "${{ github.event.inputs.topic || 'auto' }}" --format "${{ github.event.inputs.format || 'auto' }}" --headless
+
+      - name: Guardar historial de temas y formatos publicados
+        run: |
+          git config user.name "FB Creator Bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add output/published_topics.json output/published_formats.json
+          git diff --staged --quiet || (git commit -m "Actualizar historial de publicaciones (Día/Tarde/Noche)" && git push)

@@ -15,7 +15,12 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from config import OUTPUT_DIR
-from generator import discover_trending_topic, generate_story_post, run_generation_pipeline
+from generator import (
+    discover_trending_topic,
+    generate_engaging_video_caption,
+    generate_story_post,
+    run_generation_pipeline,
+)
 from subtitles import add_dynamic_subtitles
 from uploader import upload_feed_post_to_facebook, upload_video_to_facebook
 
@@ -32,8 +37,8 @@ def _choose_next_format(requested_format: str) -> str:
         except Exception:
             history = []
 
-    # Ciclo balanceado para Creador Digital: Video -> Foto con Historia -> Video -> Historia de Texto
-    cycle = ["video", "photo", "video", "text"]
+    # Rotación para Día, Tarde y Noche: Video Animado -> Foto Ilustrada con Historia -> Texto/Debate
+    cycle = ["video", "photo", "text"]
     next_fmt = cycle[len(history) % len(cycle)]
     history.append(next_fmt)
     fmt_history_path.write_text(json.dumps(history[-40:], ensure_ascii=False, indent=2), encoding="utf-8")
@@ -64,10 +69,16 @@ def run_full_pipeline(
     print(f"[Formato elegido]:   {chosen_format}")
 
     if chosen_format == "video":
-        print("\n>>> FASE 1: Generación de Guion, Fotografías HD y Locución")
+        print("\n>>> FASE 1: Generación de Guion, Escenas Ilustradas y Locución")
         base_video_path, _ = run_generation_pipeline(topic)
 
-        print("\n>>> FASE 2: Animación Visual, Tarjetas de Ejemplos y Subtítulos Karaoke")
+        script_path = OUTPUT_DIR / "guion.txt"
+        script_text = script_path.read_text(encoding="utf-8").strip() if script_path.exists() else topic
+        print("\n>>> Redactando descripción interesante + pregunta de debate sobre el video...")
+        caption = generate_engaging_video_caption(topic, script_text)
+        print(f"      [Descripción del Reel]: {caption}")
+
+        print("\n>>> FASE 2: Renderizado Animado a 24 FPS (Estilo Don Zombi / Curiosamente Graficado)")
         final_video_path = add_dynamic_subtitles(video_path=base_video_path)
 
         if not skip_upload:
