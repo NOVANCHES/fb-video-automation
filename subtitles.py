@@ -385,7 +385,11 @@ def add_dynamic_subtitles(
     video_path: Path = OUTPUT_DIR / "video_base.mp4",
     output_video_path: Path = OUTPUT_DIR / "video_final.mp4",
 ) -> Path:
-    from youtube_story_animator import build_illustrated_youtube_video, fetch_or_generate_comic_art
+    from youtube_story_animator import (
+        build_illustrated_youtube_video,
+        detect_theme_from_text,
+        get_theme_scene_files,
+    )
 
     script_path = OUTPUT_DIR / "guion.txt"
     script_text = (
@@ -402,41 +406,39 @@ def add_dynamic_subtitles(
         except Exception:
             scenes_meta = []
 
-    scene_files: List[Path] = []
+    theme = detect_theme_from_text(script_text)
+    num_chapters = max(5, len(scenes_meta))
+    scene_files = get_theme_scene_files(theme, num_scenes=num_chapters)
+
+    accent_map = {
+        "ocean": (0, 155, 215),
+        "blackout": (215, 35, 35),
+        "prehistory": (215, 85, 25),
+        "island": (25, 145, 85),
+        "jungle": (25, 145, 75),
+        "space": (135, 45, 215),
+        "zombie": (215, 35, 35),
+    }
+    accent_col = accent_map.get(theme, (215, 35, 35))
+
     scene_badges: List[tuple[str, str, tuple[int, int, int]]] = []
     timeline_labels: List[str] = []
 
-    fallback_imgs = [
-        OUTPUT_DIR / "zombi_1.png",
-        OUTPUT_DIR / "zombi_2.png",
-        OUTPUT_DIR / "zombi_3.png",
-    ]
-
-    for idx in range(3):
+    for idx in range(num_chapters):
         sm = scenes_meta[idx] if idx < len(scenes_meta) else {}
-        title_raw = sm.get("title", f"FASE {idx + 1}").upper()
-        sub_raw = sm.get("subtitle", "DATO CLAVE").upper()[:24]
-        prompt_art = (
-            "2D cartoon comic illustration in the style of Curiosamente Graficado and Don Zombi, "
-            "clean bold black outlines, vibrant comic shading, expressive white round-headed cartoon character "
-            f"in detailed environment representing: {title_raw} - {sub_raw}, vertical 9:16, no text"
-        )
-        dest_img = OUTPUT_DIR / f"auto_comic_{idx + 1}.png"
-        art_path = fetch_or_generate_comic_art(prompt_art, dest_img, seed=200 + idx)
-        if not art_path.exists() and fallback_imgs[idx].exists():
-            art_path = fallback_imgs[idx]
-        scene_files.append(art_path)
-        scene_badges.append((title_raw[:16], sub_raw[:22], (215, 35, 35)))
-        timeline_labels.append(title_raw[:14])
+        title_raw = sm.get("title", f"CAPÍTULO {idx + 1}").upper()
+        sub_raw = sm.get("subtitle", "DATO CLAVE").upper()
+        scene_badges.append((title_raw, sub_raw, accent_col))
+        timeline_labels.append(title_raw[:13])
 
     return build_illustrated_youtube_video(
-        story_id="daily_auto",
+        story_id=f"long_{theme}",
         script_text=script_text,
         scene_files=scene_files,
         scene_badges=scene_badges,
         timeline_labels=timeline_labels,
         output_filename=output_video_path.name,
-        ambience_mode="zombie",
+        ambience_mode=theme,
     )
 
 

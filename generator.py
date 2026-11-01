@@ -1,48 +1,31 @@
 """
-Módulo 1: Generación de Guion (Gemini API + FreeLLM g4f),
-Búsqueda de Fotografías HD Reales (Wikimedia Commons / NASA API) con Tarjetas de Ejemplos,
-Voz (edge-tts) y Ensamblaje Rápido.
+Módulo 1: Generación de Guiones de Formato Largo (65-80s, 5 Capítulos),
+Historias Ilustradas 100% Coherentes con el Tema y Descripciones Virales para Facebook.
 """
 
 import argparse
-import asyncio
-import json
-import re
-import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
-from io import BytesIO
+import json
 from pathlib import Path
+import re
 from typing import Any, Dict, List
+import xml.etree.ElementTree as ET
 
-import edge_tts
-import requests
-from google import genai
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
+import requests
 
 from config import (
     GEMINI_API_KEY,
     GEMINI_MODEL,
-    IMAGES_DIR,
     OUTPUT_DIR,
-    TTS_VOICE,
-    VIDEO_FPS,
-    VIDEO_HEIGHT,
-    VIDEO_WIDTH,
 )
-
-try:
-    from moviepy import AudioFileClip, ImageClip, concatenate_videoclips
-    MOVIEPY_V2 = True
-except ImportError:
-    from moviepy.editor import AudioFileClip, ImageClip, concatenate_videoclips
-    MOVIEPY_V2 = False
 
 
 def _call_gemini_fast(prompt: str, system_instruction: str = "", timeout_sec: float = 10.0) -> str:
     """
     Llama directamente al endpoint REST de Gemini con timeout estricto de 10s
-    y CERO bucles de reintento ante errores 429/503 para que nunca se cuelgue en la nube.
+    y CERO bucles de reintento ante errores 429/503 para nunca bloquear la ejecución.
     """
     if not GEMINI_API_KEY or GEMINI_API_KEY == "tu_api_key_de_gemini_aqui":
         return ""
@@ -66,45 +49,269 @@ def _call_gemini_fast(prompt: str, system_instruction: str = "", timeout_sec: fl
     return ""
 
 
-CURATED_COMIC_TOPICS = [
-    "¿Qué pasaría en las primeras 72 horas si se apagara todo el internet y la electricidad del mundo?",
-    "3 lugares prohibidos de la Tierra donde nadie tiene permitido entrar jamás",
-    "Cómo sobrevivirías si quedaras atrapado en una isla desierta sin herramientas durante 30 días",
-    "El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-    "¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-    "Los 3 errores que el 95 por ciento de las personas cometería en el día 1 de una evacuación",
-    "Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
-    "Qué ocurriría con las ciudades del planeta si los humanos desaparecieran por 100 años",
+# ==============================================================================
+# BANCO DE EPISODIOS DE FORMATO LARGO (65-80 SEGUNDOS, 5 CAPÍTULOS)
+# Cada episodio tiene su propio tema visual, guion largo de ~185 palabras,
+# 5 capítulos sincronizados, postal ilustrada coherente y pregunta de debate.
+# ==============================================================================
+THEMATIC_EPISODES: List[Dict[str, Any]] = [
+    {
+        "topic": "El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
+        "theme": "ocean",
+        "headline": "A 11,000 METROS BAJO EL MAR",
+        "subheadline": "LO QUE VIVE EN LA FOSA DE LAS MARIANAS",
+        "script": (
+            "¿Qué pasaría si descendieras hoy mismo en un submarino hasta el punto más profundo y oscuro de todo el planeta, a casi once mil metros bajo el océano? "
+            "En el capítulo uno, al cruzar los primeros doscientos metros de profundidad, la luz del sol desaparece para siempre y entras en la zona crepuscular, donde la temperatura cae casi al punto de congelación. "
+            "En el capítulo dos, a los cuatro mil metros de profundidad, la oscuridad es total y la única luz proviene de medusas bioluminiscentes y peces abisales con dientes gigantescos que usan señuelos brillantes para cazar en el vacío. "
+            "En el capítulo tres, al llegar a los ocho mil metros, la presión del agua supera las ochocientas atmósferas: es como tener el peso de cincuenta aviones comerciales aplastando cada centímetro del casco de titanio. "
+            "En el capítulo cuatro, al tocar el fondo del Abismo Challenger a casi once mil metros, los reflectores revelan chimeneas hidrotermales hirviendo a cuatrocientos grados y criaturas translúcidas que sobreviven sin oxígeno ni luz solar. "
+            "Y en el capítulo cinco, lo más inquietante: hemos explorado menos del cinco por ciento del fondo oceánico. ¿Te atreverías a bajar ahí por un millón de dólares? Déjalo en los comentarios."
+        ),
+        "scenes": [
+            {"title": "200 METROS", "subtitle": "DESAPARECE LA LUZ SOLAR"},
+            {"title": "4,000 METROS", "subtitle": "CRIATURAS BIOLUMINISCENTES"},
+            {"title": "8,000 METROS", "subtitle": "PRESIÓN EXTREMA: 800 ATM"},
+            {"title": "10,994 METROS", "subtitle": "EL FONDO DEL ABISMO"},
+            {"title": "EL GRAN MISTERIO", "subtitle": "¿BAJARÍAS POR $1,000,000?"},
+        ],
+        "story": (
+            "¿Te atreverías a descender a 10,994 metros bajo el océano en la Fosa de las Marianas?\n\n"
+            "A esa profundidad, la oscuridad es absoluta y la presión es de más de 1,086 atmósferas (equivalente a que un elefante se pare sobre tu pulgar). "
+            "Sin embargo, cuando las pocas expediciones humanas han encendido sus reflectores en el fondo, han encontrado chimeneas volcánicas submarinas, anfípodos gigantes y peces translúcidos cuyos órganos internos se ven a través de su piel.\n\n"
+            "Lo más asombroso es que conocemos mejor la superficie de Marte que el fondo de nuestros propios océanos.\n\n"
+            "¿Aceptarías bajar en un submarino hasta el fondo del Abismo Challenger si te pagaran un millón de dólares, o ni loco entrarías? ¡Te leo en los comentarios!\n\n"
+            "#misterios #oceano #curiosidades #ciencia #supervivencia"
+        ),
+        "caption": (
+            "A casi 11 kilómetros bajo el mar, la presión aplastaría cualquier submarino común en milisegundos, pero ahí abajo hay vida que parece de otro planeta. "
+            "Mira hasta el capítulo 5: ¿tú aceptarías bajar al fondo de la Fosa de las Marianas por un millón de dólares o ni loco te subirías al submarino? ¡Te leo en los comentarios! "
+            "#reels #oceano #misterios #curiosidades #supervivencia #viral"
+        ),
+    },
+    {
+        "topic": "¿Qué pasaría en las primeras 72 horas si se apagara todo el internet y la electricidad del mundo?",
+        "theme": "blackout",
+        "headline": "72 HORAS DE APAGÓN MUNDIAL",
+        "subheadline": "¿CUÁNTO TIEMPO SOBREVIVIRÍAS SIN RED?",
+        "script": (
+            "¿Qué ocurriría exactamente minuto a minuto si hoy mismo a medianoche se apagara por completo toda la electricidad y el internet del planeta? "
+            "En la primera hora, el caos comienza en las ciudades: todos los semáforos se apagan al mismo tiempo, miles de personas quedan atrapadas en elevadores y el tráfico colapsa por completo mientras los teléfonos pierden toda señal. "
+            "Para la hora doce, cuando la gente descubre que los cajeros automáticos y las tarjetas bancarias no funcionan sin red, solo el dinero en efectivo tiene valor y las filas en gasolineras y supermercados se vuelven interminables. "
+            "A las veinticuatro horas llega el problema que casi nadie prevé: las bombas eléctricas de agua potable dejan de funcionar y los edificios se quedan sin una sola gota de agua en las tuberías. "
+            "Para la hora cuarenta y ocho, los generadores de emergencia de reserva agotan su combustible, toda la comida refrigerada se echa a perder y la única forma de enterarse de lo que pasa es con una radio de baterías. "
+            "Al cumplir las setenta y dos horas, solo sobreviven sin pánico quienes tenían agua almacenada, comida no perecedera y linternas. ¿Cuántos días durarías tú con lo que tienes hoy en tu casa? Comenta aquí abajo."
+        ),
+        "scenes": [
+            {"title": "HORA 1: EL APAGÓN", "subtitle": "CAEN SEMÁFOROS Y SEÑAL"},
+            {"title": "HORA 12: SIN BANCOS", "subtitle": "CAJEROS Y TARJETAS MUERTOS"},
+            {"title": "HORA 24: SIN AGUA", "subtitle": "FALLAN LAS BOMBAS ELÉCTRICAS"},
+            {"title": "HORA 48: OSCURIDAD", "subtitle": "SE AGOTAN LOS GENERADORES"},
+            {"title": "HORA 72: ¿LISTO?", "subtitle": "¿CUÁNTOS DÍAS DURARÍAS TÚ?"},
+        ],
+        "story": (
+            "¿Qué pasaría en tu ciudad si hoy mismo se apagara toda la electricidad y el internet durante 72 horas?\n\n"
+            "1. En los primeros 60 minutos: dejan de funcionar semáforos, cajeros automáticos, pagos con tarjeta y redes celulares.\n"
+            "2. A las 24 horas: las plantas de bombeo eléctrico se detienen y deja de salir agua de los grifos.\n"
+            "3. A las 72 horas: los supermercados quedan vacíos y solo quienes tienen radio de pilas, agua embotellada y comida enlatada mantienen el control.\n\n"
+            "Si el apagón ocurriera justo en este instante, ¿para cuántos días te alcanzaría la comida y el agua que tienes ahora mismo en tu cocina? ¡Déjalo en los comentarios!\n\n"
+            "#supervivencia #apagon #curiosidades #misterios #tendencias"
+        ),
+        "caption": (
+            "El 90% de las personas cree que un apagón global solo sería quedarse sin Wi-Fi, pero a las 24 horas ocurre algo mucho más grave con el agua potable. "
+            "Si hoy se apagara todo el planeta, ¿para cuántos días te alcanzaría lo que tienes ahora mismo en tu casa? ¡Comenta tu respuesta! "
+            "#reels #supervivencia #curiosidades #misterios #viral"
+        ),
+    },
+    {
+        "topic": "¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
+        "theme": "prehistory",
+        "headline": "VIAJAR A LA PREHISTORIA",
+        "subheadline": "¿CUÁNTO TIEMPO SOBREVIVIRÍAS?",
+        "script": (
+            "¿Cuánto tiempo lograrías mantenerte con vida si una máquina del tiempo te enviara por accidente a las eras más peligrosas de la prehistoria? "
+            "En la primera parada, hace cuatrocientos millones de años en el periodo Devónico, ni siquiera podrías pisar tierra firme: los continentes eran desiertos de roca ardiente y los océanos estaban dominados por peces acorazados de nueve metros con mandíbulas como guillotinas. "
+            "En la segunda parada, durante el periodo Carbonífero, el nivel de oxígeno en el aire era tan alto que te marearías en minutos, mientras escorpiones del tamaño de un perro y libélulas gigantes cazaban entre pantanos infinitos. "
+            "En la tercera parada, hace ciento cincuenta millones de años en pleno Jurásico, el suelo temblaría bajo manadas de saurópodos colosales, y tu única oportunidad sería esconderte en cuevas estrechas donde los grandes depredadores no pudieran entrar. "
+            "En la cuarta parada, al final del Cretácico hace sesenta y seis millones de años, tendrías que escapar de dinosaurios emplumados ultrarrápidos con el oído más agudo de la historia bajo lluvias de ceniza volcánica. "
+            "Y en la quinta parada, el impacto del asteroide cambiaría el planeta para siempre. ¿En cuál de estas eras crees que sobrevivirías más tiempo? Te leo en los comentarios."
+        ),
+        "scenes": [
+            {"title": "ERA 1: DEVÓNICO", "subtitle": "MONSTRUOS ACORAZADOS"},
+            {"title": "ERA 2: CARBONÍFERO", "subtitle": "INSECTOS GIGANTES Y 31% O2"},
+            {"title": "ERA 3: JURÁSICO", "subtitle": "TIERRA DE COLOSOS"},
+            {"title": "ERA 4: CRETÁCICO", "subtitle": "CAZADORES IMPLACABLES"},
+            {"title": "EL IMPACTO FINAL", "subtitle": "¿EN CUÁL SOBREVIVIRÍAS?"},
+        ],
+        "story": (
+            "Si viajaras al pasado sin armas modernas, ¿en qué era prehistórica sobrevivirías más tiempo?\n\n"
+            "Muchos piensan primero en el Cretácico con el Tiranosaurio Rex, pero en el periodo Carbonífero el oxígeno superaba el 30% y los bosques estaban llenos de artrópodos gigantes, mientras que en el Pérmico las temperaturas superaban los 50 grados centígrados en gran parte del planeta.\n\n"
+            "Si tuvieras que sobrevivir 24 horas en una de estas eras solo con una mochila de campamento, ¿cuál elegirías y cuál sería tu estrategia? ¡Comenta aquí abajo!\n\n"
+            "#prehistoria #dinosaurios #supervivencia #ciencia #curiosidades"
+        ),
+        "caption": (
+            "Viajar a la época de los dinosaurios suena increíble hasta que descubres lo que había en el aire y en los bosques prehistóricos. "
+            "Si tuvieras que sobrevivir 24 horas en una de estas 5 eras, ¿cuál elegirías para salir con vida? ¡Déjalo en los comentarios! "
+            "#reels #prehistoria #dinosaurios #supervivencia #curiosidades #viral"
+        ),
+    },
+    {
+        "topic": "Cómo sobrevivirías si quedaras atrapado en una isla prohibida durante 30 días",
+        "theme": "island",
+        "headline": "30 DÍAS EN UNA ISLA PROHIBIDA",
+        "subheadline": "LAS 5 REGLAS PARA SALIR CON VIDA",
+        "script": (
+            "¿Qué harías si despertaras completamente solo en la playa de una isla prohibida y tuvieras que sobrevivir treinta días hasta que llegue un rescate? "
+            "En el día uno, la regla de oro que separa a los sobrevivientes de las víctimas es la regla del tres: puedes resistir tres semanas sin comida, pero solo tres días sin agua potable, así que buscar un manantial o recolectar agua de lluvia es tu prioridad absoluta. "
+            "Para el día cinco, antes de que caiga la primera tormenta tropical, necesitas levantar un refugio elevado con bambú y hojas de palma lejos de la marea alta y de los insectos venenosos del suelo. "
+            "En el día doce, cuando el hambre aprieta, encender una fogata por fricción no solo te permite cocinar peces y hervir el agua, sino mantener una columna de humo visible a kilómetros en el mar. "
+            "Para el día veinte, al explorar el interior de la jungla, descubres por qué la isla estaba restringida en los mapas: antiguas estructuras abandonadas cubiertas por la vegetación donde ningún barco comercial se acerca. "
+            "Al llegar al día treinta, una señal gigante de piedras en la arena es tu única esperanza cuando pasa un helicóptero. ¿Qué único objeto elegirías llevar a la isla? Comenta abajo."
+        ),
+        "scenes": [
+            {"title": "DÍA 1: EL AGUA", "subtitle": "LA REGLA MORTAL DE LOS 3 DÍAS"},
+            {"title": "DÍA 5: EL REFUGIO", "subtitle": "PROTECCIÓN CONTRA TORMENTAS"},
+            {"title": "DÍA 12: EL FUEGO", "subtitle": "HUMO Y AGUA PURIFICADA"},
+            {"title": "DÍA 20: EL MISTERIO", "subtitle": "¿POR QUÉ ESTÁ PROHIBIDA?"},
+            {"title": "DÍA 30: EL RESCATE", "subtitle": "¿QUÉ OBJETO LLEVARÍAS TÚ?"},
+        ],
+        "story": (
+            "Imagina despertar en una isla tropical restringida con solo un objeto en tu mochila para sobrevivir 30 días.\n\n"
+            "El 80% de las personas elegiría llevar comida, pero los instructores de supervivencia explican que el agua potable y una herramienta para cortar y hacer fuego en las primeras 48 horas son lo único que garantiza llegar a la segunda semana.\n\n"
+            "Si solo pudieras elegir UN objeto entre un cuchillo de supervivencia, un encendedor infinito o un filtro de agua, ¿cuál elegirías y por qué? ¡Te leo en los comentarios!\n\n"
+            "#supervivencia #isla #misterios #retos #curiosidades"
+        ),
+        "caption": (
+            "Sobrevivir 30 días en una isla desierta depende por completo de lo que hagas antes de que caiga la primera noche. "
+            "Si solo pudieras llevar UN objeto contigo (cuchillo, fuego o filtro de agua), ¿cuál elegirías para sobrevivir los 30 días? ¡Te leo en los comentarios! "
+            "#reels #supervivencia #isla #misterios #curiosidades #viral"
+        ),
+    },
+    {
+        "topic": "¿Qué pasaría si una megatormenta solar golpeara la Tierra mañana mismo?",
+        "theme": "space",
+        "headline": "IMPACTO DE TORMENTA SOLAR",
+        "subheadline": "EL EVENTO QUE APAGARÍA LOS SATÉLITES",
+        "script": (
+            "¿Sabías que en mil ochocientos cincuenta y nueve una tormenta solar tan potente golpeó la Tierra que los cables de telégrafo echaron chispas en llamas, y qué pasaría si ocurriera hoy mismo? "
+            "En la fase uno, los observatorios espaciales detectarían una eyección de masa coronal gigante saliendo del Sol a millones de kilómetros por hora, dándonos apenas dieciocho horas de advertencia antes del impacto. "
+            "En la fase dos, al chocar contra el campo magnético de la Tierra, el cielo nocturno se iluminaría con auroras boreales visibles hasta en el ecuador, pero en el espacio cientos de satélites de GPS y comunicaciones quedarían fritos al instante. "
+            "En la fase tres, las corrientes geomagnéticas inducidas sobrecargarían los transformadores de alta tensión en tierra, provocando apagones en cadena en continentes enteros. "
+            "En la fase cuatro, todos los vuelos comerciales tendrían que aterrizar de emergencia por la pérdida de radares y navegación satelital, mientras el internet submarino sufriría interrupciones masivas. "
+            "Y en la fase cinco, reemplazar los transformadores gigantes tomaría meses de trabajo. ¿Crees que nuestra civilización moderna está preparada para una tormenta solar nivel cinco? Déjalo en los comentarios."
+        ),
+        "scenes": [
+            {"title": "FASE 1: ALERTA SOLAR", "subtitle": "SOLO 18 HORAS DE AVISO"},
+            {"title": "FASE 2: EL IMPACTO", "subtitle": "CAEN LOS SATÉLITES GPS"},
+            {"title": "FASE 3: ALTA TENSIÓN", "subtitle": "COLAPSO DE TRANSFORMADORES"},
+            {"title": "FASE 4: SIN RADARES", "subtitle": "VUELOS E INTERNET DETENIDOS"},
+            {"title": "FASE 5: EL DEBATE", "subtitle": "¿ESTAMOS PREPARADOS HOY?"},
+        ],
+        "story": (
+            "En 1859 ocurrió el Evento Carrington: la tormenta solar más potente registrada en la historia.\n\n"
+            "En aquella época apenas existían los telégrafos, pero los científicos de la NASA advierten que si una tormenta solar de la misma magnitud impactara la Tierra hoy, desactivaría satélites GPS, telecomunicaciones y transformadores eléctricos en cuestión de minutos.\n\n"
+            "¿Qué tan dependiente eres hoy de la tecnología si mañana dejaran de funcionar el GPS y los satélites durante un mes entero? ¡Comenta tu opinión!\n\n"
+            "#espacio #ciencia #tormentasolar #misterios #curiosidades"
+        ),
+        "caption": (
+            "Ya ocurrió una vez en 1859 y los astrónomos saben que volverá a ocurrir tarde o temprano. "
+            "Si una tormenta solar apagara los satélites y el GPS durante un mes entero, ¿qué sería lo primero que colapsaría en tu ciudad? ¡Te leo en los comentarios! "
+            "#reels #espacio #ciencia #supervivencia #curiosidades #viral"
+        ),
+    },
+    {
+        "topic": "Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
+        "theme": "jungle",
+        "headline": "EL MISTERIO DEL AMAZONAS",
+        "subheadline": "LA ZONA DONDE NO ENTRA LA LUZ",
+        "script": (
+            "¿Por qué en pleno siglo veintiuno, teniendo satélites militares y drones de última generación, todavía existen zonas profundas del Amazonas donde nadie ha podido ver qué hay en el suelo? "
+            "En el capítulo uno, al adentrarte apenas cincuenta kilómetros fuera de las rutas fluviales, el dosel de los árboles gigantes forma un techo vegetal de sesenta metros de altura tan compacto que bloquea el noventa y nueve por ciento de la luz solar. "
+            "En el capítulo dos, cuando los exploradores intentan volar drones bajo las copas de los árboles, la humedad del cien por ciento y el follaje espeso cortan por completo la señal de radio y el GPS en pocos metros. "
+            "En el capítulo tres, en el suelo perpetuamente oscuro de la selva profunda, habitan miles de especies de insectos, anfibios venenosos y depredadores que ni siquiera han sido clasificados por la biología. "
+            "En el capítulo cuatro, recientes escaneos láser desde aviones han revelado trazos geométricos y calzadas antiguas ocultas bajo la vegetación, demostrando que ahí existieron ciudades enteras hace siglos. "
+            "Y en el capítulo cinco, la pregunta sigue abierta: ¿qué más crees que permanece oculto bajo la selva más grande del mundo? Comenta tu teoría."
+        ),
+        "scenes": [
+            {"title": "CAPÍTULO 1: EL TECHO", "subtitle": "99% DE LA LUZ BLOQUEADA"},
+            {"title": "CAPÍTULO 2: SIN SEÑAL", "subtitle": "LOS DRONES PIERDEN EL GPS"},
+            {"title": "CAPÍTULO 3: LA SOMBRA", "subtitle": "ESPECIES AÚN DESCONOCIDAS"},
+            {"title": "CAPÍTULO 4: LÁSER LIDAR", "subtitle": "CIUDADES OCULTAS BAJO TIERRA"},
+            {"title": "CAPÍTULO 5: TU TEORÍA", "subtitle": "¿QUÉ CREES QUE OCULTA?"},
+        ],
+        "story": (
+            "¿Por qué aún no hemos podido explorar el 100% de las profundidades del Amazonas?\n\n"
+            "En las zonas más densas de la selva, el techo de hojas a 60 metros de altura es tan cerrado que ni la luz del sol ni las cámaras ópticas de los satélites logran atravesarlo. "
+            "Cuando los arqueólogos usaron tecnología láser LiDAR desde el aire, descubrieron pirámides de tierra, canales y calzadas de civilizaciones antiguas que llevaban siglos escondidas a simple vista.\n\n"
+            "¿Qué crees que sea lo más asombroso que aún falta por descubrir en las zonas inexploradas de la selva? ¡Déjalo en los comentarios!\n\n"
+            "#amazonas #misterios #selva #curiosidades #historia"
+        ),
+        "caption": (
+            "Ni los satélites ópticos ni los drones comunes logran penetrar las zonas más densas del Amazonas, pero el láser LiDAR acaba de revelar algo increíble bajo los árboles. "
+            "¿Qué crees que siga oculto hoy en las zonas inexploradas de la selva? ¡Comenta tu teoría! "
+            "#reels #amazonas #misterios #curiosidades #supervivencia #viral"
+        ),
+    },
+    {
+        "topic": "Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
+        "theme": "zombie",
+        "headline": "5 ERRORES EN UNA EVACUACIÓN",
+        "subheadline": "LO QUE EL 95% HACE MAL EL DÍA 1",
+        "script": (
+            "Si hoy sonaran las alarmas de evacuación en tu ciudad por una emergencia mayor, ¿cometerías alguno de los cinco errores que dejan atrapado al noventa y cinco por ciento de la gente? "
+            "El error número uno ocurre en los primeros treinta minutos: correr al supermercado al mismo tiempo que toda la ciudad, quedando atrapado en aglomeraciones cuando los estantes de agua y comida ya están vacíos. "
+            "El error número dos es intentar salir por la autopista principal en hora pico sin revisar el combustible: un solo accidente bloquea todos los carriles y convierte los autos en una trampa inmóvil. "
+            "El error número tres es depender exclusivamente del teléfono celular para ubicarse; cuando las antenas se saturan por millones de llamadas simultáneas, sin un mapa físico ni radio quedas totalmente incomunicado. "
+            "El error número cuatro es empacar maletas pesadas llenas de cosas innecesarias en lugar de una mochila ligera de setenta y dos horas con agua, botiquín, linterna y baterías. "
+            "Y el error número cinco es no tener un punto de reunión familiar acordado de antemano. ¿Cuántos de estos cinco puntos tienes listos hoy en tu casa? Déjalo en los comentarios."
+        ),
+        "scenes": [
+            {"title": "ERROR 1: EL SÚPER", "subtitle": "CAOS EN LOS PRIMEROS 30 MIN"},
+            {"title": "ERROR 2: AUTOPISTAS", "subtitle": "CARRILES BLOQUEADOS SIN SALIDA"},
+            {"title": "ERROR 3: EL CELULAR", "subtitle": "ANTENAS SATURADAS SIN RED"},
+            {"title": "ERROR 4: EL EQUIPAJE", "subtitle": "MOCHILA LIGERA DE 72 HORAS"},
+            {"title": "ERROR 5: EL PLAN", "subtitle": "¿ESTÁS PREPARADO HOY?"},
+        ],
+        "story": (
+            "El 95% de las personas comete exactamente los mismos 5 errores durante la primera hora de una emergencia o evacuación:\n\n"
+            "1. Ir al supermercado cuando ya colapsaron las filas.\n"
+            "2. Tomar la avenida principal sin combustible suficiente.\n"
+            "3. Confiar solo en el celular sin tener radio ni mapa físico.\n"
+            "4. Cargar peso innecesario en vez de agua, botiquín y linterna.\n"
+            "5. No haber acordado un punto de encuentro familiar si se cae la red.\n\n"
+            "Sé sincero: si tuvieras que salir en 5 minutos de tu casa, ¿ya tienes lista una mochila de emergencia o tendrías que improvisar? ¡Te leo en los comentarios!\n\n"
+            "#supervivencia #emergencia #curiosidades #prevencion #tendencias"
+        ),
+        "caption": (
+            "En una emergencia real, las decisiones que tomas en los primeros 30 minutos hacen toda la diferencia. "
+            "Sé sincero: ¿cuántos de estos 5 puntos tienes listos hoy en casa o cuál te faltaría preparar? ¡Te leo en los comentarios! "
+            "#reels #supervivencia #curiosidades #misterios #viral"
+        ),
+    },
 ]
+
+
+def _get_episode_for_topic(topic: str) -> Dict[str, Any]:
+    from youtube_story_animator import detect_theme_from_text
+
+    t_low = topic.lower().strip()
+    for ep in THEMATIC_EPISODES:
+        if ep["topic"].lower() == t_low or t_low in ep["topic"].lower() or ep["topic"].lower() in t_low:
+            return ep
+
+    theme = detect_theme_from_text(topic)
+    for ep in THEMATIC_EPISODES:
+        if ep["theme"] == theme:
+            return ep
+    return THEMATIC_EPISODES[0]
 
 
 def discover_trending_topic() -> tuple[str, str]:
     """
-    Consulta en tiempo real Google Trends México y Google News en español,
-    filtra temas ya publicados en `output/published_topics.json`, y usa Gemini
-    (o el banco de historias estilo Don Zombi / Curiosamente Graficado) para elegir el tema.
+    Selecciona el siguiente episodio de formato largo asegurando rotación real
+    sin repetir nunca el mismo tema consecutivo (incluso si se ejecuta en la nube).
     """
-    print("[Tendencias] Buscando qué está en tendencia hoy en tiempo real...")
-    headlines: List[str] = []
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-
-    rss_urls = [
-        "https://trends.google.com/trending/rss?geo=MX",
-        "https://news.google.com/rss?hl=es-419&gl=MX&ceid=MX:es-419",
-    ]
-    for url in rss_urls:
-        try:
-            r = requests.get(url, headers=headers, timeout=6)
-            if r.status_code == 200:
-                root = ET.fromstring(r.content)
-                for item in root.findall(".//item/title")[:15]:
-                    if item.text:
-                        clean_t = item.text.split(" - ")[0].strip()
-                        if clean_t and len(clean_t) > 12 and clean_t not in headlines:
-                            headlines.append(clean_t)
-        except Exception:
-            pass
-
+    print("[Tendencias] Seleccionando siguiente episodio animado de alta retención...")
     history_path = OUTPUT_DIR / "published_topics.json"
     published: List[str] = []
     if history_path.exists():
@@ -113,398 +320,185 @@ def discover_trending_topic() -> tuple[str, str]:
         except Exception:
             published = []
 
-    today_str = datetime.now().strftime("%Y-%m-%d")
-    trends_block = "\n".join(f"- {h}" for h in headlines[:15]) if headlines else "Supervivencia, misterios sin resolver y ciencia."
-    avoid_block = ", ".join(published[-15:]) if published else "ninguno"
+    # Filtrar episodios que NO sean el último publicado y usar semilla horaria para rotación en la nube
+    recent_set = set(published[-4:])
+    available = [ep for ep in THEMATIC_EPISODES if ep["topic"] not in recent_set]
+    if not available:
+        available = THEMATIC_EPISODES
 
-    prompt = (
-        f"Fecha actual: {today_str}.\n"
-        f"Titulares en tendencia hoy:\n{trends_block}\n\n"
-        f"Temas ya usados recientemente (NO repetir): {avoid_block}\n\n"
-        "Elige o adapta 1 tema sumamente interesante de supervivencia, misterio, ciencia o curiosidad viral estilo 'Curiosamente Graficado' o 'Sobrevive con Bruno'.\n"
-        "Devuelve ÚNICAMENTE un JSON con estas 2 claves exactas:\n"
-        '- "topic": título del tema para generar el guion\n'
-        '- "caption": descripción interesante con una pregunta para debatir en comentarios y 4 hashtags (#reels #viral etc.)\n'
-        "Sin bloques markdown, solo JSON puro."
-    )
-    raw = _call_gemini_fast(prompt, timeout_sec=10.0)
-    if raw:
-        match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
-        if match:
-            try:
-                data = json.loads(match.group(0))
-                topic = data.get("topic", "").strip()
-                caption = data.get("caption", "").strip()
-                if topic:
-                    published.append(topic)
-                    history_path.write_text(json.dumps(published[-50:], ensure_ascii=False, indent=2), encoding="utf-8")
-                    print(f"      [Tendencia elegida]: '{topic}'")
-                    return topic, caption or f"{topic} ¿Tú qué opinas? #reels #misterios #curiosidades #viral"
-            except Exception:
-                pass
+    hour_slot = int(datetime.now().timestamp() // 3600)
+    idx = (len(published) + hour_slot) % len(available)
+    chosen_ep = available[idx]
 
-    # Elegir un tema fresco que no esté en los últimos publicados
-    candidates = [t for t in CURATED_COMIC_TOPICS if t not in published[-8:]] + headlines
-    fallback_topic = candidates[len(published) % len(candidates)] if candidates else CURATED_COMIC_TOPICS[0]
-    published.append(fallback_topic)
+    topic = chosen_ep["topic"]
+    caption = chosen_ep["caption"]
+
+    published.append(topic)
     history_path.write_text(json.dumps(published[-50:], ensure_ascii=False, indent=2), encoding="utf-8")
-    fallback_caption = (
-        f"¿Te imaginas vivir esto en la vida real? {fallback_topic}. "
-        "¿Tú qué harías en esta situación? ¡Te leo en los comentarios! #reels #supervivencia #misterios #curiosidades #viral"
-    )
-    return fallback_topic, fallback_caption
+    print(f"      [Episodio elegido]: '{topic}' (Tema visual: {chosen_ep['theme']})")
+    return topic, caption
 
 
 def generate_script(topic: str) -> str:
     """
-    Genera el guion usando Gemini REST rápido (10s max), FreeLLM (g4f) o guion narrativo dinámico.
+    Genera un guion documental largo (170 a 210 palabras, ~65-80 segundos) estructurado
+    en 5 capítulos con gancho inicial y pregunta final de debate.
     """
+    print(f"[1/4] Preparando guion de formato largo (5 capítulos, 65-80s) sobre: '{topic}'...")
+    ep = _get_episode_for_topic(topic)
+
     system_instruction = (
-        "Eres un guionista experto en videos animados de supervivencia y misterios estilo Don Zombi y Curiosamente Graficado. "
-        "Escribe únicamente el texto hablado del narrador en español. "
+        "Eres el guionista principal de canales de animación 2D como Don Zombi, Curiosamente Graficado y Sobrevive con Bruno. "
+        "Escribe únicamente el texto hablado del narrador en español para un video de formato largo (entre 170 y 210 palabras, unos 70 segundos de duración). "
         "Reglas estrictas:\n"
-        "- Duración de lectura: 25 a 35 segundos (entre 65 y 85 palabras).\n"
-        "- Comienza con una pregunta o gancho muy potente y desarrolla 3 fases o datos sorprendentes.\n"
-        "- NO incluyas etiquetas como '[Música]', 'Narrador:', asteriscos, emojis ni acotaciones de escena.\n"
-        "- Devuelve solo el párrafo limpio que leerá la voz artificial."
+        "- Divide la narrativa fluidamente en 5 capítulos o fases progresivas.\n"
+        "- Comienza con una pregunta gancho muy potente y cierra con una pregunta abierta para que la audiencia debata en los comentarios.\n"
+        "- NO incluyas etiquetas como '[Música]', 'Narrador:', asteriscos ni emojis.\n"
+        "- Devuelve únicamente los párrafos limpios que leerá la voz."
     )
 
-    print(f"[1/4] Generando guion sobre: '{topic}'...")
-
-    script_text = _call_gemini_fast(
-        f"Crea un guion narrativo atrapante en español sobre: {topic}",
-        system_instruction=system_instruction,
-        timeout_sec=10.0,
-    )
-    if script_text:
+    # Si el tema coincide con uno de nuestros episodios maestros de 5 capítulos, usar su guion largo verificado
+    if ep["topic"].lower() == topic.lower().strip():
+        script_text = ep["script"]
         script_path = OUTPUT_DIR / "guion.txt"
         script_path.write_text(script_text, encoding="utf-8")
-        print(f"      Guion generado con Gemini en: {script_path}")
+        print(f"      Guion largo de 5 capítulos ({len(script_text.split())} palabras) listo en: {script_path}")
         return script_text
 
-    try:
-        from g4f.client import Client as G4FClient  # type: ignore
+    # Si es un tema personalizado nuevo, pedir guion largo de 185 palabras a Gemini REST
+    custom_script = _call_gemini_fast(
+        f"Escribe un guion documental narrativo de 185 palabras en 5 capítulos sobre: {topic}",
+        system_instruction=system_instruction,
+        timeout_sec=12.0,
+    )
+    if custom_script and len(custom_script.split()) >= 120:
+        script_path = OUTPUT_DIR / "guion.txt"
+        script_path.write_text(custom_script, encoding="utf-8")
+        return custom_script
 
-        def _g4f_call() -> str:
-            g4f_client = G4FClient()
-            response = g4f_client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": system_instruction},
-                    {"role": "user", "content": f"Crea un guion narrativo corto en español sobre: {topic}"},
-                ],
-            )
-            return (response.choices[0].message.content or "").strip()
-
-        with ThreadPoolExecutor(max_workers=1) as ex:
-            script_text = ex.submit(_g4f_call).result(timeout=12)
-        if script_text and len(script_text.split()) >= 25:
-            script_path = OUTPUT_DIR / "guion.txt"
-            script_path.write_text(script_text, encoding="utf-8")
-            print(f"      Guion generado con FreeLLM (g4f) en: {script_path}")
-            return script_text
-    except Exception as exc:
-        print(f"      Aviso FreeLLM: {exc}")
-
-    # Respaldo narrativo dinámico garantizado (sin repeticiones ni bloqueos)
-    fallback_scripts = [
-        (
-            f"¿Alguna vez te has preguntado qué pasaría realmente con {topic}? "
-            "En las primeras veinticuatro horas, el noventa por ciento de las personas subestima por completo la situación y agota los recursos básicos en cuestión de minutos. "
-            "Para el tercer día, cuando las comunicaciones fallan y nadie puede pedir ayuda externa, solo quienes conocen las reglas básicas de supervivencia logran mantenerse a salvo. "
-            "Al final, el mayor peligro nunca es el fenómeno en sí, sino el pánico colectivo."
-        ),
-        (
-            f"Existe un detalle oculto detrás de {topic} que muy pocas personas conocen hasta que es demasiado tarde. "
-            "Aunque la ciencia moderna ha intentado explicarlo con satélites y sensores avanzados, las condiciones extremas destruyen cualquier equipo en pocas horas. "
-            "Quienes han investigado este misterio coinciden en tres señales de alerta que jamás debes ignorar si quieres salir con vida. "
-            "Y tú, ¿te atreverías a comprobarlo por tu cuenta?"
-        ),
-    ]
-    chosen_script = fallback_scripts[abs(hash(topic)) % len(fallback_scripts)]
+    script_text = ep["script"]
     script_path = OUTPUT_DIR / "guion.txt"
-    script_path.write_text(chosen_script, encoding="utf-8")
-    return chosen_script
+    script_path.write_text(script_text, encoding="utf-8")
+    return script_text
 
 
-def _plan_visual_scenes(script_text: str, num_scenes: int = 4) -> List[Dict[str, str]]:
+def _plan_visual_scenes(script_text: str, num_scenes: int = 5, topic: str = "") -> List[Dict[str, str]]:
     """
-    Usa Gemini REST rápido para extraer escenas con etiquetas explicativas en español.
+    Devuelve los 5 capítulos visuales sincronizados exactamente con el guion y el tema.
     """
-    default_scenes = [
-        {
-            "query": "survival bunker emergency supplies cartoon",
-            "title": "FASE 1: LAS PRIMERAS 24H",
-            "subtitle": "El error que comete el 90% de la gente",
-        },
-        {
-            "query": "dark city blackout survival comic",
-            "title": "FASE 2: DÍA 3 SIN SEÑAL",
-            "subtitle": "Cuando fallan todas las comunicaciones",
-        },
-        {
-            "query": "remote island lighthouse rescue comic",
-            "title": "FASE 3: SUPERVIVENCIA EXTREMA",
-            "subtitle": "La regla clave para resistir hasta el final",
-        },
-        {
-            "query": "deep jungle mystery expedition cartoon",
-            "title": "FASE 4: EL DATO OCULTO",
-            "subtitle": "Lo que nadie te cuenta sobre este misterio",
-        },
-    ]
-
-    prompt = (
-        f"A partir de este guion:\n\"{script_text}\"\n\n"
-        f"Devuelve ÚNICAMENTE un JSON array válido con {num_scenes} objetos. "
-        "Cada objeto debe tener exactamente estas 3 claves:\n"
-        '- "query": descripción corta en inglés de la escena (2 a 4 palabras)\n'
-        '- "title": título corto impactante en mayúsculas en español (máximo 3 palabras)\n'
-        '- "subtitle": subtítulo corto en mayúsculas en español (máximo 4 palabras)\n'
-        "No incluyas bloques markdown ```json, solo el JSON puro."
-    )
-    raw = _call_gemini_fast(prompt, timeout_sec=10.0)
-    if raw:
-        match = re.search(r"\[.*\]", raw, flags=re.DOTALL)
-        if match:
-            try:
-                parsed = json.loads(match.group(0))
-                if isinstance(parsed, list) and len(parsed) >= num_scenes:
-                    return parsed[:num_scenes]
-            except Exception:
-                pass
-
-    return default_scenes[:num_scenes]
+    ep = _get_episode_for_topic(topic or script_text)
+    if len(ep.get("scenes", [])) >= num_scenes:
+        return ep["scenes"][:num_scenes]
+    return ep["scenes"]
 
 
-def _fetch_real_hd_image(query: str, idx: int) -> Image.Image:
-    """
-    Descarga fotografías reales en alta definición desde Wikimedia Commons o NASA Image API
-    en menos de 2 segundos, sin requerir clave de API.
-    """
-    headers = {"User-Agent": "FBVideoCreatorBot/2.0 (Educational Space Reels)"}
-
-    # 1. Buscar en Wikimedia Commons (archivos fotográficos reales de todo tipo de temas)
-    try:
-        wiki_url = (
-            "https://commons.wikimedia.org/w/api.php?action=query&generator=search"
-            f"&gsrnamespace=6&gsrsearch={requests.utils.quote(query + ' jpg')}"
-            "&gsrlimit=6&prop=imageinfo&iiprop=url&iiurlwidth=1280&format=json"
-        )
-        r = requests.get(wiki_url, headers=headers, timeout=5)
-        pages = r.json().get("query", {}).get("pages", {})
-        for page in pages.values():
-            info = page.get("imageinfo", [{}])[0]
-            thumb = info.get("thumburl") or info.get("url")
-            if thumb and any(ext in thumb.lower() for ext in (".jpg", ".jpeg", ".png")):
-                img_resp = requests.get(thumb, headers=headers, timeout=6)
-                if img_resp.status_code == 200 and len(img_resp.content) > 15_000:
-                    return Image.open(BytesIO(img_resp.content)).convert("RGB")
-    except Exception:
-        pass
-
-    # 2. Buscar en NASA Image Library API (excelente para ciencia, planetas, universo, tierra, tecnología)
-    try:
-        nasa_url = f"https://images-api.nasa.gov/search?q={requests.utils.quote(query)}&media_type=image"
-        r = requests.get(nasa_url, headers=headers, timeout=5)
-        items = r.json().get("collection", {}).get("items", [])
-        if items:
-            item = items[(idx - 1) % min(len(items), 8)]
-            href = item.get("links", [{}])[0].get("href")
-            if href:
-                img_resp = requests.get(href, headers=headers, timeout=6)
-                if img_resp.status_code == 200 and len(img_resp.content) > 10_000:
-                    return Image.open(BytesIO(img_resp.content)).convert("RGB")
-    except Exception:
-        pass
-
-    # 3. Respaldo garantizado de NASA/Hubble en caso de consulta muy específica
-    fallback_queries = ["galaxy nebula hubble", "black hole space", "supernova stars", "deep field cosmos"]
-    try:
-        fq = fallback_queries[(idx - 1) % len(fallback_queries)]
-        nasa_url = f"https://images-api.nasa.gov/search?q={requests.utils.quote(fq)}&media_type=image"
-        r = requests.get(nasa_url, headers=headers, timeout=5)
-        items = r.json().get("collection", {}).get("items", [])
-        if items:
-            href = items[idx % len(items)].get("links", [{}])[0].get("href")
-            img_resp = requests.get(href, headers=headers, timeout=6)
-            return Image.open(BytesIO(img_resp.content)).convert("RGB")
-    except Exception:
-        pass
-
-    return Image.new("RGB", (VIDEO_WIDTH, VIDEO_HEIGHT), (15, 25, 45))
-
-
-def _download_and_prepare_scene(args: tuple[int, Dict[str, str]]) -> Dict[str, Any]:
-    idx, scene_info = args
-    raw_img = _fetch_real_hd_image(scene_info["query"], idx)
-    # Adaptar a alta resolución 1200x2133 para permitir zoom/paneo animado sin perder nitidez
-    zoom_w, zoom_h = int(VIDEO_WIDTH * 1.18), int(VIDEO_HEIGHT * 1.18)
-    fitted = ImageOps.fit(raw_img, (zoom_w, zoom_h), method=Image.Resampling.LANCZOS)
-    # Mejorar contraste y saturación para un look documental vibrante
-    fitted = ImageEnhance.Color(fitted).enhance(1.22)
-    fitted = ImageEnhance.Contrast(fitted).enhance(1.12)
-
-    dest = IMAGES_DIR / f"ai_scene_{idx:02d}.jpg"
-    fitted.save(dest, quality=94)
-    return {
-        "index": idx,
-        "path": str(dest),
-        "title": scene_info.get("title", f"EJEMPLO {idx}"),
-        "subtitle": scene_info.get("subtitle", ""),
-    }
-
-
-def generate_scene_images(script_text: str, num_scenes: int = 4) -> List[Path]:
-    """
-    Planifica las 4 escenas animadas (Hook, Carpeta Neón y Tarjetas Numeradas) y guarda
-    sus metadatos explicativos en `output/scenes_meta.json` para el motor de animación (`animator.py`).
-    """
-    print(f"[2/4] Planificando {num_scenes} escenas animadas estilo @iadeguardia...")
-    scenes_plan = _plan_visual_scenes(script_text, num_scenes=num_scenes)
-    scenes_meta = [
-        {
-            "index": idx,
-            "title": scene_info.get("title", f"EJEMPLO {idx}"),
-            "subtitle": scene_info.get("subtitle", ""),
-        }
-        for idx, scene_info in enumerate(scenes_plan, start=1)
-    ]
-
-    meta_path = OUTPUT_DIR / "scenes_meta.json"
-    meta_path.write_text(json.dumps(scenes_meta, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"      {len(scenes_meta)} escenas animadas estructuradas en: {meta_path}")
-    return []
-
-
-async def _synthesize_voice_and_timings_async(
-    text: str,
-    output_audio_path: Path,
-    timings_path: Path,
-    voice: str,
+def _draw_multiline_headline(
+    draw: ImageDraw.ImageDraw,
+    headline: str,
+    subheadline: str,
+    accent_color: tuple[int, int, int] = (215, 35, 35),
 ) -> None:
-    communicate = edge_tts.Communicate(text=text, voice=voice, rate="+5%")
-    word_timings: List[Dict[str, Any]] = []
+    """
+    Dibuja el titular y subtítulo en la parte inferior de la postal 1080x1350
+    ajustando automáticamente el tamaño de fuente y dividiendo en 2 líneas si es largo
+    para que JAMÁS se corte una sola letra.
+    """
+    draw.rectangle([0, 945, 1080, 1350], fill=(0, 0, 0, 195))
+    draw.line([(0, 945), (1080, 945)], fill=accent_color + (255,), width=6)
 
-    with open(output_audio_path, "wb") as audio_file:
-        async for chunk in communicate.stream():
-            if chunk["type"] == "audio":
-                audio_file.write(chunk["data"])
-            elif chunk["type"] in ("WordBoundary", "SentenceBoundary"):
-                start_sec = chunk["offset"] / 10_000_000.0
-                dur_sec = chunk["duration"] / 10_000_000.0
-                word_timings.append(
-                    {
-                        "type": chunk["type"],
-                        "start": start_sec,
-                        "end": start_sec + max(dur_sec, 0.15),
-                        "text": chunk["text"],
-                    }
-                )
+    bold_path = r"C:\Windows\Fonts\impact.ttf" if Path(r"C:\Windows\Fonts\impact.ttf").exists() else r"C:\Windows\Fonts\arialbd.ttf"
+    reg_path = r"C:\Windows\Fonts\arialbd.ttf"
 
-    timings_path.write_text(json.dumps(word_timings, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
-def generate_voice(
-    text: str,
-    output_audio_path: Path = OUTPUT_DIR / "narration.mp3",
-    timings_path: Path = OUTPUT_DIR / "timings.json",
-) -> Path:
-    print(f"[3/4] Generando locución con edge-tts (voz: {TTS_VOICE})...")
-    asyncio.run(_synthesize_voice_and_timings_async(text, output_audio_path, timings_path, TTS_VOICE))
-    print(f"      Audio generado en: {output_audio_path}")
-    return output_audio_path
-
-
-def assemble_video(
-    audio_path: Path,
-    image_paths: List[Path],
-    output_video_path: Path = OUTPUT_DIR / "video_base.mp4",
-) -> Path:
-    print("[4/4] Preparando base de audio y escenas...")
-    processed_dir = OUTPUT_DIR / "processed_frames"
-    processed_images = sorted(processed_dir.glob("frame_*.jpg"))
-
-    audio_clip = AudioFileClip(str(audio_path))
-    total_duration = audio_clip.duration
-    duration_per_image = total_duration / len(processed_images)
-
-    clips = []
-    for img_path in processed_images:
-        if MOVIEPY_V2:
-            clip = ImageClip(str(img_path)).with_duration(duration_per_image)
-        else:
-            clip = ImageClip(str(img_path)).set_duration(duration_per_image)
-        clips.append(clip)
-
-    final_video = concatenate_videoclips(clips, method="chain")
-    if MOVIEPY_V2:
-        final_video = final_video.with_audio(audio_clip)
+    words = headline.strip().upper().split()
+    if len(words) >= 4 and len(headline) > 20:
+        mid = (len(words) + 1) // 2
+        lines = [" ".join(words[:mid]), " ".join(words[mid:])]
     else:
-        final_video = final_video.set_audio(audio_clip)
+        lines = [headline.strip().upper()]
 
-    final_video.write_videofile(
-        str(output_video_path),
-        fps=VIDEO_FPS,
-        codec="libx264",
-        audio_codec="aac",
-        preset="ultrafast",
-        threads=4,
-        logger=None,
+    # Encontrar el tamaño de fuente ideal para que quepa con margen amplio
+    font_sz = 64
+    while font_sz > 36:
+        f_test = ImageFont.truetype(bold_path, font_sz) if Path(bold_path).exists() else ImageFont.load_default()
+        max_w = max((draw.textbbox((0, 0), ln, font=f_test)[2] - draw.textbbox((0, 0), ln, font=f_test)[0]) for ln in lines)
+        if max_w <= 980:
+            break
+        font_sz -= 4
+
+    font_h = ImageFont.truetype(bold_path, font_sz) if Path(bold_path).exists() else ImageFont.load_default()
+
+    if len(lines) == 1:
+        draw.text(
+            (540, 1065),
+            lines[0],
+            font=font_h,
+            fill=(255, 255, 255, 255),
+            anchor="mm",
+            stroke_width=6,
+            stroke_fill=(0, 0, 0, 255),
+        )
+    else:
+        draw.text(
+            (540, 1022),
+            lines[0],
+            font=font_h,
+            fill=(255, 255, 255, 255),
+            anchor="mm",
+            stroke_width=6,
+            stroke_fill=(0, 0, 0, 255),
+        )
+        draw.text(
+            (540, 1098),
+            lines[1],
+            font=font_h,
+            fill=(255, 235, 0, 255),
+            anchor="mm",
+            stroke_width=6,
+            stroke_fill=(0, 0, 0, 255),
+        )
+
+    sub_clean = subheadline.strip().upper()
+    sub_sz = 36
+    while sub_sz > 24:
+        f_sub_test = ImageFont.truetype(reg_path if Path(reg_path).exists() else bold_path, sub_sz)
+        sb = draw.textbbox((0, 0), sub_clean, font=f_sub_test)
+        if (sb[2] - sb[0]) <= 880:
+            break
+        sub_sz -= 2
+
+    font_s = ImageFont.truetype(reg_path if Path(reg_path).exists() else bold_path, sub_sz)
+    sb = draw.textbbox((0, 0), sub_clean, font=font_s)
+    sw = sb[2] - sb[0]
+    bx1 = max(70, 540 - sw // 2 - 34)
+    bx2 = min(1010, 540 + sw // 2 + 34)
+
+    draw.rounded_rectangle(
+        [bx1, 1175, bx2, 1255],
+        radius=16,
+        fill=accent_color + (245,),
+        outline=(255, 255, 255, 220),
+        width=3,
     )
-
-    audio_clip.close()
-    final_video.close()
-    print(f"      Video base exportado en: {output_video_path}")
-    return output_video_path
+    draw.text(
+        (540, 1215),
+        sub_clean,
+        font=font_s,
+        fill=(255, 255, 255, 255),
+        anchor="mm",
+    )
 
 
 def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path | None]:
     """
-    Genera una publicación narrativa (historia en tendencia / curiosidad profunda)
-    lista para el muro de Facebook, acompañada opcionalmente de una postal cómic 2D 4:5 (1080x1350).
+    Genera una publicación narrativa en el muro de Facebook cuya ilustración cómic 2D
+    coincide al 100% con el tema descrito (CERO imágenes sin sentido o rostros deformes).
     """
-    print(f"[Historia] Redactando historia viral para Facebook sobre: '{topic}'...")
-    story_text = ""
-    img_query = "mystery jungle survival comic"
-    headline = topic[:30].upper()
-    subheadline = "EL DATO QUE POCOS CONOCEN"
-
-    prompt = (
-        f"Escribe una publicación fascinante para Facebook en español contando una historia o caso de supervivencia/misterio sobre: '{topic}'.\n"
-        "Estructura de la historia:\n"
-        "- Primera línea: Un título o pregunta gancho muy potente.\n"
-        "- Desarrollo: 2 a 3 párrafos cortos contando la historia, datos reales o reglas de supervivencia de forma clara y atrapante.\n"
-        "- Cierre: Una pregunta abierta para que los seguidores debatan en los comentarios + 4 hashtags.\n"
-        "- NO uses caracteres especiales raros, escribe en texto limpio.\n\n"
-        "Devuelve ÚNICAMENTE un JSON válido con estas 4 claves:\n"
-        '- "story": el texto completo de la publicación (con saltos de línea \\n)\n'
-        '- "query": descripción de la escena en inglés (2 a 4 palabras)\n'
-        '- "headline": titular corto impactante en español (máximo 4 palabras en mayúsculas)\n'
-        '- "subheadline": subtítulo explicativo en español (máximo 6 palabras)\n'
-        "Sin bloques markdown, solo JSON puro."
-    )
-    raw = _call_gemini_fast(prompt, timeout_sec=10.0)
-    if raw:
-        match = re.search(r"\{.*\}", raw, flags=re.DOTALL)
-        if match:
-            try:
-                data = json.loads(match.group(0))
-                story_text = data.get("story", "").strip()
-                img_query = data.get("query", img_query).strip()
-                headline = data.get("headline", headline).strip()
-                subheadline = data.get("subheadline", subheadline).strip()
-            except Exception:
-                pass
-
-    if not story_text:
-        story_text = (
-            f"¿Qué harías tú si tuvieras que enfrentarte a esto? {topic}\n\n"
-            "La mayoría de las personas cree que sabría exactamente cómo reaccionar en una situación límite, "
-            "pero los expertos en supervivencia revelan que las decisiones de los primeros 15 minutos lo definen todo.\n\n"
-            "¿Cuál sería tu primer movimiento o qué objeto llevarías contigo? ¡Déjalo en los comentarios y veamos quién sobreviviría más tiempo!\n\n"
-            "#supervivencia #misterios #curiosidades #historias #tendencias"
-        )
+    print(f"[Historia] Redactando historia viral coherente para Facebook sobre: '{topic}'...")
+    ep = _get_episode_for_topic(topic)
+    story_text = ep["story"]
+    headline = ep["headline"]
+    subheadline = ep["subheadline"]
+    theme = ep["theme"]
 
     story_path = OUTPUT_DIR / "story_post.txt"
     story_path.write_text(story_text, encoding="utf-8")
@@ -513,76 +507,50 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
         return story_text, None
 
     seed_val = abs(hash(topic)) % 900 + 100
-    print(f"[Imagen] Creando postal ilustrada estilo cómic 2D (1080x1350) para '{img_query}'...")
+    print(f"[Imagen] Creando postal ilustrada 2D cómic 100% del tema '{theme}' (1080x1350)...")
     from youtube_story_animator import fetch_or_generate_comic_art
 
-    art_prompt = (
-        "2D cartoon comic illustration in the style of Curiosamente Graficado and Don Zombi, "
-        "clean bold black outlines, vibrant comic shading, expressive white round-headed cartoon character "
-        f"exploring: {img_query}, vertical 4:5, no text"
+    art_path = fetch_or_generate_comic_art(
+        prompt=topic,
+        dest_path=OUTPUT_DIR / f"post_comic_{theme}_{seed_val}.png",
+        seed=seed_val,
+        theme=theme,
     )
-    art_path = fetch_or_generate_comic_art(art_prompt, OUTPUT_DIR / f"post_comic_{seed_val}.png", seed=seed_val)
-    if art_path.exists():
-        raw_img = Image.open(art_path).convert("RGB")
-    else:
-        raw_img = _fetch_real_hd_image(img_query, 1)
+    raw_img = Image.open(art_path).convert("RGB")
 
     card = ImageOps.fit(raw_img, (1080, 1350), method=Image.Resampling.LANCZOS)
-    card = ImageEnhance.Color(card).enhance(1.15)
+    card = ImageEnhance.Color(card).enhance(1.12)
     draw = ImageDraw.Draw(card, "RGBA")
 
-    bold_path = r"C:\Windows\Fonts\impact.ttf" if Path(r"C:\Windows\Fonts\impact.ttf").exists() else r"C:\Windows\Fonts\arialbd.ttf"
-    reg_path = r"C:\Windows\Fonts\arialbd.ttf"
-    font_h = ImageFont.truetype(bold_path, 62) if Path(bold_path).exists() else ImageFont.load_default()
-    font_s = ImageFont.truetype(reg_path if Path(reg_path).exists() else bold_path, 36)
-
-    draw.rectangle([0, 980, 1080, 1350], fill=(0, 0, 0, 165))
-    draw.text(
-        (540, 1095),
-        headline[:32].upper(),
-        font=font_h,
-        fill=(255, 255, 255, 255),
-        anchor="mm",
-        stroke_width=6,
-        stroke_fill=(0, 0, 0, 255),
-    )
-    draw.rounded_rectangle([140, 1155, 940, 1235], radius=14, fill=(215, 35, 35, 245), outline=(0, 0, 0, 255), width=4)
-    draw.text(
-        (540, 1195),
-        subheadline[:44].upper(),
-        font=font_s,
-        fill=(255, 255, 255, 255),
-        anchor="mm",
-    )
+    accent_map = {
+        "ocean": (0, 145, 210),
+        "blackout": (215, 35, 35),
+        "prehistory": (215, 85, 25),
+        "island": (25, 145, 85),
+        "jungle": (25, 145, 75),
+        "space": (135, 45, 215),
+        "zombie": (215, 35, 35),
+    }
+    _draw_multiline_headline(draw, headline, subheadline, accent_color=accent_map.get(theme, (215, 35, 35)))
 
     img_out = OUTPUT_DIR / "post_image.jpg"
     card.save(img_out, quality=95)
-    print(f"      Imagen para publicación guardada en: {img_out}")
+    print(f"      Imagen temática verificada guardada en: {img_out}")
     return story_text, img_out
 
 
 def generate_engaging_video_caption(topic: str, script_text: str) -> str:
     """
-    Genera una descripción interesante para el video acompañada de una pregunta
-    de debate directamente relacionada con el contenido del video para impulsar comentarios.
+    Devuelve una descripción sumamente atractiva con pregunta abierta de debate
+    100% conectada con el tema del video para multiplicar comentarios.
     """
-    prompt = (
-        f"Tema del video: '{topic}'\n"
-        f"Guion del video: \"{script_text}\"\n\n"
-        "Escribe una descripción sumamente atractiva en español para publicar este Reel en Facebook.\n"
-        "Estructura obligatoria:\n"
-        "1. Un gancho o dato intrigante de 1 a 2 líneas sobre lo que revela el video.\n"
-        "2. Una pregunta abierta muy interesante acerca del video para que la gente debata y deje su opinión en los comentarios (ej. '¿Tú qué harías en esta situación?' o '¿Cuánto tiempo crees que sobrevivirías?').\n"
-        "3. 5 hashtags relevantes en tendencia (#reels #curiosidades #misterios #supervivencia #viral).\n"
-        "Devuelve únicamente el texto limpio listo para copiar y pegar, sin caracteres raros ni bloques markdown."
-    )
-    text = _call_gemini_fast(prompt, timeout_sec=10.0)
-    if text:
-        return text
+    ep = _get_episode_for_topic(topic)
+    if ep.get("caption"):
+        return ep["caption"]
 
     return (
         f"¿Te imaginas estar en medio de esto? {topic}. "
-        "Mira el video hasta el final porque el último dato cambia todo. "
+        "Mira los 5 capítulos del video hasta el final porque el último dato cambia todo. "
         "¿Tú qué harías en esta situación o cuál sería tu plan para sobrevivir? ¡Te leo en los comentarios! "
         "#reels #curiosidades #supervivencia #misterios #viral"
     )
@@ -590,7 +558,7 @@ def generate_engaging_video_caption(topic: str, script_text: str) -> str:
 
 def run_generation_pipeline(topic: str) -> tuple[Path, Path]:
     script_text = generate_script(topic)
-    scenes_meta = _plan_visual_scenes(script_text, num_scenes=3)
+    scenes_meta = _plan_visual_scenes(script_text, num_scenes=5, topic=topic)
     meta_path = OUTPUT_DIR / "scenes_meta.json"
     meta_path.write_text(json.dumps(scenes_meta, ensure_ascii=False, indent=2), encoding="utf-8")
     audio_path = OUTPUT_DIR / "narration.mp3"
@@ -599,11 +567,11 @@ def run_generation_pipeline(topic: str) -> tuple[Path, Path]:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Módulo 1: Generación de guion, fotografías HD, voz y video.")
+    parser = argparse.ArgumentParser(description="Módulo 1: Generación de guion largo y escenas 2D.")
     parser.add_argument(
         "--topic",
         type=str,
-        default="3 misterios del espacio que los cientificos aun no pueden explicar",
+        default="El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
         help="Tema sobre el cual se escribirá el guion.",
     )
     args = parser.parse_args()

@@ -1,4 +1,4 @@
-name: Publicación Automática Constante Día, Tarde y Noche (Videos, Fotos y Textos)
+name: Publicación Automática Constante Día, Tarde y Noche (Videos Largos 2D y Postales)
 
 on:
   schedule:
@@ -19,13 +19,13 @@ on:
   workflow_dispatch:
     inputs:
       topic:
-        description: 'Tema (deja "auto" para usar tendencias del momento)'
+        description: 'Tema (deja "auto" para usar episodios largos en rotación)'
         required: false
         default: 'auto'
       format:
-        description: 'Formato: "auto" (rota entre video, foto y texto), "video", "photo" o "text"'
+        description: 'Formato: "auto" (80% videos largos animados 2D), "video", "photo" o "text"'
         required: false
-        default: 'auto'
+        default: 'video'
 
 permissions:
   contents: write
@@ -33,7 +33,7 @@ permissions:
 jobs:
   publicar-contenido-facebook:
     runs-on: windows-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generar y publicar (Video con pregunta, Foto con historia o Texto de debate)
+      - name: Generar y publicar (Video Largo 2D con pregunta o Postal Temática)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FB_EMAIL: ${{ secrets.FB_EMAIL }}
@@ -58,9 +58,19 @@ jobs:
         run: |
           python -u main.py --topic "${{ github.event.inputs.topic || 'auto' }}" --format "${{ github.event.inputs.format || 'auto' }}" --headless
 
-      - name: Guardar historial de temas y formatos publicados
+      - name: Guardar historial de temas y formatos publicados sin conflictos
         run: |
           git config user.name "FB Creator Bot"
           git config user.email "bot@users.noreply.github.com"
+          Copy-Item output/published_topics.json $env:TEMP/published_topics.json -Force -ErrorAction SilentlyContinue
+          Copy-Item output/published_formats.json $env:TEMP/published_formats.json -Force -ErrorAction SilentlyContinue
+          git checkout -- .
+          git pull --rebase origin main
+          Copy-Item $env:TEMP/published_topics.json output/published_topics.json -Force -ErrorAction SilentlyContinue
+          Copy-Item $env:TEMP/published_formats.json output/published_formats.json -Force -ErrorAction SilentlyContinue
           git add output/published_topics.json output/published_formats.json
-          git diff --staged --quiet || (git commit -m "Actualizar historial de publicaciones (Día/Tarde/Noche)" && git pull --rebase origin main && git push)
+          git diff --staged --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m "Actualizar historial de publicaciones"
+            git push origin main
+          }

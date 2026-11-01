@@ -37,8 +37,8 @@ def _choose_next_format(requested_format: str) -> str:
         except Exception:
             history = []
 
-    # Rotación para Día, Tarde y Noche: Video Animado -> Foto Ilustrada con Historia -> Texto/Debate
-    cycle = ["video", "photo", "text"]
+    # Prioridad principal a VIDEOS LARGOS ANIMADOS (80% videos, 20% postales ilustradas del tema)
+    cycle = ["video", "video", "video", "photo", "video"]
     next_fmt = cycle[len(history) % len(cycle)]
     history.append(next_fmt)
     fmt_history_path.write_text(json.dumps(history[-40:], ensure_ascii=False, indent=2), encoding="utf-8")
