@@ -54,18 +54,18 @@ def _font(size: int, bold: bool = True) -> Any:
 
 def detect_theme_from_text(text: str) -> str:
     t = text.lower()
-    if any(k in t for k in ["mariana", "océano", "oceano", "mar", "abismo", "submarin", "agua", "profundidad", "tiburón", "tiburon"]):
-        return "ocean"
-    if any(k in t for k in ["apagón", "apagon", "electricidad", "internet", "red eléctrica", "energia", "energía", "72 horas", "oscuridad"]):
-        return "blackout"
-    if any(k in t for k in ["prehist", "dinosaurio", "jurásico", "jurasico", "cretácico", "extinción", "fósil", "pasado", "era"]):
+    if any(k in t for k in ["prehist", "dinosaurio", "jurásico", "jurasico", "cretácico", "devónico", "carbonífero"]):
         return "prehistory"
-    if any(k in t for k in ["isla", "prohibid", "náufrago", "naufrago", "desierta", "triángulo", "búnker", "bunker"]):
-        return "island"
-    if any(k in t for k in ["selva", "amazonas", "jungla", "bosque", "dron", "inexplorad"]):
-        return "jungle"
-    if any(k in t for k in ["sol", "espacio", "tormenta solar", "satélite", "asteroide", "planeta", "universo", "nasa", "cosmos"]):
+    if any(k in t for k in ["apagón", "apagon", "72 horas", "cajeros automáticos", "semáforos", "electricidad y el internet"]):
+        return "blackout"
+    if any(k in t for k in ["mariana", "abismo challenger", "submarino", "bioluminiscente", "11 kilómetros bajo", "10,994"]):
+        return "ocean"
+    if any(k in t for k in ["tormenta solar", "carrington", "eyección de masa coronal", "satélites de gps", "geomagnética"]):
         return "space"
+    if any(k in t for k in ["isla prohibida", "isla desierta", "bambú y hojas de palma", "náufrago"]):
+        return "island"
+    if any(k in t for k in ["amazonas", "selva", "lidar", "dosel de los árboles"]):
+        return "jungle"
     return "zombie"
 
 

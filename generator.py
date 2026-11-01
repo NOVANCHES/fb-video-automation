@@ -387,9 +387,11 @@ def _plan_visual_scenes(script_text: str, num_scenes: int = 5, topic: str = "") 
     Devuelve los 5 capítulos visuales sincronizados exactamente con el guion y el tema.
     """
     ep = _get_episode_for_topic(topic or script_text)
-    if len(ep.get("scenes", [])) >= num_scenes:
-        return ep["scenes"][:num_scenes]
-    return ep["scenes"]
+    theme = ep["theme"]
+    scenes = [dict(s, theme=theme) for s in ep.get("scenes", [])]
+    if len(scenes) >= num_scenes:
+        return scenes[:num_scenes]
+    return scenes
 
 
 def _draw_multiline_headline(
