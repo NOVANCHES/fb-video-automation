@@ -510,7 +510,7 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
 
     seed_val = abs(hash(topic)) % 900 + 100
     print(f"[Imagen] Creando postal ilustrada 2D cómic 100% del tema '{theme}' (1080x1350)...")
-    from youtube_story_animator import fetch_or_generate_comic_art
+    from youtube_story_animator import fetch_or_generate_comic_art, validate_scene_asset, THEME_ASSET_REGISTRY
 
     art_path = fetch_or_generate_comic_art(
         prompt=topic,
@@ -518,6 +518,14 @@ def generate_story_post(topic: str, with_image: bool = True) -> tuple[str, Path 
         seed=seed_val,
         theme=theme,
     )
+    if not validate_scene_asset(art_path, topic, theme):
+        # Auto-corrección estricta al activo verificado de esa temática
+        v_files = THEME_ASSET_REGISTRY.get(theme, [])
+        for vf in v_files:
+            vp = OUTPUT_DIR / vf
+            if vp.exists() and vp.stat().st_size > 15_000:
+                art_path = vp
+                break
     raw_img = Image.open(art_path).convert("RGB")
 
     card = ImageOps.fit(raw_img, (1080, 1350), method=Image.Resampling.LANCZOS)

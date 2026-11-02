@@ -409,7 +409,7 @@ def add_dynamic_subtitles(
     explicit_theme = scenes_meta[0].get("theme", "") if scenes_meta else ""
     theme = explicit_theme or detect_theme_from_text(script_text)
     num_chapters = max(5, len(scenes_meta))
-    scene_files = get_theme_scene_files(theme, num_scenes=num_chapters)
+    scene_files = get_theme_scene_files(theme, num_scenes=num_chapters, script_text=script_text)
 
     accent_map = {
         "ocean": (0, 155, 215),

@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2026-11-02T04:20:36.512837",
+    "topic": "¿Sabías que en mil ochocientos cincuenta y nueve una torment",
+    "theme": "space",
+    "voice_id": "dalia_mx",
+    "voice_name": "es-MX-DaliaNeural",
+    "gender": "female",
+    "rate": "+4%",
+    "pitch": "-2Hz",
+    "style": "misterio_intrigante"
+  },
+  {
+    "timestamp": "2026-11-02T04:21:30.279095",
+    "topic": "¿Sabías que en mil ochocientos cincuenta y nueve una torment",
+    "theme": "space",
+    "voice_id": "alonso_us",
+    "voice_name": "es-US-AlonsoNeural",
+    "gender": "male",
+    "rate": "+5%",
+    "pitch": "-1Hz",
+    "style": "tension_dramatica_supervivencia"
+  }
+]
