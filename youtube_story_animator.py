@@ -1,4 +1,4 @@
-"""
+﻿"""
 Motor de Animación Narrativa de Formato Largo (60-85s) Estilo YouTube / Reels Virales
 ("Don Zombi", "Curiosamente Graficado", "Sobrevive con Bruno" y "Sebastián Schiller") a 24 FPS continuos.
 
@@ -240,17 +240,31 @@ async def _tts_with_word_timings(
     audio_out: Path,
     pitch: str = "+0Hz",
 ) -> List[Dict[str, Any]]:
-    comm = edge_tts.Communicate(text=text, voice=voice, rate=rate, pitch=pitch)
-    timings: List[Dict[str, Any]] = []
-    with open(audio_out, "wb") as f:
-        async for chunk in comm.stream():
-            if chunk["type"] == "audio":
-                f.write(chunk["data"])
-            elif chunk["type"] in ("WordBoundary", "SentenceBoundary"):
-                s = chunk["offset"] / 10_000_000.0
-                d = chunk["duration"] / 10_000_000.0
-                timings.append({"type": chunk["type"], "start": s, "end": s + max(d, 0.15), "text": chunk["text"]})
-    return timings
+    """Genera TTS con fallback automatico a otras voces si falla NoAudioReceived."""
+    fallback_voices = ["es-MX-JorgeNeural", "es-MX-DaliaNeural", "es-CO-GonzaloNeural"]
+    voices_to_try = [voice] + [v for v in fallback_voices if v != voice]
+
+    for attempt_voice in voices_to_try:
+        try:
+            comm = edge_tts.Communicate(text=text, voice=attempt_voice, rate=rate, pitch=pitch)
+            timings: List[Dict[str, Any]] = []
+            with open(audio_out, "wb") as f:
+                async for chunk in comm.stream():
+                    if chunk["type"] == "audio":
+                        f.write(chunk["data"])
+                    elif chunk["type"] in ("WordBoundary", "SentenceBoundary"):
+                        s = chunk["offset"] / 10_000_000.0
+                        d = chunk["duration"] / 10_000_000.0
+                        timings.append({"type": chunk["type"], "start": s, "end": s + max(d, 0.15), "text": chunk["text"]})
+            if attempt_voice != voice:
+                print(f"[TTS] Fallback de voz: {voice} -> {attempt_voice}")
+            return timings
+        except Exception as e:
+            print(f"[TTS] Voz {attempt_voice} fallo: {e} - probando siguiente...")
+            continue
+
+    print("[TTS] Todas las voces fallaron. Se usara sincronizacion proporcional.")
+    return []
 
 
 def _build_phrases_from_timings(
@@ -916,3 +930,4 @@ def build_illustrated_youtube_video(
     bg_clip.close()
     print(f"[{story_id}] 3/3 ¡Exportado con éxito ({total_dur:.1f}s) en: {out_path}!")
     return out_path
+

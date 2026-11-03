@@ -1,39 +1,57 @@
-name: Publicación Automática Constante Día, Tarde y Noche (Videos Largos 2D y Postales)
+name: "Publicación Automática Constante Día, Tarde y Noche (Veo + 2D Fallback → Facebook + YouTube)"
 
 on:
   schedule:
-    # 1. DÍA (Mañana 1): 8:00 AM hora Ciudad de México (14:00 UTC)
-    - cron: '0 14 * * *'
-    # 2. DÍA (Mañana 2): 11:30 AM hora Ciudad de México (17:30 UTC)
-    - cron: '30 17 * * *'
-    # 3. TARDE (Tarde 1): 3:00 PM hora Ciudad de México (21:00 UTC)
-    - cron: '0 21 * * *'
-    # 4. TARDE (Tarde 2): 6:00 PM hora Ciudad de México (00:00 UTC)
-    - cron: '0 0 * * *'
-    # 5. NOCHE (Noche 1): 9:00 PM hora Ciudad de México (03:00 UTC)
-    - cron: '0 3 * * *'
-    # 6. NOCHE (Noche 2): 11:30 PM hora Ciudad de México (05:30 UTC)
-    - cron: '30 5 * * *'
+    # 1. Mañana 1: 8:00 AM Ciudad de México (14:00 UTC)
+    - cron: "0 14 * * *"
+    # 2. Mañana 2: 11:30 AM Ciudad de México (17:30 UTC)
+    - cron: "30 17 * * *"
+    # 3. Tarde 1: 3:00 PM Ciudad de México (21:00 UTC)
+    - cron: "0 21 * * *"
+    # 4. Tarde 2: 6:00 PM Ciudad de México (00:00 UTC)
+    - cron: "0 0 * * *"
+    # 5. Noche 1: 9:00 PM Ciudad de México (03:00 UTC)
+    - cron: "0 3 * * *"
+    # 6. Noche 2: 11:30 PM Ciudad de México (05:30 UTC)
+    - cron: "30 5 * * *"
 
   # Control manual desde la app de GitHub en tu Xiaomi Redmi Note 10S
   workflow_dispatch:
     inputs:
       topic:
-        description: 'Tema (deja "auto" para usar episodios largos en rotación)'
+        description: 'Tema (deja "auto" para usar episodios en rotación)'
         required: false
-        default: 'auto'
+        default: "auto"
       format:
-        description: 'Formato: "auto" (80% videos largos animados 2D), "video", "photo" o "text"'
+        description: 'Formato: "auto" (80% videos), "video", "photo" o "text"'
         required: false
-        default: 'video'
+        default: "video"
+      use_veo:
+        description: 'Usar Google Veo para clips cinemáticos? (true/false)'
+        required: false
+        default: "true"
 
 permissions:
   contents: write
 
 jobs:
-  publicar-contenido-facebook:
-    runs-on: windows-latest
-    timeout-minutes: 25
+  publicar-multired:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      # ─── Gemini / Veo API ────────────────────────────────────────────
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      # ─── Facebook ───────────────────────────────────────────────────
+      FB_EMAIL: ${{ secrets.FB_EMAIL }}
+      FB_PASSWORD: ${{ secrets.FB_PASSWORD }}
+      FB_COOKIES_B64: ${{ secrets.FB_COOKIES_B64 }}
+      FB_PAGE_NAME: ""
+      # ─── YouTube Shorts ─────────────────────────────────────────────
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
@@ -41,36 +59,60 @@ jobs:
       - name: Configurar Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Instalar dependencias (Gemini, Edge-TTS, MoviePy, Selenium)
+      - name: Instalar dependencias del sistema (fuentes y ffmpeg)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            fonts-liberation fonts-dejavu-core ffmpeg imagemagick
+
+      - name: Instalar dependencias de Python
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generar y publicar (Video Largo 2D con pregunta o Postal Temática)
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          FB_EMAIL: ${{ secrets.FB_EMAIL }}
-          FB_PASSWORD: ${{ secrets.FB_PASSWORD }}
-          FB_COOKIES_B64: ${{ secrets.FB_COOKIES_B64 }}
-          FB_PAGE_NAME: ""
+      - name: Generar y publicar en Facebook + YouTube Shorts
         run: |
-          python -u main.py --topic "${{ github.event.inputs.topic || 'auto' }}" --format "${{ github.event.inputs.format || 'auto' }}" --headless
+          TOPIC="${{ github.event.inputs.topic || 'auto' }}"
+          FORMAT="${{ github.event.inputs.format || 'auto' }}"
+          USE_VEO="${{ github.event.inputs.use_veo || 'true' }}"
 
-      - name: Guardar historial de temas y formatos publicados sin conflictos
+          # Construir flags adicionales
+          FLAGS="--topic \"$TOPIC\" --format \"$FORMAT\" --headless"
+          if [ "$USE_VEO" = "false" ]; then
+            FLAGS="$FLAGS --no-veo"
+          fi
+
+          eval "python -u main.py $FLAGS"
+
+      - name: Guardar historial de publicaciones (sin conflictos de merge)
+        if: always()
         run: |
-          git config user.name "FB Creator Bot"
+          git config user.name "FB-YT Creator Bot"
           git config user.email "bot@users.noreply.github.com"
-          Copy-Item output/published_topics.json $env:TEMP/published_topics.json -Force -ErrorAction SilentlyContinue
-          Copy-Item output/published_formats.json $env:TEMP/published_formats.json -Force -ErrorAction SilentlyContinue
+
+          # Guardar archivos modificados en temp
+          cp output/published_topics.json /tmp/published_topics.json 2>/dev/null || true
+          cp output/published_formats.json /tmp/published_formats.json 2>/dev/null || true
+          cp output/voice_ab_history.json /tmp/voice_ab_history.json 2>/dev/null || true
+          cp output/youtube_upload_history.json /tmp/youtube_upload_history.json 2>/dev/null || true
+
+          # Sincronizar con remote y restaurar
           git checkout -- .
           git pull --rebase origin main
-          Copy-Item $env:TEMP/published_topics.json output/published_topics.json -Force -ErrorAction SilentlyContinue
-          Copy-Item $env:TEMP/published_formats.json output/published_formats.json -Force -ErrorAction SilentlyContinue
-          git add output/published_topics.json output/published_formats.json
-          git diff --staged --quiet
-          if ($LASTEXITCODE -ne 0) {
-            git commit -m "Actualizar historial de publicaciones"
-            git push origin main
-          }
+
+          cp /tmp/published_topics.json output/published_topics.json 2>/dev/null || true
+          cp /tmp/published_formats.json output/published_formats.json 2>/dev/null || true
+          cp /tmp/voice_ab_history.json output/voice_ab_history.json 2>/dev/null || true
+          cp /tmp/youtube_upload_history.json output/youtube_upload_history.json 2>/dev/null || true
+
+          git add \
+            output/published_topics.json \
+            output/published_formats.json \
+            output/voice_ab_history.json \
+            output/youtube_upload_history.json \
+            2>/dev/null || true
+
+          git diff --staged --quiet || git commit -m "Actualizar historial publicaciones [skip ci]"
+          git push origin main || true

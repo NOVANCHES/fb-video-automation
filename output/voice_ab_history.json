@@ -20,5 +20,49 @@
     "rate": "+5%",
     "pitch": "-1Hz",
     "style": "tension_dramatica_supervivencia"
+  },
+  {
+    "timestamp": "2026-11-03T11:05:14.304026",
+    "topic": "¿Sabías que en mil ochocientos cincuenta y nueve una torment",
+    "theme": "space",
+    "voice_id": "gonzalo_co",
+    "voice_name": "es-CO-GonzaloNeural",
+    "gender": "male",
+    "rate": "+5%",
+    "pitch": "-2Hz",
+    "style": "cine_documental_profundo"
+  },
+  {
+    "timestamp": "2026-11-03T11:22:00.662079",
+    "topic": "¿Qué pasaría si descendieras hoy mismo en un submarino hasta",
+    "theme": "ocean",
+    "voice_id": "alex_pe",
+    "voice_name": "es-PE-AlexNeural",
+    "gender": "male",
+    "rate": "+5%",
+    "pitch": "-1Hz",
+    "style": "analitico_exploracion_cientifica"
+  },
+  {
+    "timestamp": "2026-11-03T11:23:28.493991",
+    "topic": "fosa test",
+    "theme": "ocean",
+    "voice_id": "dalia_mx",
+    "voice_name": "es-MX-DaliaNeural",
+    "gender": "female",
+    "rate": "+3%",
+    "pitch": "+1Hz",
+    "style": "misterio_intrigante"
+  },
+  {
+    "timestamp": "2026-11-03T11:41:12.181371",
+    "topic": "¿Qué pasaría si descendieras hoy mismo en un submarino hasta",
+    "theme": "ocean",
+    "voice_id": "alonso_us",
+    "voice_name": "es-US-AlonsoNeural",
+    "gender": "male",
+    "rate": "+4%",
+    "pitch": "-1Hz",
+    "style": "tension_dramatica_supervivencia"
   }
 ]
