@@ -115,6 +115,33 @@ def _ensure_logged_in(driver: webdriver.Remote) -> None:
         except Exception as exc:
             print(f"      Aviso al restaurar FB_COOKIES_B64: {exc}")
 
+    # Manejar pantalla de "Continuar como [Usuario]" y modal de contraseña de Meta
+    try:
+        continue_btns = driver.find_elements(
+            By.XPATH,
+            "//div[text()='Continuar' or text()='Continue'] | //span[text()='Continuar' or text()='Continue'] | //button[contains(., 'Continuar') or contains(., 'Continue')]"
+        )
+        for btn in continue_btns:
+            if btn.is_displayed():
+                print("[Login] Detectado botón 'Continuar' como perfil guardado. Haciendo clic...")
+                driver.execute_script("arguments[0].click();", btn)
+                time.sleep(3)
+                break
+
+        # Si aparece el modal 'Inicia sesión en tu cuenta de Meta' solicitando contraseña
+        pwd_inputs = driver.find_elements(By.XPATH, "//input[@type='password' or @name='pass']")
+        for p_in in pwd_inputs:
+            if p_in.is_displayed():
+                print("[Login] Detectado campo de contraseña en modal de Meta. Ingresando credencial...")
+                p_in.clear()
+                p_in.send_keys(FB_PASSWORD)
+                time.sleep(0.5)
+                p_in.send_keys(Keys.RETURN)
+                time.sleep(6)
+                break
+    except Exception as exc:
+        print(f"      Nota al resolver pantalla de confirmación: {exc}")
+
     email_inputs = driver.find_elements(By.NAME, "email")
     pass_inputs = driver.find_elements(By.NAME, "pass")
 
@@ -208,6 +235,34 @@ def upload_video_to_facebook(
         print("[Subida] Abriendo interfaz de creación de Facebook Reels...")
         driver.get("https://www.facebook.com/reels/create")
         time.sleep(5)
+
+        # Si aparece la pantalla de confirmación de cuenta 'Continuar como Bruno Schiller'
+        try:
+            continue_btns = driver.find_elements(
+                By.XPATH,
+                "//div[text()='Continuar' or text()='Continue'] | //span[text()='Continuar' or text()='Continue'] | //button[contains(., 'Continuar') or contains(., 'Continue')]"
+            )
+            for btn in continue_btns:
+                if btn.is_displayed():
+                    print("[Subida] Detectada pantalla 'Continuar' de perfil. Haciendo clic...")
+                    driver.execute_script("arguments[0].click();", btn)
+                    time.sleep(3)
+                    pwd_inputs = driver.find_elements(By.XPATH, "//input[@type='password' or @name='pass']")
+                    for p_in in pwd_inputs:
+                        if p_in.is_displayed():
+                            print("[Subida] Ingresando contraseña en modal de Meta...")
+                            p_in.clear()
+                            p_in.send_keys(FB_PASSWORD)
+                            time.sleep(0.5)
+                            p_in.send_keys(Keys.RETURN)
+                            time.sleep(6)
+                            break
+                    if "reels/create" not in driver.current_url:
+                        driver.get("https://www.facebook.com/reels/create")
+                        time.sleep(5)
+                    break
+        except Exception:
+            pass
 
         print("[Subida] Adjuntando archivo MP4...")
         file_input = WebDriverWait(driver, 30).until(
