@@ -64,5 +64,16 @@
     "rate": "+4%",
     "pitch": "-1Hz",
     "style": "tension_dramatica_supervivencia"
+  },
+  {
+    "timestamp": "2026-11-03T20:19:54.862772",
+    "topic": "¿Por qué en pleno siglo veintiuno, teniendo satélites milita",
+    "theme": "jungle",
+    "voice_id": "gonzalo_co",
+    "voice_name": "es-CO-GonzaloNeural",
+    "gender": "male",
+    "rate": "+4%",
+    "pitch": "-2Hz",
+    "style": "cine_documental_profundo"
   }
 ]
