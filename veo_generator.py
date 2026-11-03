@@ -203,11 +203,11 @@ def generate_veo_clips(
 
         except Exception as e:
             err_lower = str(e).lower()
-            if any(k in err_lower for k in ["quota", "429", "resource_exhausted", "rate_limit", "limit"]):
-                print(f"[Veo]   ⚠ Cuota/límite de API: {e}")
+            if any(k in err_lower for k in ["quota", "429", "resource_exhausted", "rate_limit", "limit", "404", "not_found", "no longer available"]):
+                print(f"\n[Veo]   ⚠ Modelo no disponible o cuota agotada: {e}")
                 print("[Veo]   Activando fallback automático al motor de animación 2D...")
                 return None
-            print(f"[Veo]   ❌ Error inesperado en escena {idx + 1}: {e}")
+            print(f"\n[Veo]   ❌ Error en escena {idx + 1}: {e} — activando fallback 2D")
             return None
 
     if len(clip_paths) == n:
