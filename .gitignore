@@ -21,3 +21,4 @@ output/edit_*
 output/dashboard_*
 output/bio_*
 output/run.*
+output/yt_tokens.json
