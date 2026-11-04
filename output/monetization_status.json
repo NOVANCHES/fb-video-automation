@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-11-04T20:40:16.519314",
+  "timestamp": "2026-11-04T22:49:59.896962",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
-    "subscribers": 5,
+    "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 6,
-    "shorts_total_views": 1809,
+    "shorts_total_views": 1939,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1120,
+        "views": 1117,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
@@ -23,13 +23,13 @@
       {
         "video_id": "nySDD8GZxfw",
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-        "views": 8,
+        "views": 11,
         "url": "https://www.youtube.com/shorts/nySDD8GZxfw"
       },
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 622,
+        "views": 752,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -48,12 +48,12 @@
     "milestones": {
       "tier1_fan_funding": {
         "subs": {
-          "current": 5,
+          "current": 0,
           "target": 500,
           "reached": false
         },
         "shorts_views": {
-          "current": 1809,
+          "current": 1939,
           "target": 3000000,
           "reached": false
         },
@@ -65,12 +65,12 @@
       },
       "tier2_full_ads": {
         "subs": {
-          "current": 5,
+          "current": 0,
           "target": 1000,
           "reached": false
         },
         "shorts_views": {
-          "current": 1809,
+          "current": 1939,
           "target": 10000000,
           "reached": false
         }
@@ -80,10 +80,10 @@
   "facebook": {
     "profile_name": "Bruno Schiller",
     "professional_mode": true,
-    "total_publications": 12,
+    "total_publications": 13,
     "breakdown": {
       "reels": 7,
-      "photos_with_stories": 1,
+      "photos_with_stories": 2,
       "text_debates": 0
     },
     "milestones": {
