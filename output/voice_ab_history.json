@@ -119,5 +119,16 @@
     "rate": "+5%",
     "pitch": "-2Hz",
     "style": "misterio_intrigante"
+  },
+  {
+    "timestamp": "2026-11-04T20:36:42.790410",
+    "topic": "¿Qué harías si despertaras completamente solo en la playa de",
+    "theme": "island",
+    "voice_id": "salome_co",
+    "voice_name": "es-CO-SalomeNeural",
+    "gender": "female",
+    "rate": "+5%",
+    "pitch": "+0Hz",
+    "style": "storytelling_viral_rapido"
   }
 ]

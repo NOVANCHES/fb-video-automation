@@ -1,35 +1,35 @@
 {
-  "timestamp": "2026-11-04T13:15:19.173611",
+  "timestamp": "2026-11-04T20:40:16.519314",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
-    "subscribers": 0,
+    "subscribers": 5,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 5,
-    "shorts_total_views": 1537,
+    "shorts_tracked_count": 6,
+    "shorts_total_views": 1809,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1118,
+        "views": 1120,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
         "video_id": "wBisq_D9INQ",
         "title": "🌿 Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
-        "views": 54,
+        "views": 59,
         "url": "https://www.youtube.com/shorts/wBisq_D9INQ"
       },
       {
         "video_id": "nySDD8GZxfw",
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-        "views": 6,
+        "views": 8,
         "url": "https://www.youtube.com/shorts/nySDD8GZxfw"
       },
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 359,
+        "views": 622,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -37,34 +37,40 @@
         "title": "🌌 ¿Qué pasaría si una megatormenta solar golpeara la Tierra mañana mismo? #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/mR2KWYvrtJc"
+      },
+      {
+        "video_id": "jKX4BG4HLdg",
+        "title": "🏝️ Cómo sobrevivirías si quedaras atrapado en una isla prohibida durante 30 días #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/jKX4BG4HLdg"
       }
     ],
     "milestones": {
       "tier1_fan_funding": {
         "subs": {
-          "current": 0,
+          "current": 5,
           "target": 500,
           "reached": false
         },
         "shorts_views": {
-          "current": 1537,
+          "current": 1809,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 5,
+          "current": 6,
           "target": 3,
           "reached": true
         }
       },
       "tier2_full_ads": {
         "subs": {
-          "current": 0,
+          "current": 5,
           "target": 1000,
           "reached": false
         },
         "shorts_views": {
-          "current": 1537,
+          "current": 1809,
           "target": 10000000,
           "reached": false
         }
@@ -74,9 +80,9 @@
   "facebook": {
     "profile_name": "Bruno Schiller",
     "professional_mode": true,
-    "total_publications": 11,
+    "total_publications": 12,
     "breakdown": {
-      "reels": 6,
+      "reels": 7,
       "photos_with_stories": 1,
       "text_debates": 0
     },
