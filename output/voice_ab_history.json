@@ -108,5 +108,16 @@
     "rate": "+4%",
     "pitch": "-2Hz",
     "style": "documental_enérgico"
+  },
+  {
+    "timestamp": "2026-11-04T13:11:46.840324",
+    "topic": "¿Sabías que en mil ochocientos cincuenta y nueve una torment",
+    "theme": "space",
+    "voice_id": "dalia_mx",
+    "voice_name": "es-MX-DaliaNeural",
+    "gender": "female",
+    "rate": "+5%",
+    "pitch": "-2Hz",
+    "style": "misterio_intrigante"
   }
 ]
