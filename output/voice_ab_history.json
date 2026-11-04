@@ -75,5 +75,16 @@
     "rate": "+4%",
     "pitch": "-2Hz",
     "style": "cine_documental_profundo"
+  },
+  {
+    "timestamp": "2026-11-04T01:03:06.606178",
+    "topic": "¿Qué pasaría si descendieras hoy mismo en un submarino hasta",
+    "theme": "ocean",
+    "voice_id": "alex_pe",
+    "voice_name": "es-PE-AlexNeural",
+    "gender": "male",
+    "rate": "+3%",
+    "pitch": "+1Hz",
+    "style": "analitico_exploracion_cientifica"
   }
 ]
