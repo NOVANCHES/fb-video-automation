@@ -103,7 +103,7 @@ def _build_youtube_client():
 def _build_title(topic: str, theme: str = "") -> str:
     """
     Genera un título optimizado para YouTube Shorts.
-    Máximo 100 caracteres. Siempre incluye #Shorts al final.
+    Máximo 100 caracteres. Garantiza #Shorts al final para máxima indexación.
     """
     emoji_map = {
         "ocean": "🌊",
@@ -116,16 +116,17 @@ def _build_title(topic: str, theme: str = "") -> str:
     }
     emoji = emoji_map.get(theme, "🔍")
     raw = f"{emoji} {topic.strip()}"
-    max_len = 97  # reservar espacio para " #S" si es que hace falta
+    suffix = " #Shorts"
+    max_len = 100 - len(suffix)
     if len(raw) > max_len:
         raw = raw[:max_len].rsplit(" ", 1)[0] + "…"
-    return raw
+    return f"{raw}{suffix}"
 
 
 def _build_description(topic: str, script_text: str, theme: str = "") -> str:
     """
     Genera una descripción optimizada para YouTube Shorts:
-    gancho, primeras 3 líneas del guion resumidas, pregunta de debate y hashtags.
+    gancho, primeras 3 líneas del guion resumidas, pregunta de debate, CTA de suscripción y hashtags.
     """
     theme_tags = {
         "ocean": ["#FosaDeMariana", "#OceanoMisterioso", "#SinFondo"],
@@ -145,9 +146,10 @@ def _build_description(topic: str, script_text: str, theme: str = "") -> str:
     desc = (
         f"{topic.strip()}\n\n"
         f"{snippet}\n\n"
-        "▶ Mira todos los capítulos hasta el final — el último dato lo cambia todo.\n"
-        f"👇 ¿Tú qué harías? Déjalo en los comentarios.\n\n"
-        f"Bruno Schiller | Misterios y Supervivencia\n\n"
+        "▶ Mira todos los capítulos hasta el final — el último giro lo cambia todo.\n"
+        "👇 ¿Tú qué harías en esta situación? ¡Déjalo en los comentarios!\n\n"
+        "🔔 ¡SUSCRÍBETE a @BrunoSchiller para más misterios, teorías y supervivencia extrema!\n\n"
+        "Bruno Schiller | Misterios y Supervivencia\n\n"
         f"{tags}"
     )
     return desc

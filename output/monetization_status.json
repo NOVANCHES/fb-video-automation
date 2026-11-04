@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-11-04T02:11:33.033768",
+  "youtube": {
+    "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
+    "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
+    "subscribers": 3,
+    "total_channel_videos": 1,
+    "shorts_tracked_count": 1,
+    "shorts_total_views": 1112,
+    "shorts_list": [
+      {
+        "video_id": "aK2WULkmgKo",
+        "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
+        "views": 1112,
+        "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
+      }
+    ],
+    "milestones": {
+      "tier1_fan_funding": {
+        "subs": {
+          "current": 3,
+          "target": 500,
+          "reached": false
+        },
+        "shorts_views": {
+          "current": 1112,
+          "target": 3000000,
+          "reached": false
+        },
+        "videos_90d": {
+          "current": 1,
+          "target": 3,
+          "reached": false
+        }
+      },
+      "tier2_full_ads": {
+        "subs": {
+          "current": 3,
+          "target": 1000,
+          "reached": false
+        },
+        "shorts_views": {
+          "current": 1112,
+          "target": 10000000,
+          "reached": false
+        }
+      }
+    }
+  },
+  "facebook": {
+    "profile_name": "Bruno Schiller",
+    "professional_mode": true,
+    "total_publications": 8,
+    "breakdown": {
+      "reels": 2,
+      "photos_with_stories": 0,
+      "text_debates": 0
+    },
+    "milestones": {
+      "ads_on_reels": {
+        "status": "En aceleración (invitación automática por retención y consistencia)",
+        "daily_target": 6
+      },
+      "performance_bonus": {
+        "status": "Activo por distribución multi-formato (fotos HD + reels)"
+      },
+      "in_stream_ads": {
+        "followers_target": 5000,
+        "minutes_target": 60000
+      },
+      "stars": {
+        "followers_target": 500
+      }
+    }
+  }
+}

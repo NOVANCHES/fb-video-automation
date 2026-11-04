@@ -86,6 +86,11 @@ jobs:
 
           eval "python -u main.py $FLAGS"
 
+      - name: Auditar métricas de monetización en vivo
+        if: always()
+        run: |
+          python monetization_tracker.py || true
+
       - name: Guardar historial de publicaciones (sin conflictos de merge)
         if: always()
         run: |
@@ -97,6 +102,7 @@ jobs:
           cp output/published_formats.json /tmp/published_formats.json 2>/dev/null || true
           cp output/voice_ab_history.json /tmp/voice_ab_history.json 2>/dev/null || true
           cp output/youtube_upload_history.json /tmp/youtube_upload_history.json 2>/dev/null || true
+          cp output/monetization_status.json /tmp/monetization_status.json 2>/dev/null || true
 
           # Sincronizar con remote y restaurar
           git checkout -- .
@@ -106,13 +112,15 @@ jobs:
           cp /tmp/published_formats.json output/published_formats.json 2>/dev/null || true
           cp /tmp/voice_ab_history.json output/voice_ab_history.json 2>/dev/null || true
           cp /tmp/youtube_upload_history.json output/youtube_upload_history.json 2>/dev/null || true
+          cp /tmp/monetization_status.json output/monetization_status.json 2>/dev/null || true
 
           git add \
             output/published_topics.json \
             output/published_formats.json \
             output/voice_ab_history.json \
             output/youtube_upload_history.json \
+            output/monetization_status.json \
             2>/dev/null || true
 
-          git diff --staged --quiet || git commit -m "Actualizar historial publicaciones [skip ci]"
+          git diff --staged --quiet || git commit -m "Actualizar historial y progreso monetizacion [skip ci]"
           git push origin main || true

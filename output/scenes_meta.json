@@ -1,22 +1,27 @@
 [
   {
-    "index": 1,
-    "title": "HÉROE ANTE HONDURAS",
-    "subtitle": "Atajó penales clave con la Selección."
+    "title": "ERROR 1: EL SÚPER",
+    "subtitle": "CAOS EN LOS PRIMEROS 30 MIN",
+    "theme": "zombie"
   },
   {
-    "index": 2,
-    "title": "LA CATORCE SALVADA",
-    "subtitle": "Atajada imposible a quemarropa contra Tigres."
+    "title": "ERROR 2: AUTOPISTAS",
+    "subtitle": "CARRILES BLOQUEADOS SIN SALIDA",
+    "theme": "zombie"
   },
   {
-    "index": 3,
-    "title": "EL BICAMPEONATO HISTÓRICO",
-    "subtitle": "Doble atajada brutal para el título."
+    "title": "ERROR 3: EL CELULAR",
+    "subtitle": "ANTENAS SATURADAS SIN RED",
+    "theme": "zombie"
   },
   {
-    "index": 4,
-    "title": "MURALLA DE CAMPEONATOS",
-    "subtitle": "Títulos ganados bajo los tres postes."
+    "title": "ERROR 4: EL EQUIPAJE",
+    "subtitle": "MOCHILA LIGERA DE 72 HORAS",
+    "theme": "zombie"
+  },
+  {
+    "title": "ERROR 5: EL PLAN",
+    "subtitle": "¿ESTÁS PREPARADO HOY?",
+    "theme": "zombie"
   }
 ]
