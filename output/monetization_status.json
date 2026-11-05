@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-05T01:22:27.776840",
+  "timestamp": "2026-11-05T04:32:38.807108",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 7,
-    "shorts_total_views": 2128,
+    "shorts_tracked_count": 8,
+    "shorts_total_views": 2135,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1118,
+        "views": 1119,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
         "video_id": "wBisq_D9INQ",
         "title": "🌿 Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
-        "views": 71,
+        "views": 76,
         "url": "https://www.youtube.com/shorts/wBisq_D9INQ"
       },
       {
         "video_id": "nySDD8GZxfw",
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-        "views": 12,
+        "views": 13,
         "url": "https://www.youtube.com/shorts/nySDD8GZxfw"
       },
       {
@@ -49,6 +49,12 @@
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de… #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/jrTFn1Zf4wQ"
+      },
+      {
+        "video_id": "u7OMOtWyUHc",
+        "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/u7OMOtWyUHc"
       }
     ],
     "milestones": {
@@ -59,12 +65,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2128,
+          "current": 2135,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 7,
+          "current": 8,
           "target": 3,
           "reached": true
         }
@@ -76,7 +82,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2128,
+          "current": 2135,
           "target": 10000000,
           "reached": false
         }
@@ -86,9 +92,9 @@
   "facebook": {
     "profile_name": "Bruno Schiller",
     "professional_mode": true,
-    "total_publications": 14,
+    "total_publications": 15,
     "breakdown": {
-      "reels": 8,
+      "reels": 9,
       "photos_with_stories": 2,
       "text_debates": 0
     },

@@ -141,5 +141,16 @@
     "rate": "+4%",
     "pitch": "-2Hz",
     "style": "tension_dramatica_supervivencia"
+  },
+  {
+    "timestamp": "2026-11-05T04:28:53.021938",
+    "topic": "¿Qué pasaría si descendieras hoy mismo en un submarino hasta",
+    "theme": "ocean",
+    "voice_id": "alex_pe",
+    "voice_name": "es-PE-AlexNeural",
+    "gender": "male",
+    "rate": "+3%",
+    "pitch": "-2Hz",
+    "style": "analitico_exploracion_cientifica"
   }
 ]
