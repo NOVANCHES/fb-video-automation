@@ -130,5 +130,16 @@
     "rate": "+5%",
     "pitch": "+0Hz",
     "style": "storytelling_viral_rapido"
+  },
+  {
+    "timestamp": "2026-11-05T01:18:58.500578",
+    "topic": "Si hoy sonaran las alarmas de evacuación en tu ciudad por un",
+    "theme": "zombie",
+    "voice_id": "alonso_us",
+    "voice_name": "es-US-AlonsoNeural",
+    "gender": "male",
+    "rate": "+4%",
+    "pitch": "-2Hz",
+    "style": "tension_dramatica_supervivencia"
   }
 ]
