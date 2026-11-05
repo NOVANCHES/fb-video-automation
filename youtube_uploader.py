@@ -15,6 +15,11 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -112,7 +117,7 @@ def _build_title(topic: str, theme: str = "") -> str:
         "prehistory": "🦕",
         "island": "🏝️",
         "jungle": "🌿",
-        "zombie": "⚠️",
+        "zombie": "[AVISO]",
     }
     emoji = emoji_map.get(theme, "🔍")
     raw = f"{emoji} {topic.strip()}"
@@ -238,7 +243,7 @@ def upload_to_youtube_shorts(
 
         video_id = response.get("id", "")
         url = f"https://www.youtube.com/shorts/{video_id}"
-        print(f"\n[YouTube Shorts] ✅ ¡Publicado con éxito!")
+        print(f"\n[YouTube Shorts] [OK] ¡Publicado con éxito!")
         print(f"                  URL: {url}")
         print(f"                  Título: {title}")
 
@@ -263,8 +268,8 @@ def upload_to_youtube_shorts(
         return url
 
     except EnvironmentError as e:
-        print(f"[YouTube Shorts] ⚠️  Configuración incompleta: {e}")
+        print(f"[YouTube Shorts] [AVISO]  Configuración incompleta: {e}")
         return None
     except Exception as e:
-        print(f"[YouTube Shorts] ❌ Error al subir: {e}")
+        print(f"[YouTube Shorts] [ERROR] Error al subir: {e}")
         return None

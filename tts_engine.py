@@ -71,34 +71,44 @@ async def generate_edge_tts_with_timings(
     rate: str = "+6%",
     pitch: str = "+0Hz",
 ) -> List[Dict[str, Any]]:
-    """Genera audio neural con Edge-TTS y calcula marcas de tiempo exactas por palabra."""
-    comm = edge_tts.Communicate(text=text, voice=voice, rate=rate, pitch=pitch)
+    """Genera audio neural con Edge-TTS y calcula marcas de tiempo exactas por palabra, con fallback automático de voz."""
+    fallback_voices = [voice, "es-MX-DaliaNeural", "es-CO-GonzaloNeural", "es-AR-TomasNeural"]
     timings: List[Dict[str, Any]] = []
 
-    with open(output_audio, "wb") as f:
-        async for chunk in comm.stream():
-            if chunk["type"] == "audio":
-                f.write(chunk["data"])
-            elif chunk["type"] == "WordBoundary":
-                s = chunk["offset"] / 10_000_000.0
-                d = chunk["duration"] / 10_000_000.0
-                timings.append({
-                    "word": chunk["text"],
-                    "start": s,
-                    "end": s + max(d, 0.12),
-                })
-            elif chunk["type"] == "SentenceBoundary":
-                s = chunk["offset"] / 10_000_000.0
-                d = chunk["duration"] / 10_000_000.0
-                sentence = chunk["text"]
-                words = sentence.split()
-                w_dur = d / max(1, len(words))
-                for idx, w in enumerate(words):
-                    timings.append({
-                        "word": w,
-                        "start": s + idx * w_dur,
-                        "end": s + (idx + 1) * w_dur,
-                    })
+    for attempt_voice in fallback_voices:
+        try:
+            comm = edge_tts.Communicate(text=text, voice=attempt_voice, rate=rate, pitch=pitch)
+            timings = []
+            with open(output_audio, "wb") as f:
+                async for chunk in comm.stream():
+                    if chunk["type"] == "audio":
+                        f.write(chunk["data"])
+                    elif chunk["type"] == "WordBoundary":
+                        s = chunk["offset"] / 10_000_000.0
+                        d = chunk["duration"] / 10_000_000.0
+                        timings.append({
+                            "word": chunk["text"],
+                            "start": s,
+                            "end": s + max(d, 0.12),
+                        })
+                    elif chunk["type"] == "SentenceBoundary":
+                        s = chunk["offset"] / 10_000_000.0
+                        d = chunk["duration"] / 10_000_000.0
+                        sentence = chunk["text"]
+                        words = sentence.split()
+                        w_dur = d / max(1, len(words))
+                        for idx, w in enumerate(words):
+                            timings.append({
+                                "word": w,
+                                "start": s + idx * w_dur,
+                                "end": s + (idx + 1) * w_dur,
+                            })
+
+            if output_audio.exists() and output_audio.stat().st_size > 5000:
+                return timings
+        except Exception as e:
+            print(f"[TTS] Voz {attempt_voice} fallo ({e}). Reintentando con siguiente...")
+            continue
 
     # Si por alguna razón timings vino vacío, calcular proporcionalmente
     if not timings and output_audio.exists():
