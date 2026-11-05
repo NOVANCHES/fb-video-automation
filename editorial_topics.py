@@ -1,229 +1,280 @@
 """
-Catálogo Dinámico de Temas Editoriales de Alta Retención (Estilo @ai._kid / Claude / Tech AI Hacks)
-Garantiza rotación infinita sin repetir nunca ningún tema ni reutilizar imágenes antiguas.
+Catálogo Maestro de Temas Virales: "CÓMO FUNCIONA EL MUNDO QUE EL 99% DESCONOCE"
+Pilar Central de Bruno Schiller: Misterios, Tecnología, Psicología y Secretos Ocultos.
+Cero repetición de temas, cero imágenes recicladas, 100% retención algorítmica.
 """
 
 import json
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from config import OUTPUT_DIR
 
-EDITORIAL_TOPICS: List[Dict[str, Any]] = [
+VIRAL_EXPLAINER_TOPICS: List[Dict[str, Any]] = [
     {
-        "id": "claude_video_editor",
-        "topic": "Cómo hacer que Claude Code y Remotion editen tus videos solo con texto",
-        "hook_title": "Borr[a] CapCut. Te edita Claude.",
-        "highlight_word": "Claude.",
-        "struck_items": ["Borr[a] CapCut.", "Borr[a] Premiere.", "Borr[a] Edits."],
-        "winner_item": "Te edita Claude.",
-        "step_headline": "Se conecta con tu compu.",
-        "step_highlight": "tu compu.",
-        "subhead_1": "Sin plugins raros. Sin pagar de más.",
-        "subhead_2": "Solo Claude, Git y Remotion.",
+        "id": "incognito_mode_reality",
+        "topic": "Cómo funciona realmente el Modo Incógnito y por qué no te hace invisible",
+        "hook_title": "Borr[a] el mito. No sos invisible.",
+        "highlight_word": "invisible.",
+        "struck_items": ["Borr[a] 'nadie me ve'.", "Borr[a] 'borra mi rastro'.", "Borr[a] 'navego seguro'."],
+        "winner_item": "La verdad del Incógnito.",
+        "step_headline": "Lo que sí hace tu navegador.",
+        "step_highlight": "tu navegador.",
+        "subhead_1": "Solo borra historial en tu pantalla local.",
+        "subhead_2": "Tu proveedor y Google ven todo.",
         "steps": [
-            ("PASO 1", "Claude Code", "lo instalás"),
-            ("PASO 2", "Git", "lo configurás"),
-            ("PASO 3", "Remotion", "y listo"),
+            ("PASO 1", "Tu Router", "registra cada web"),
+            ("PASO 2", "Tu ISP", "guarda tu IP y DNS"),
+            ("PASO 3", "Las Webs", "te rastrean por cookies"),
         ],
-        "terminal_headline": "Le hablás como a un editor.",
-        "terminal_highlight": "un editor.",
-        "terminal_prompt": "Tengo un video en esta carpeta. Cortá los silencios largos y dejalo con un ritmo natural. Aplicá mi LUT de color.",
-        "terminal_response": "Listo. Corté los silencios, apliqué tu LUT y te dejé el video editado en la misma carpeta.",
-        "features_headline": "Vos pedís. Él edita.",
-        "features_highlight": "Él edita.",
+        "terminal_headline": "Registro de red en vivo.",
+        "terminal_highlight": "en vivo.",
+        "terminal_prompt": "sudo netstat -an | grep 443 --monitorear paquetes salientes en modo incognito",
+        "terminal_response": "Tráfico detectado: IP de origen 192.168.1.5 enviando peticiones abiertas a servidores DNS de tu compañía telefónica.",
+        "features_headline": "Quién sí te está viendo.",
+        "features_highlight": "te está viendo.",
         "features": [
-            ("✂️", "Corta los silencios"),
-            ("🎬", "Aplica look de cine"),
-            ("✍️", "Escribe subtítulos"),
-            ("📈", "Crea animaciones"),
-            ("🔔", "Suma efectos sonido"),
-            ("🎨", "Usa tu marca"),
+            ("🌐", "Tu proveedor WiFi"),
+            ("🏢", "La red de tu trabajo"),
+            ("📱", "Tu operador móvil"),
+            ("🎯", "Google y Meta Ads"),
+            ("🕵️", "Páginas que visitas"),
+            ("🛡️", "Solo una VPN te tapa"),
         ],
-        "cta_word": "EDITOR",
-        "cta_promise": "Si perdés horas editando reels, te paso la guía completa para que Claude edite por vos.",
+        "cta_word": "PRIVACIDAD",
+        "cta_promise": "Si querés navegar 100% anónimo sin que nadie vea tu tráfico, comentá PRIVACIDAD y te paso la configuración correcta.",
         "narration_script": (
-            "CapCut, Premiere y los editores tradicionales ya no son la única forma de editar un reel. "
-            "Hoy con Claude Code y Remotion le escribís a la inteligencia artificial como a un editor de video: "
-            "le pedís que corte los silencios, que aplique tu color y que ponga subtítulos animados en segundos. "
-            "Todo corre en tu computadora, sin pagar de más y sin programas pesados. "
-            "Comentá EDITOR aquí abajo y te paso la guía completa para configurarlo hoy mismo."
+            "El noventa y cinco por ciento de las personas cree que abrir una pestaña en Modo Incógnito las hace invisibles en internet. "
+            "La cruda realidad es que el modo incógnito solo evita que alguien que use tu misma computadora vea tu historial local. "
+            "Tu proveedor de internet, la red WiFi de tu trabajo y las páginas que visitas siguen viendo exactamente a qué hora entraste y qué hiciste. "
+            "Si querés blindar tu conexión real, comentá PRIVACIDAD y te paso el método que sí funciona."
         ),
         "caption": (
-            "CapCut y Premiere ya no son la única forma de editar un reel. Con Claude Code y Remotion le escribís lo que querés como a un editor de video y te devuelve el video listo en tu carpeta. "
-            "Comentá EDITOR y te paso la guía completa por mensaje directo. "
-            "#ClaudeCode #Remotion #IA #Productividad #Reels #MarketingDigital"
+            "¿Creías que el Modo Incógnito te hacía invisible? La verdad que las empresas de tecnología no te dicen. "
+            "Comentá PRIVACIDAD y te mando la guía para blindar tu navegación real. "
+            "#Curiosidades #Tecnologia #ComoFunciona #Privacidad #Ciberseguridad #BrunoSchiller #Shorts"
         ),
     },
     {
-        "id": "whisper_audio_cleaner",
-        "topic": "Cómo limpiar cualquier audio y quitar ruido de fondo como estudio de cine con IA",
-        "hook_title": "Borr[a] micrófonos caros. Te limpia la IA.",
-        "highlight_word": "la IA.",
-        "struck_items": ["Borr[a] micrófonos.", "Borr[a] espumas.", "Borr[a] filtros."],
-        "winner_item": "Audio pro con IA.",
-        "step_headline": "Sonido de estudio en 1 clic.",
-        "step_highlight": "en 1 clic.",
-        "subhead_1": "Elimina eco, viento y ruido ambiental.",
-        "subhead_2": "Gratis desde tu navegador.",
+        "id": "tiktok_algorithm_mindreader",
+        "topic": "Cómo funciona el algoritmo de TikTok para saber qué te gusta antes de que lo busques",
+        "hook_title": "Borr[a] la casualidad. Lee tu mente.",
+        "highlight_word": "tu mente.",
+        "struck_items": ["Borr[a] 'es coincidencia'.", "Borr[a] 'me escucha el micro'.", "Borr[a] 'es magia'."],
+        "winner_item": "El algoritmo predictivo.",
+        "step_headline": "Mide milisegundos de tu dedo.",
+        "step_highlight": "de tu dedo.",
+        "subhead_1": "Cada pausa en la pantalla es un dato.",
+        "subhead_2": "Crea tu perfil psicológico en 40 minutos.",
         "steps": [
-            ("PASO 1", "Tu Audio", "lo grabás con el celu"),
-            ("PASO 2", "Adobe Speech", "subís el archivo"),
-            ("PASO 3", "Frecuencias", "mejora la voz"),
+            ("PASO 1", "El Scroll", "mide la velocidad"),
+            ("PASO 2", "La Retención", "registra re-visitas"),
+            ("PASO 3", "El Grafo", "te agrupa por gustos"),
         ],
-        "terminal_headline": "Le pedís aislar la voz.",
-        "terminal_highlight": "aislar la voz.",
-        "terminal_prompt": "Eliminá todo el ruido de tráfico, el eco de la habitación y dejá la voz limpia como micrófono Shure SM7B.",
-        "terminal_response": "Listo. Ruido de fondo reducido al 100% y curva de ecualización cálida aplicada.",
-        "features_headline": "Calidad pro. Cero costo.",
-        "features_highlight": "Cero costo.",
+        "terminal_headline": "Telemetría de retención.",
+        "terminal_highlight": "de retención.",
+        "terminal_prompt": "analizar_usuario --metricas [watch_time: 1.25, swipe_speed: -42ms, loop_count: 2]",
+        "terminal_response": "Patrón confirmado: Interés del 98% en misterios y tecnología. Inyectando 4 videos similares en su feed.",
+        "features_headline": "Las 6 señales que rastrea.",
+        "features_highlight": "que rastrea.",
         "features": [
-            ("🎙️", "Voz de estudio"),
-            ("💨", "Elimina viento"),
-            ("🔊", "Quita eco"),
-            ("⚡", "Procesa en segundos"),
-            ("📱", "Sirve en celular"),
-            ("💰", "100% Gratis"),
+            ("⏱️", "Segundos por video"),
+            ("🔁", "Veces que repites"),
+            ("💬", "Si abres comentarios"),
+            ("🔊", "Si subes el volumen"),
+            ("📤", "Si tocas compartir"),
+            ("👤", "Si visitas el perfil"),
         ],
-        "cta_word": "AUDIO",
-        "cta_promise": "Comentá AUDIO y te paso el link exacto de la herramienta gratuita con la plantilla de configuración.",
+        "cta_word": "ALGORITMO",
+        "cta_promise": "Comentá ALGORITMO y te paso el truco para reiniciar tu feed y hacer que te recomiende solo contenido de alto valor.",
         "narration_script": (
-            "Dejá de gastar cientos de dólares en micrófonos costosos y paneles acústicos. "
-            "Hoy podés grabar con el micrófono de tu celular en la calle o con eco en tu pieza, y con una sola herramienta de inteligencia artificial tu voz suena como grabada en un estudio de radio profesional. "
-            "Elimina el viento, el tráfico y los ruidos de fondo al instante. "
-            "Comentá AUDIO y te paso el acceso directo sin costo."
+            "¿Alguna vez sentiste que TikTok te lee los pensamientos? No necesita escuchar tu micrófono. "
+            "El algoritmo mide los milisegundos exactos que tu dedo se detiene en cada video, cuántas veces repites una escena y si abres los comentarios. "
+            "En menos de cuarenta minutos de uso, sabe tus inseguridades, tus obsesiones y lo que te da risa mejor que tus propios amigos. "
+            "Comentá ALGORITMO y te enseño cómo resetearlo."
         ),
         "caption": (
-            "Ya no necesitás un micrófono de 400 dólares para que tus reels se escuchen profesionales. Graba con tu celular y deja que la IA limpie el eco y el ruido. "
-            "Comentá AUDIO y te mando el enlace directo. #AudioIA #Podcasting #CreadoresDeContenido #TrucosDigitales #Productividad"
+            "El algoritmo no es magia ni te escucha el micrófono: es pura psicología y milisegundos de retención. "
+            "Comentá ALGORITMO y te paso el método para resetearlo desde cero. "
+            "#TikTokHacks #Psicologia #ComoFunciona #Tecnologia #Secretos #Viral #Shorts"
         ),
     },
     {
-        "id": "deepseek_reasoning_prompts",
-        "topic": "El truco de DeepSeek y Claude para razonar problemas complejos sin alucinar",
-        "hook_title": "Borr[a] ChatGPT básico. Llega el razonamiento.",
-        "highlight_word": "el razonamiento.",
-        "struck_items": ["Borr[a] prompts largos.", "Borr[a] respuestas vagas.", "Borr[a] alucinaciones."],
-        "winner_item": "DeepSeek R1 + Claude.",
-        "step_headline": "Pensamiento paso a paso.",
-        "step_highlight": "paso a paso.",
-        "subhead_1": "La IA ahora piensa antes de responder.",
-        "subhead_2": "Cero errores de lógica.",
+        "id": "airplane_single_engine",
+        "topic": "Qué pasa realmente en un avión comercial si se le apaga un motor en pleno vuelo",
+        "hook_title": "Borr[a] el pánico. Puede volar con uno.",
+        "highlight_word": "con uno.",
+        "struck_items": ["Borr[a] 'cae en picada'.", "Borr[a] 'se apaga todo'.", "Borr[a] 'es el final'."],
+        "winner_item": "Certificación ETOPS.",
+        "step_headline": "Diseñados para resistir.",
+        "step_highlight": "para resistir.",
+        "subhead_1": "Un solo motor puede mantener el vuelo 5 horas.",
+        "subhead_2": "Los pilotos entrenan esto cada 6 meses.",
         "steps": [
-            ("PASO 1", "Cadena de Pensar", "activás <think>"),
-            ("PASO 2", "Desglose", "analiza variables"),
-            ("PASO 3", "Solución", "código verificado"),
+            ("PASO 1", "El Timón", "compensa el giro"),
+            ("PASO 2", "Potencia", "sube al 100% empuje"),
+            ("PASO 3", "Desvío", "aterrizaje de manual"),
         ],
-        "terminal_headline": "Modo razonador activo.",
-        "terminal_highlight": "razonador activo.",
-        "terminal_prompt": "No respondas rápido. Analizá todas las fallas posibles de esta estrategia comercial y dame solo la opción más rentable.",
-        "terminal_response": "Pensando durante 14 segundos... He analizado 6 posibles cuellos de botella y encontré la solución óptima.",
-        "features_headline": "Lógica pura. Sin errores.",
-        "features_highlight": "Sin errores.",
+        "terminal_headline": "Protocolo de emergencia.",
+        "terminal_highlight": "de emergencia.",
+        "terminal_prompt": "ENG 1 FAIL -> Autothrottle MCT -> Rudder Trim 8.5 deg Left -> Descend to FL240",
+        "terminal_response": "Vuelo estabilizado con motor derecho a 24,000 pies. Rumbo fijado al aeropuerto alterno más cercano (45 minutos).",
+        "features_headline": "La ingeniería que te salva.",
+        "features_highlight": "que te salva.",
         "features": [
-            ("🧠", "Razonamiento real"),
-            ("🎯", "Sin alucinaciones"),
-            ("📊", "Análisis de datos"),
-            ("💡", "Estrategia infalible"),
-            ("💻", "Código perfecto"),
-            ("⚡", "Modelo Open Source"),
+            ("✈️", "Vuelo en crucero"),
+            ("⏱️", "Hasta 330 min con uno"),
+            ("🛬", "Planeo sin motores"),
+            ("👨‍✈️", "Simulador semestral"),
+            ("⚙️", "Sistemas triplicados"),
+            ("🛡️", "El transporte más seguro"),
         ],
-        "cta_word": "CEREBRO",
-        "cta_promise": "Comentá CEREBRO y te paso los 5 prompts de razonamiento profundo que multiplican tu productividad.",
+        "cta_word": "AVION",
+        "cta_promise": "Comentá AVION y te paso el mapa de qué aerolíneas tienen las rutas más seguras del mundo.",
         "narration_script": (
-            "La era de hacerle preguntas básicas a la inteligencia artificial se terminó. "
-            "Con los nuevos modelos de razonamiento como DeepSeek R1 y Claude, la inteligencia artificial primero piensa, analiza las fallas y verifica sus cálculos antes de darte una respuesta. "
-            "Es la diferencia entre una respuesta genérica y una solución de nivel experto para tu negocio. "
-            "Comentá CEREBRO y te paso los mejores prompts para activar este modo hoy."
+            "La mayoría de las personas cree que si a un avión comercial se le apaga una turbina en pleno vuelo sobre el océano, el avión cae en picada. "
+            "La realidad es que todos los aviones de pasajeros modernos están certificados con la norma E-TOPS. "
+            "Un solo motor tiene suficiente potencia para despegar, volar durante más de cuatro horas y aterrizar suavemente en tierra firme. "
+            "De hecho, si se apagaran ambos motores, un avión puede planear más de cien kilómetros sin combustible. "
+            "Comentá AVION si alguna vez tuviste miedo de volar."
         ),
         "caption": (
-            "Los modelos de razonamiento profundo están cambiando las reglas del juego. Dejan de inventar respuestas y resuelven problemas difíciles pensando paso a paso. "
-            "Comentá CEREBRO y te envío la lista de prompts por privado. #DeepSeek #Claude #InteligenciaArtificial #TechTrends #Productividad"
+            "Lo que las aerolíneas no te explican de cómo funcionan los motores de un avión comercial. "
+            "¿Le tienes miedo a volar o eres de los que duerme todo el vuelo? ¡Comentá AVION y te leo en los comentarios! "
+            "#Aviacion #Ciencia #ComoFunciona #Misterios #Supervivencia #BrunoSchiller #Shorts"
         ),
     },
     {
-        "id": "canva_ai_automation",
-        "topic": "Cómo generar 30 carruseles de Instagram en 5 minutos con IA y hojas de cálculo",
-        "hook_title": "Borr[a] diseño manual. Creá 30 posts en 5m.",
-        "highlight_word": "posts en 5m.",
-        "struck_items": ["Borr[a] Canva manual.", "Borr[a] copiar y pegar.", "Borr[a] horas perdidas."],
-        "winner_item": "Creación masiva con IA.",
-        "step_headline": "Tu contenido en piloto automático.",
-        "step_highlight": "piloto automático.",
-        "subhead_1": "De una idea a 30 publicaciones listas.",
-        "subhead_2": "Sin contratar diseñadores.",
+        "id": "supermarket_psychology_tricks",
+        "topic": "Por qué el pan y la leche siempre están al fondo del supermercado",
+        "hook_title": "Borr[a] la casualidad. Todo está pensado.",
+        "highlight_word": "está pensado.",
+        "struck_items": ["Borr[a] 'es por logística'.", "Borr[a] 'es casualidad'.", "Borr[a] 'entro y salgo'."],
+        "winner_item": "Neuromarketing visual.",
+        "step_headline": "El laberinto diseñado para gastar.",
+        "step_highlight": "para gastar.",
+        "subhead_1": "Te obligan a recorrer todos los pasillos.",
+        "subhead_2": "Gastás 40% más de lo planeado.",
         "steps": [
-            ("PASO 1", "Guiones IA", "generás la tabla"),
-            ("PASO 2", "Bulk Create", "conectás las celdas"),
-            ("PASO 3", "Exportar", "30 posts listos"),
+            ("PASO 1", "La Entrada", "frutas y panadería"),
+            ("PASO 2", "El Fondo", "leche, huevos y carne"),
+            ("PASO 3", "La Caja", "chicles y antojos"),
         ],
-        "terminal_headline": "Generá 30 días de contenido.",
-        "terminal_highlight": "días de contenido.",
-        "terminal_prompt": "Creá una tabla con 30 ganchos, 30 desarrollos y 30 llamados a la acción para creadores de tecnología.",
-        "terminal_response": "Tabla CSV generada con 30 filas listas para sincronizar con la plantilla de diseño.",
-        "features_headline": "Velocidad total. Tu marca.",
-        "features_highlight": "Tu marca.",
+        "terminal_headline": "Psicología de consumo.",
+        "terminal_highlight": "de consumo.",
+        "terminal_prompt": "calcular_impacto_recorrido --producto_basico: fondo_tienda --tiempo_estancia: +18_minutos",
+        "terminal_response": "Resultado: 3.4 productos no planificados agregados al carrito antes de llegar al refrigerador de lácteos.",
+        "features_headline": "Los 6 trucos invisibles.",
+        "features_highlight": "invisibles.",
         "features": [
-            ("📅", "Un mes en 5 min"),
-            ("🎨", "Tu paleta de color"),
-            ("📱", "Formato Reels y Feed"),
-            ("🚀", "Multiplica alcance"),
-            ("🤖", "100% Automatizado"),
-            ("💎", "Diseño editorial"),
+            ("🛒", "Carritos cada vez más grandes"),
+            ("🎵", "Música lenta para que no apures"),
+            ("🍞", "Olor a pan para abrir apetito"),
+            ("👁️", "Marcas caras a la altura de ojos"),
+            ("🧱", "Pisos lisos para deslizar fácil"),
+            ("🍫", "Golosinas en la fila de espera"),
         ],
-        "cta_word": "MASIVO",
-        "cta_promise": "Comentá MASIVO y te paso el archivo CSV con la plantilla editable para que crees tu contenido del mes.",
+        "cta_word": "TRUCO",
+        "cta_promise": "Comentá TRUCO y te paso los 5 hábitos de compradores inteligentes para ahorrarte 30% en cada visita.",
         "narration_script": (
-            "Si todavía estás diseñando cada post de redes sociales uno por uno desde cero, estás perdiendo al menos diez horas por semana. "
-            "Existe una función oculta para conectar una hoja de cálculo generada por inteligencia artificial directamente con tus plantillas de diseño y crear treinta publicaciones profesionales en menos de cinco minutos. "
-            "Comentá MASIVO aquí abajo y te paso el tutorial paso a paso con la plantilla lista."
+            "¿Alguna vez fuiste al supermercado solo por un litro de leche y terminaste saliendo con una bolsa llena de cosas que no necesitabas? "
+            "No es culpa de tu autocontrol. Los supermercados están diseñados por arquitectos del comportamiento. "
+            "Ponen el pan, la leche y los huevos al fondo para obligarte a caminar por pasillos llenos de ofertas tentadoras, mientras usan música de tempo lento para que camines más despacio. "
+            "Comentá TRUCO y te paso cómo vencer este sistema en tu próxima compra."
         ),
         "caption": (
-            "El secreto de los creadores que publican todos los días sin volverse locos: creación masiva conectando IA con plantillas. "
-            "Comentá MASIVO y te mando el tutorial completo por mensaje directo. #MarketingDigital #CanvaHacks #Automatizacion #IA #Creadores"
+            "Los supermercados no tienen ni una sola góndola puesta por casualidad. Así hackean tu mente para que compres de más. "
+            "¿Cuántas veces fuiste por leche y saliste con medio carrito lleno? ¡Comentá TRUCO y te paso la guía de ahorro! "
+            "#Psicologia #Finanzas #Curiosidades #ComoFunciona #Neuromarketing #BrunoSchiller #Shorts"
         ),
     },
     {
-        "id": "whatsapp_transcribe_bot",
-        "topic": "El bot secreto para resumir audios de WhatsApp de 10 minutos en 3 segundos",
-        "hook_title": "Borr[a] audios largos. Leé el resumen con IA.",
-        "highlight_word": "el resumen con IA.",
-        "struck_items": ["Borr[a] audios de 8 min.", "Borr[a] perder tiempo.", "Borr[a] escuchar apurado."],
-        "winner_item": "Transcripción en 3s.",
-        "step_headline": "Reenvías el audio y listo.",
-        "step_highlight": "y listo.",
-        "subhead_1": "Lee cualquier nota de voz al instante.",
-        "subhead_2": "Te da los puntos clave y tareas.",
+        "id": "battery_1_percent_secret",
+        "topic": "Qué pasa realmente dentro de tu celular cuando marca 1 por ciento de batería",
+        "hook_title": "Borr[a] el número. Es una mentira piadosa.",
+        "highlight_word": "mentira piadosa.",
+        "struck_items": ["Borr[a] 'le queda 1% exacto'.", "Borr[a] 'se gasta parejo'.", "Borr[a] 'lo cargo al 100%'."],
+        "winner_item": "El buffer de seguridad.",
+        "step_headline": "Tu batería jamás se vacía a cero.",
+        "step_highlight": "a cero.",
+        "subhead_1": "Si llegara a 0% real, la química moriría.",
+        "subhead_2": "El sistema se apaga para salvar el litio.",
         "steps": [
-            ("PASO 1", "El Audio", "lo recibís en WhatsApp"),
-            ("PASO 2", "Reenviar", "se lo pasás al bot"),
-            ("PASO 3", "Resumen", "leés en 3 segundos"),
+            ("PASO 1", "Voltaje Cae", "el chip BMS detecta baja"),
+            ("PASO 2", "Corte Seguro", "apaga la pantalla"),
+            ("PASO 3", "Reserva", "mantiene reloj y arranque"),
         ],
-        "terminal_headline": "Transcripción instantánea.",
-        "terminal_highlight": "instantánea.",
-        "terminal_prompt": "[Audio recibido: 7 minutos y 24 segundos] Transcribí y dame los 3 acuerdos de la llamada.",
-        "terminal_response": "Resumen: 1. Presupuesto aprobado. 2. Entrega el viernes a las 18hs. 3. Enviar contrato firmado.",
-        "features_headline": "Ahorrá horas. Cero estrés.",
-        "features_highlight": "Cero estrés.",
+        "terminal_headline": "Lectura BMS de litio.",
+        "terminal_highlight": "BMS de litio.",
+        "terminal_prompt": "cat /sys/class/power_supply/battery/voltage_now -> umbral_minimo: 3.2V",
+        "terminal_response": "Corte preventivo ejecutado a 3.25V. Reserva química del 5% intacta para evitar cristalización de ánodo de litio.",
+        "features_headline": "Cómo duplicar su vida útil.",
+        "features_highlight": "su vida útil.",
         "features": [
-            ("⚡", "Lee en 3 segundos"),
-            ("📋", "Lista de tareas"),
-            ("🔒", "100% Privado"),
-            ("🌐", "Cualquier idioma"),
-            ("🎧", "Funciona sin audífonos"),
-            ("🆓", "Versión gratuita"),
+            ("🔋", "Nunca dejes que muera a 0%"),
+            ("⚡", "Carga óptima: 20% a 80%"),
+            ("🌡️", "El calor degrada el litio"),
+            ("🔌", "Carga rápida calienta más"),
+            ("🌙", "Desconéctalo al amanecer"),
+            ("📱", "Tu batería durará 4 años"),
         ],
-        "cta_word": "RESUMEN",
-        "cta_promise": "Comentá RESUMEN y te paso el contacto directo del bot gratuito para tu WhatsApp.",
+        "cta_word": "BATERIA",
+        "cta_promise": "Comentá BATERIA y te paso los 3 ajustes ocultos de Android y iPhone que duplican la duración de tu carga diaria.",
         "narration_script": (
-            "¿Alguna vez te mandaron una nota de voz de siete minutos cuando estabas en una reunión o sin audífonos? "
-            "Con este bot gratuito de inteligencia artificial solo tenés que reenviar el audio por WhatsApp y en tres segundos te devuelve la transcripción completa y una lista con los puntos más importantes que tenés que responder. "
-            "Comentá RESUMEN y te paso el número del bot directamente."
+            "¿Por qué tu teléfono parece aguantar media hora entera en el uno por ciento de batería, pero cae del cien al noventa en cuestión de minutos? "
+            "El porcentaje que ves en pantalla no es una medida exacta de energía, sino una estimación matemática del chip de control. "
+            "Tu teléfono en realidad nunca deja que la batería se vacíe al cero por ciento real, porque si los iones de litio caen por debajo de cierto voltaje, la batería se daña químicamente y nunca más volvería a encender. "
+            "Comentá BATERIA y te paso cómo cuidar tu celular para que dure años como nuevo."
         ),
         "caption": (
-            "Se acabaron los audios interminables de WhatsApp. Reenviás la nota de voz y la IA te entrega los puntos clave en 3 segundos. "
-            "Comentá RESUMEN y te mando el bot gratis. #WhatsAppTips #Productividad #TrucosIA #Tecnologia #VidaDigital"
+            "El 1% de batería de tu teléfono es en realidad un seguro de vida químico. Descubre cómo funciona por dentro. "
+            "Comentá BATERIA y te paso los 3 ajustes ocultos para que tu carga rinda el doble. "
+            "#Bateria #Tecnologia #Smartphone #iPhone #Android #ComoFunciona #BrunoSchiller #Shorts"
+        ),
+    },
+    {
+        "id": "submarine_cables_internet",
+        "topic": "Por qué la 'nube' de internet no está en el cielo sino bajo el fondo del océano",
+        "hook_title": "Borr[a] el cielo. El internet está bajo el agua.",
+        "highlight_word": "bajo el agua.",
+        "struck_items": ["Borr[a] 'funciona por satélite'.", "Borr[a] 'está en las nubes'.", "Borr[a] 'es inalámbrico'."],
+        "winner_item": "1.4 millones de km de cables.",
+        "step_headline": "Cables de fibra en el abismo.",
+        "step_highlight": "en el abismo.",
+        "subhead_1": "El 99% del tráfico mundial va por el mar.",
+        "subhead_2": "Cruzan fosas a 8,000 metros de profundidad.",
+        "steps": [
+            ("PASO 1", "Fibra Óptica", "hilos de vidrio puro"),
+            ("PASO 2", "Repetidores", "amplifican la luz láser"),
+            ("PASO 3", "Llegada a Costa", "se conectan a servidores"),
+        ],
+        "terminal_headline": "Rastreo de ruta transatlántica.",
+        "terminal_highlight": "transatlántica.",
+        "terminal_prompt": "traceroute 8.8.8.8 --mostrar puntos de salto interoceánicos",
+        "terminal_response": "Salto 4: Estación de Amarre Fortaleza (Brasil) -> Cable EllaLink -> Salto 5: Estación Sines (Portugal) en 58 milisegundos a la velocidad de la luz.",
+        "features_headline": "Los secretos bajo el mar.",
+        "features_highlight": "bajo el mar.",
+        "features": [
+            ("🌊", "Grosor como manguera de jardín"),
+            ("🦈", "Blindados contra tiburones"),
+            ("⚡", "Impulsados por rayos láser"),
+            ("🚢", "Barcos especiales los reparan"),
+            ("🌐", "Cruzan todos los continentes"),
+            ("🔒", "El punto más crítico del mundo"),
+        ],
+        "cta_word": "INTERNET",
+        "cta_promise": "Comentá INTERNET y te paso el mapa interactivo en 3D de todos los cables que conectan el planeta ahora mismo.",
+        "narration_script": (
+            "Cuando la gente habla de guardar fotos en la nube o enviar un mensaje al otro lado del planeta, imagina que sus datos viajan al espacio por satélite. "
+            "La realidad es fascinante: más del noventa y nueve por ciento de todo el internet del mundo viaja a través de cables submarinos del grosor de una manguera de jardín, descansando en el lecho marino a miles de metros bajo el océano. "
+            "Si esos cables se cortaran, el mundo se quedaría desconectado en segundos. "
+            "Comentá INTERNET y te paso el mapa interactivo completo."
+        ),
+        "caption": (
+            "La nube no existe en el cielo: son millones de kilómetros de cables de fibra óptica bajo el fondo del mar. "
+            "Comentá INTERNET y te paso el mapa interactivo para que veas por dónde viajan tus datos. "
+            "#Internet #Ciencia #Oceano #ComoFunciona #Misterios #Tecnologia #BrunoSchiller #Shorts"
         ),
     },
 ]
@@ -231,27 +282,27 @@ EDITORIAL_TOPICS: List[Dict[str, Any]] = [
 
 def get_next_editorial_topic() -> Dict[str, Any]:
     """
-    Selecciona el siguiente tema editorial garantizando rotación estricta
-    sin repetir jamás un tema reciente (rastreado en editorial_history.json).
+    Selecciona el siguiente tema viral garantizando rotación estricta
+    sin repetir jamás ningún tema reciente (rastreado en editorial_history.json).
     """
     history_file = OUTPUT_DIR / "editorial_history.json"
     used_ids: List[str] = []
-    
+
     if history_file.exists():
         try:
             used_ids = json.loads(history_file.read_text(encoding="utf-8"))
         except Exception:
             used_ids = []
-            
-    # Filtrar temas disponibles que no se hayan usado recientemente
-    available = [t for t in EDITORIAL_TOPICS if t["id"] not in used_ids[-len(EDITORIAL_TOPICS)+1:]]
+
+    # Filtrar temas que no se hayan usado recientemente
+    available = [t for t in VIRAL_EXPLAINER_TOPICS if t["id"] not in used_ids[-len(VIRAL_EXPLAINER_TOPICS)+1:]]
     if not available:
-        available = EDITORIAL_TOPICS
-        
+        available = VIRAL_EXPLAINER_TOPICS
+
     chosen = available[0]
-    
+
     # Guardar en historial
     used_ids.append(chosen["id"])
     history_file.write_text(json.dumps(used_ids[-100:], ensure_ascii=False, indent=2), encoding="utf-8")
-    
+
     return chosen

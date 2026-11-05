@@ -211,8 +211,10 @@ def render_slide_hook(
     highlight_word: str,
     struck_items: List[str],
     winner_item: str,
+    subhead: str = "Lo que las empresas no te cuentan.",
+    kicker: str = "— LA VERDAD OCULTA",
     brand: str = "@BrunoSchiller",
-    tagline: str = "Automatizá tu contenido con IA",
+    tagline: str = "Cómo funciona el mundo real",
 ) -> Image.Image:
     img = create_base_canvas()
     draw_header_and_footer(img, brand=brand, tagline=tagline, kicker="— LA NUEVA FORMA")
@@ -220,7 +222,7 @@ def render_slide_hook(
 
     draw = ImageDraw.Draw(img, "RGBA")
     f_sub = _get_font("serif_reg", 38)
-    draw.text((90, y_next + 15), "Ya no perdás horas con procesos manuales.", fill=COLOR_TEXT_MUTED, font=f_sub)
+    draw.text((90, y_next + 15), subhead, fill=COLOR_TEXT_MUTED, font=f_sub)
 
     card_y = y_next + 110
     f_item = _get_font("serif_reg", 58)
@@ -335,9 +337,10 @@ def render_slide_terminal(
     highlight_word: str,
     prompt_text: str,
     response_text: str,
-    window_title: str = "claude · editor de video",
+    window_title: str = "terminal · diagnostico",
+    subtitle: str = "Lo que ocurre detrás de tu pantalla.",
     brand: str = "@BrunoSchiller",
-    tagline: str = "Automatizá tu contenido con IA",
+    tagline: str = "Cómo funciona el mundo real",
 ) -> Image.Image:
     img = create_base_canvas()
     draw_header_and_footer(img, brand=brand, tagline=tagline, kicker="— CÓMO SE USA")
@@ -345,7 +348,7 @@ def render_slide_terminal(
 
     draw = ImageDraw.Draw(img, "RGBA")
     f_sub = _get_font("serif_reg", 38)
-    draw.text((90, y_next + 18), "Le das órdenes en lenguaje natural.", fill=COLOR_TEXT_MUTED, font=f_sub)
+    draw.text((90, y_next + 18), subtitle, fill=COLOR_TEXT_MUTED, font=f_sub)
 
     card_w = 900
     card_h = 800
@@ -538,11 +541,20 @@ def render_editorial_package(topic_data: Dict[str, Any]) -> Tuple[List[Path], Pa
     """
     print(f"\n[Editorial Package] Procesando tema: '{topic_data['topic']}'...")
 
+    tagline = topic_data.get("tagline", "Cómo funciona el mundo real")
+    subhead_hook = topic_data.get("subhead_hook", "Lo que las empresas no te cuentan.")
+    kicker_hook = topic_data.get("kicker_hook", "— LA VERDAD OCULTA")
+    window_title = topic_data.get("window_title", "terminal · diagnostico")
+    terminal_subtitle = topic_data.get("terminal_subtitle", "Lo que ocurre detrás de tu pantalla.")
+
     s1 = render_slide_hook(
         title=topic_data["hook_title"],
         highlight_word=topic_data["highlight_word"],
         struck_items=topic_data["struck_items"],
         winner_item=topic_data["winner_item"],
+        subhead=subhead_hook,
+        kicker=kicker_hook,
+        tagline=tagline,
     )
     s2 = render_slide_steps(
         headline=topic_data["step_headline"],
@@ -550,21 +562,27 @@ def render_editorial_package(topic_data: Dict[str, Any]) -> Tuple[List[Path], Pa
         subhead_1=topic_data["subhead_1"],
         subhead_2=topic_data["subhead_2"],
         steps=topic_data["steps"],
+        tagline=tagline,
     )
     s3 = render_slide_terminal(
         headline=topic_data["terminal_headline"],
         highlight_word=topic_data["terminal_highlight"],
         prompt_text=topic_data["terminal_prompt"],
         response_text=topic_data["terminal_response"],
+        window_title=window_title,
+        subtitle=terminal_subtitle,
+        tagline=tagline,
     )
     s4 = render_slide_features(
         headline=topic_data["features_headline"],
         highlight_word=topic_data["features_highlight"],
         features=topic_data["features"],
+        tagline=tagline,
     )
     s5 = render_slide_cta(
         cta_word=topic_data["cta_word"],
         prompt_promise=topic_data["cta_promise"],
+        tagline="te espero en los comments",
     )
 
     slides = [s1, s2, s3, s4, s5]
