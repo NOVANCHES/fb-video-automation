@@ -1,10 +1,13 @@
 """
 Orquestador Principal Multi-Formato y Multi-Red para Creadores de Facebook y YouTube Shorts:
-  - Generación de Contenido Viral Estilo Editorial / Claude / AI KID:
-      * Lienzo crema minimalista (#F6F4ED) con tipografía serif y marcador resaltador.
-      * Ventana macOS terminal con prompts interactivos.
-      * Insignias de producción, pasos numerados y llamado viral a comentar ("COMENTÁ X").
-  - Rotación infinita de temas frescos de IA, productividad y tecnología (cero repetición de imágenes).
+  - Formato Video (80%): Motor Cinético Fluido (Estilo @finanz_ia, @nagumonetiza, @mixidev_esp):
+      * Movimiento continuo Ken Burns (zoom 1.0 -> 1.12 sin saltos).
+      * Subtítulos cinéticos "Pop-Spring" centrados en amarillo viral #FFE600 con rebote elástico.
+      * Ilustraciones HD dinámicas del personaje con poses y objetos en sincronía con el guion.
+      * Locución ElevenLabs / Neural con timestamps exactos por palabra.
+      * Música de fondo ambiental (BGM piano/chill) a 12% con audio ducking.
+  - Formato Foto (20%): Carrusel Editorial HD (Estilo Claude / AI KID):
+      * 5 postales HD con tipografía editorial, terminal y llamadas a comentar.
   - Publicación simultánea independiente en Facebook Reels y YouTube Shorts.
 """
 
@@ -16,10 +19,12 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from config import OUTPUT_DIR
+from config import ELEVENLABS_API_KEY, OUTPUT_DIR
 from editorial_animator import render_editorial_package
 from editorial_topics import get_next_editorial_topic
+from fluid_animator import render_fluid_video
 from uploader import upload_feed_post_to_facebook, upload_video_to_facebook
+from viral_topics import get_viral_story_by_id_or_random
 from youtube_uploader import upload_to_youtube_shorts
 
 
@@ -35,7 +40,7 @@ def _choose_next_format(requested_format: str) -> str:
         except Exception:
             history = []
 
-    # 80% videos virales editoriales, 20% postales HD con historias
+    # 80% videos virales fluidos, 20% postales carrusel HD
     cycle = ["video", "video", "video", "photo", "video"]
     next_fmt = cycle[len(history) % len(cycle)]
     history.append(next_fmt)
@@ -54,32 +59,42 @@ def run_full_pipeline(
     chosen_format = _choose_next_format(post_format.lower().strip())
 
     print("=" * 65)
-    print(f" INICIANDO PIPELINE (FORMATO: {chosen_format.upper()}) | ESTILO: Editorial Claude / AI KID")
+    print(f" INICIANDO PIPELINE (FORMATO: {chosen_format.upper()}) | ESTILO: Fluido Viral @finanz_ia")
     print("=" * 65)
 
-    # Obtener el siguiente tema no repetido del catálogo dinámico
-    topic_data = get_next_editorial_topic()
+    if chosen_format == "video":
+        # Usar guiones virales de alta retención para video fluido
+        topic_data = get_viral_story_by_id_or_random(topic if topic != "auto" else "")
+    else:
+        # Usar catálogo editorial para carrusel de diapositivas
+        topic_data = get_next_editorial_topic()
+
     if topic and topic.strip().lower() != "auto":
         topic_data["topic"] = topic.strip()
 
-    chosen_topic = topic_data["topic"]
-    chosen_caption = caption if caption else topic_data["caption"]
-    script_text = topic_data["narration_script"]
+    chosen_topic = topic_data.get("topic", "Misterios y Curiosidades")
+    chosen_caption = caption if caption else topic_data.get("caption", "")
+    script_text = topic_data.get("script") or topic_data.get("narration_script", "")
 
     print(f"\n[Tema seleccionado]: {chosen_topic}")
     print(f"[Formato elegido]:   {chosen_format}")
 
     # ──────────────────────────────────────────────────────────────────────
-    # FORMATO VIDEO: Motor Editorial Minimalista -> Facebook + YouTube Shorts
+    # FORMATO VIDEO: Motor Cinético Fluido -> Facebook Reels + YouTube Shorts
     # ──────────────────────────────────────────────────────────────────────
     if chosen_format == "video":
-        print("\n>>> FASE 1: Renderizando Paquete Editorial (5 Diapositivas HD + Audio Neural)...")
-        slide_paths, audio_path, final_video_path = render_editorial_package(topic_data)
+        print("\n>>> FASE 1: Renderizando Video Cinético Fluido (24 FPS + BGM + Subtítulos Pop)...")
+        final_video_path = OUTPUT_DIR / "video_final.mp4"
+        render_fluid_video(
+            topic_data=topic_data,
+            output_mp4=final_video_path,
+            preferred_tts="elevenlabs" if ELEVENLABS_API_KEY else "edge_tts",
+        )
 
         print(f"\n[Video listo]: {final_video_path} (Tamaño: {final_video_path.stat().st_size:,} bytes)")
 
         if not skip_upload:
-            # ─── Publicación en FACEBOOK (error independiente de YouTube) ────
+            # ─── Publicación en FACEBOOK ────
             print("\n>>> FASE 2A: Publicando Reel en FACEBOOK...")
             fb_ok = False
             try:
@@ -89,7 +104,7 @@ def run_full_pipeline(
             except Exception as e:
                 print(f"      [Facebook] ❌ Error: {e}")
 
-            # ─── Publicación en YOUTUBE SHORTS (independiente de Facebook) ───
+            # ─── Publicación en YOUTUBE SHORTS ───
             print("\n>>> FASE 2B: Subiendo a YOUTUBE SHORTS...")
             yt_url = None
             try:
@@ -105,37 +120,29 @@ def run_full_pipeline(
             except Exception as e:
                 print(f"      [YouTube] ❌ Error: {e}")
 
-            # ─── Resumen de resultados ────────────────────────────────────────
             print("\n" + "─" * 65)
             print(f"  Facebook Reels:   {'✅ PUBLICADO' if fb_ok else '❌ FALLIDO'}")
-            print(f"  YouTube Shorts:   {'✅ ' + yt_url if yt_url else '❌ FALLIDO (faltan YT_* secrets)'}")
+            print(f"  YouTube Shorts:   {'✅ ' + yt_url if yt_url else '❌ FALLIDO'}")
             print("─" * 65)
 
     # ──────────────────────────────────────────────────────────────────────
-    # FORMATO PHOTO: Hero Card Editorial HD (1080x1920) en Feed de Facebook
+    # FORMATO FOTO: Carrusel Editorial HD -> Facebook Post
     # ──────────────────────────────────────────────────────────────────────
     elif chosen_format == "photo":
-        print("\n>>> FASE 1: Generación de Diapositiva Editorial HD...")
+        print("\n>>> FASE 1: Renderizando Carrusel Editorial HD (5 Diapositivas)...")
         slide_paths, _, _ = render_editorial_package(topic_data)
-        hero_image = slide_paths[0]
+
+        # Publicar la postal principal de impacto
+        main_slide = slide_paths[0]
+        print(f"\n[Postal lista]: {main_slide}")
 
         if not skip_upload:
-            print("\n>>> FASE 2: Publicando en el feed de FACEBOOK")
+            print("\n>>> FASE 2: Publicando Postal Editorial en FACEBOOK...")
+            fb_ok = False
             try:
-                upload_feed_post_to_facebook(story_text=chosen_caption, image_path=hero_image, headless=headless)
-                print("      [Facebook] ✅ Publicado con éxito.")
-            except Exception as e:
-                print(f"      [Facebook] ❌ Error: {e}")
-
-    # ──────────────────────────────────────────────────────────────────────
-    # FORMATO TEXT: Publicación de debate / tutorial paso a paso
-    # ──────────────────────────────────────────────────────────────────────
-    elif chosen_format == "text":
-        print("\n>>> FASE 1: Publicando Tutorial / Debate de Texto en FACEBOOK")
-        if not skip_upload:
-            try:
-                upload_feed_post_to_facebook(story_text=chosen_caption, image_path=None, headless=headless)
-                print("      [Facebook] ✅ Publicado con éxito.")
+                upload_feed_post_to_facebook(image_path=main_slide, text=chosen_caption, headless=headless)
+                fb_ok = True
+                print("      [Facebook] ✅ Postal publicada con éxito.")
             except Exception as e:
                 print(f"      [Facebook] ❌ Error: {e}")
 
@@ -145,25 +152,14 @@ def run_full_pipeline(
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Pipeline multi-formato y multi-red (Facebook + YouTube Shorts)."
-    )
-    parser.add_argument("--topic", type=str, default="auto", help="Tema o 'auto'.")
-    parser.add_argument("--caption", type=str, default="", help="Descripción opcional.")
-    parser.add_argument(
-        "--format",
-        type=str,
-        default="auto",
-        choices=["auto", "video", "photo", "text"],
-        help="Formato de publicación.",
-    )
-    parser.add_argument("--skip-upload", action="store_true", help="Solo genera, no sube.")
-    parser.add_argument("--headless", action="store_true", help="Ejecuta el navegador oculto.")
-    parser.add_argument(
-        "--no-veo",
-        action="store_true",
-        help="Desactiva Google Veo (mantenido por compatibilidad).",
-    )
+    parser = argparse.ArgumentParser(description="Orquestador Bruno Schiller - Contenido Fluido Viral")
+    parser.add_argument("--topic", type=str, default="auto", help="Tema específico o 'auto'")
+    parser.add_argument("--caption", type=str, default="", help="Texto de la publicación")
+    parser.add_argument("--format", type=str, default="auto", choices=["auto", "video", "photo", "text"], help="Formato")
+    parser.add_argument("--skip-upload", action="store_true", help="Solo generar archivos sin subir")
+    parser.add_argument("--headless", action="store_true", help="Ejecutar navegador en modo invisible")
+    parser.add_argument("--use-veo", action="store_true", help="Usar Google Veo si está disponible")
+
     args = parser.parse_args()
 
     run_full_pipeline(
@@ -172,5 +168,5 @@ if __name__ == "__main__":
         post_format=args.format,
         skip_upload=args.skip_upload,
         headless=args.headless,
-        use_veo=not args.no_veo,
+        use_veo=args.use_veo,
     )

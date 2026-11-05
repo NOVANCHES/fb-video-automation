@@ -21,6 +21,9 @@ GEMINI_MODEL = "gemini-3.5-flash"
 # Configuración de Voz y Subtítulos
 TTS_VOICE = os.getenv("TTS_VOICE", "es-MX-JorgeNeural")
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
+ELEVENLABS_VOICE_ID = os.getenv("ELEVENLABS_VOICE_ID", "onwK4e9ZLuTAKqWW03F9")
+ELEVENLABS_MODEL_ID = os.getenv("ELEVENLABS_MODEL_ID", "eleven_multilingual_v2")
 
 # Resolución de video (Formato Vertical 9:16 para Facebook Reels / Videos)
 VIDEO_WIDTH = 1080
