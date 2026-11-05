@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-05T10:09:36.244659",
+  "timestamp": "2026-11-05T13:29:54.955144",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 9,
-    "shorts_total_views": 2311,
+    "shorts_tracked_count": 13,
+    "shorts_total_views": 2331,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1120,
+        "views": 1130,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
         "video_id": "wBisq_D9INQ",
         "title": "🌿 Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
-        "views": 76,
+        "views": 83,
         "url": "https://www.youtube.com/shorts/wBisq_D9INQ"
       },
       {
         "video_id": "nySDD8GZxfw",
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-        "views": 13,
+        "views": 14,
         "url": "https://www.youtube.com/shorts/nySDD8GZxfw"
       },
       {
@@ -41,7 +41,7 @@
       {
         "video_id": "jKX4BG4HLdg",
         "title": "🏝️ Cómo sobrevivirías si quedaras atrapado en una isla prohibida durante 30 días #Shorts",
-        "views": 2,
+        "views": 3,
         "url": "https://www.youtube.com/shorts/jKX4BG4HLdg"
       },
       {
@@ -61,6 +61,30 @@
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado? #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/hky86czSBWU"
+      },
+      {
+        "video_id": "XQltlDembVE",
+        "title": "🔍 Qué pasa realmente en un avión comercial si se le apaga un motor en pleno vuelo #Shorts",
+        "views": 1,
+        "url": "https://www.youtube.com/shorts/XQltlDembVE"
+      },
+      {
+        "video_id": "Ff9IQRMqcho",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/Ff9IQRMqcho"
+      },
+      {
+        "video_id": "7Cq5LJC9-ZI",
+        "title": "🔍 La bola de 660 toneladas suspendida en el cielo #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/7Cq5LJC9-ZI"
+      },
+      {
+        "video_id": "KXFErHiTUo4",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/KXFErHiTUo4"
       }
     ],
     "milestones": {
@@ -71,12 +95,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2311,
+          "current": 2331,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 9,
+          "current": 13,
           "target": 3,
           "reached": true
         }
@@ -88,7 +112,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2311,
+          "current": 2331,
           "target": 10000000,
           "reached": false
         }
@@ -100,7 +124,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 10,
+      "reels": 11,
       "photos_with_stories": 2,
       "text_debates": 0
     },
