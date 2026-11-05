@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-11-05T20:52:52.923612",
+  "timestamp": "2026-11-05T22:47:49.355694",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 13,
-    "shorts_total_views": 2382,
+    "shorts_tracked_count": 14,
+    "shorts_total_views": 2384,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1180,
+        "views": 1181,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
@@ -59,7 +59,7 @@
       {
         "video_id": "hky86czSBWU",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado? #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/hky86czSBWU"
       },
       {
@@ -85,6 +85,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/KXFErHiTUo4"
+      },
+      {
+        "video_id": "h9ILoF1YWxg",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/h9ILoF1YWxg"
       }
     ],
     "milestones": {
@@ -95,12 +101,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2382,
+          "current": 2384,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 13,
+          "current": 14,
           "target": 3,
           "reached": true
         }
@@ -112,7 +118,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2382,
+          "current": 2384,
           "target": 10000000,
           "reached": false
         }
@@ -124,7 +130,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 11,
+      "reels": 12,
       "photos_with_stories": 3,
       "text_debates": 0
     },
