@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-11-05T04:32:38.807108",
+  "timestamp": "2026-11-05T10:09:36.244659",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 8,
-    "shorts_total_views": 2135,
+    "shorts_tracked_count": 9,
+    "shorts_total_views": 2311,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1119,
+        "views": 1120,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
@@ -29,7 +29,7 @@
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 925,
+        "views": 1100,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -55,6 +55,12 @@
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/u7OMOtWyUHc"
+      },
+      {
+        "video_id": "hky86czSBWU",
+        "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado? #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/hky86czSBWU"
       }
     ],
     "milestones": {
@@ -65,12 +71,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2135,
+          "current": 2311,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 8,
+          "current": 9,
           "target": 3,
           "reached": true
         }
@@ -82,7 +88,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2135,
+          "current": 2311,
           "target": 10000000,
           "reached": false
         }
@@ -92,9 +98,9 @@
   "facebook": {
     "profile_name": "Bruno Schiller",
     "professional_mode": true,
-    "total_publications": 15,
+    "total_publications": 16,
     "breakdown": {
-      "reels": 9,
+      "reels": 10,
       "photos_with_stories": 2,
       "text_debates": 0
     },

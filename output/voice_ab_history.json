@@ -152,5 +152,16 @@
     "rate": "+3%",
     "pitch": "-2Hz",
     "style": "analitico_exploracion_cientifica"
+  },
+  {
+    "timestamp": "2026-11-05T10:05:43.413840",
+    "topic": "¿Cuánto tiempo lograrías mantenerte con vida si una máquina ",
+    "theme": "prehistory",
+    "voice_id": "jorge_mx",
+    "voice_name": "es-MX-JorgeNeural",
+    "gender": "male",
+    "rate": "+3%",
+    "pitch": "-1Hz",
+    "style": "documental_enérgico"
   }
 ]
