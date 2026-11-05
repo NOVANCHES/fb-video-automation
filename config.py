@@ -16,7 +16,7 @@ BROWSER_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
 
 # Configuración de Gemini API
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.5-flash"
 
 # Configuración de Voz y Subtítulos
 TTS_VOICE = os.getenv("TTS_VOICE", "es-MX-JorgeNeural")

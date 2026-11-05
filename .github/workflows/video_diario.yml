@@ -103,6 +103,7 @@ jobs:
           cp output/voice_ab_history.json /tmp/voice_ab_history.json 2>/dev/null || true
           cp output/youtube_upload_history.json /tmp/youtube_upload_history.json 2>/dev/null || true
           cp output/monetization_status.json /tmp/monetization_status.json 2>/dev/null || true
+          cp output/editorial_history.json /tmp/editorial_history.json 2>/dev/null || true
 
           # Sincronizar con remote y restaurar
           git checkout -- .
@@ -120,6 +121,7 @@ jobs:
             output/voice_ab_history.json \
             output/youtube_upload_history.json \
             output/monetization_status.json \
+            output/editorial_history.json \
             2>/dev/null || true
 
           git diff --staged --quiet || git commit -m "Actualizar historial y progreso monetizacion [skip ci]"
