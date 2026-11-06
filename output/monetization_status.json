@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-06T04:31:27.914794",
+  "timestamp": "2026-11-06T10:14:44.388132",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 16,
-    "shorts_total_views": 2392,
+    "shorts_tracked_count": 17,
+    "shorts_total_views": 2394,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
@@ -35,7 +35,7 @@
       {
         "video_id": "mR2KWYvrtJc",
         "title": "🌌 ¿Qué pasaría si una megatormenta solar golpeara la Tierra mañana mismo? #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/mR2KWYvrtJc"
       },
       {
@@ -95,7 +95,7 @@
       {
         "video_id": "vY5wwehbom4",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/vY5wwehbom4"
       },
       {
@@ -103,6 +103,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/5EqqwpwnVw0"
+      },
+      {
+        "video_id": "_v4LsOdQ9pw",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/_v4LsOdQ9pw"
       }
     ],
     "milestones": {
@@ -113,12 +119,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2392,
+          "current": 2394,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 16,
+          "current": 17,
           "target": 3,
           "reached": true
         }
@@ -130,7 +136,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2392,
+          "current": 2394,
           "target": 10000000,
           "reached": false
         }
@@ -142,7 +148,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 14,
+      "reels": 15,
       "photos_with_stories": 3,
       "text_debates": 0
     },
