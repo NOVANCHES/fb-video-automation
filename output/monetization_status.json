@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-07T11:56:46.423938",
+  "timestamp": "2026-11-07T18:26:42.642485",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 22,
-    "shorts_total_views": 2402,
+    "shorts_tracked_count": 23,
+    "shorts_total_views": 2406,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
@@ -23,13 +23,13 @@
       {
         "video_id": "nySDD8GZxfw",
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-        "views": 15,
+        "views": 17,
         "url": "https://www.youtube.com/shorts/nySDD8GZxfw"
       },
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 1103,
+        "views": 1104,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -137,8 +137,14 @@
       {
         "video_id": "Yj0zxFJBNu8",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/Yj0zxFJBNu8"
+      },
+      {
+        "video_id": "4WpAJ_75ROA",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/4WpAJ_75ROA"
       }
     ],
     "milestones": {
@@ -149,12 +155,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2402,
+          "current": 2406,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 22,
+          "current": 23,
           "target": 3,
           "reached": true
         }
@@ -166,7 +172,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2402,
+          "current": 2406,
           "target": 10000000,
           "reached": false
         }
@@ -178,7 +184,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 20,
+      "reels": 21,
       "photos_with_stories": 5,
       "text_debates": 0
     },
