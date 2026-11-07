@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-06T22:18:49.828807",
+  "timestamp": "2026-11-07T00:41:38.751056",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 19,
-    "shorts_total_views": 2400,
+    "shorts_tracked_count": 20,
+    "shorts_total_views": 2402,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
@@ -71,7 +71,7 @@
       {
         "video_id": "Ff9IQRMqcho",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 1,
+        "views": 3,
         "url": "https://www.youtube.com/shorts/Ff9IQRMqcho"
       },
       {
@@ -121,6 +121,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/2OZIUY8uAYY"
+      },
+      {
+        "video_id": "rSZ_ICA-95E",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/rSZ_ICA-95E"
       }
     ],
     "milestones": {
@@ -131,12 +137,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2400,
+          "current": 2402,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 19,
+          "current": 20,
           "target": 3,
           "reached": true
         }
@@ -148,7 +154,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2400,
+          "current": 2402,
           "target": 10000000,
           "reached": false
         }
@@ -160,7 +166,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 17,
+      "reels": 18,
       "photos_with_stories": 4,
       "text_debates": 0
     },
