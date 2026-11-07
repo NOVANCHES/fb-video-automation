@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-07T18:26:42.642485",
+  "timestamp": "2026-11-07T21:04:54.832511",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 23,
-    "shorts_total_views": 2406,
+    "shorts_tracked_count": 24,
+    "shorts_total_views": 2413,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
@@ -29,7 +29,7 @@
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 1104,
+        "views": 1107,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -47,7 +47,7 @@
       {
         "video_id": "jrTFn1Zf4wQ",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de… #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/jrTFn1Zf4wQ"
       },
       {
@@ -125,7 +125,7 @@
       {
         "video_id": "rSZ_ICA-95E",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 1,
+        "views": 4,
         "url": "https://www.youtube.com/shorts/rSZ_ICA-95E"
       },
       {
@@ -145,6 +145,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/4WpAJ_75ROA"
+      },
+      {
+        "video_id": "KJpHqwFdJaE",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/KJpHqwFdJaE"
       }
     ],
     "milestones": {
@@ -155,12 +161,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2406,
+          "current": 2413,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 23,
+          "current": 24,
           "target": 3,
           "reached": true
         }
@@ -172,7 +178,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2406,
+          "current": 2413,
           "target": 10000000,
           "reached": false
         }
@@ -184,7 +190,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 21,
+      "reels": 22,
       "photos_with_stories": 5,
       "text_debates": 0
     },
