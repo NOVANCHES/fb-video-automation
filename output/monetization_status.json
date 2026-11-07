@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-11-07T00:41:38.751056",
+  "timestamp": "2026-11-07T03:58:20.625099",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 20,
-    "shorts_total_views": 2402,
+    "shorts_tracked_count": 21,
+    "shorts_total_views": 2401,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1182,
+        "views": 1180,
         "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
       },
       {
@@ -113,7 +113,7 @@
       {
         "video_id": "WYB6_my5R5o",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/WYB6_my5R5o"
       },
       {
@@ -127,6 +127,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/rSZ_ICA-95E"
+      },
+      {
+        "video_id": "YUHxo6FSSO4",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/YUHxo6FSSO4"
       }
     ],
     "milestones": {
@@ -137,12 +143,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2402,
+          "current": 2401,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 20,
+          "current": 21,
           "target": 3,
           "reached": true
         }
@@ -154,7 +160,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2402,
+          "current": 2401,
           "target": 10000000,
           "reached": false
         }
@@ -166,7 +172,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 18,
+      "reels": 19,
       "photos_with_stories": 4,
       "text_debates": 0
     },
