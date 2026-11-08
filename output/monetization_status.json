@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-11-08T09:47:37.170012",
+  "timestamp": "2026-11-08T12:09:15.213552",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 26,
+    "shorts_tracked_count": 27,
     "shorts_total_views": 2413,
     "shorts_list": [
       {
@@ -163,6 +163,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/aNBUec4C_rI"
+      },
+      {
+        "video_id": "keocrp3NRJM",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/keocrp3NRJM"
       }
     ],
     "milestones": {
@@ -178,7 +184,7 @@
           "reached": false
         },
         "videos_90d": {
-          "current": 26,
+          "current": 27,
           "target": 3,
           "reached": true
         }
@@ -202,7 +208,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 24,
+      "reels": 25,
       "photos_with_stories": 6,
       "text_debates": 0
     },
