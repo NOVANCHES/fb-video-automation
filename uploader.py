@@ -338,14 +338,16 @@ def upload_video_to_facebook(
 
 
 def upload_feed_post_to_facebook(
-    story_text: str,
+    story_text: str = "",
     image_path: Path | None = None,
     headless: bool = False,
+    text: str = "",
 ) -> None:
     """
     Publica una Historia de Texto o una Foto HD con Historia en el muro del perfil/página
     de Facebook para cumplir los requisitos de variedad de contenido del Panel para Creadores.
     """
+    effective_text = story_text or text
     print("[Subida Muro] Iniciando navegador para publicar historia/foto en Facebook...")
     driver = _create_driver(headless=headless)
 
@@ -381,7 +383,7 @@ def upload_feed_post_to_facebook(
         )
         webdriver.ActionChains(driver).move_to_element(box).click().perform()
         time.sleep(0.5)
-        safe_story = "".join(c for c in story_text if ord(c) <= 0xFFFF).strip()
+        safe_story = "".join(c for c in effective_text if ord(c) <= 0xFFFF).strip()
         for paragraph in safe_story.split("\n"):
             box.send_keys(paragraph)
             box.send_keys(Keys.SHIFT, Keys.ENTER)

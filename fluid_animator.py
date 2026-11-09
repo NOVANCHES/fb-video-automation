@@ -92,14 +92,14 @@ def _spring_scale(rel_time: float, anim_dur: float = 0.18) -> float:
 def _get_word_color(text: str) -> Tuple[int, int, int]:
     """Asigna color semántico de alto impacto al estilo @finanz_ia y videos virales."""
     t = text.upper()
-    # 1. Dinero / Ganancia / Precios -> Verde Neón (#00FF66)
-    if any(k in t for k in ["DINERO", "DÓLARES", "DOLARES", "PRECIO", "MILES", "VALOR", "GANAN", "COMPRAR", "PALETS", "LOTES", "GRATIS", "MILLONES", "AHORRAR", "CASH"]):
+    # 1. Ganancia / Ahorro / Beneficio -> Verde Neón (#00FF66)
+    if any(k in t for k in ["DINERO", "DÓLARES", "DOLARES", "PRECIO", "MILES", "VALOR", "GANAN", "GANAS", "COMPRAR", "PALETS", "LOTES", "GRATIS", "MILLONES", "AHORRAR", "AHORRA", "EXTRA", "HORAS", "VIDA", "CASH", "100%"]):
         return (0, 255, 102)
-    # 2. Peligro / Alerta / Errores / Mentiras -> Rojo Escarlata (#FF3838)
-    if any(k in t for k in ["BASURA", "TRAMPA", "PELIGRO", "ERROR", "SUBEN", "SECRETO", "PÁNICO", "PANICO", "COLAPSO", "TERREMOTO", "CAE", "DEUDA", "CONDENA", "NUNCA", "MENTIRA"]):
+    # 2. Peligro / Alerta / Alarma / Drenaje -> Rojo Escarlata (#FF3838)
+    if any(k in t for k in ["BASURA", "TRAMPA", "PELIGRO", "ERROR", "SUBEN", "SECRETO", "OCULTO", "DRENA", "DRENANDO", "1%", "40%", "PÁNICO", "PANICO", "COLAPSO", "TERREMOTO", "CAE", "DEUDA", "CONDENA", "NUNCA", "MENTIRA", "MUERTE"]):
         return (255, 56, 56)
-    # 3. Tecnología / Marcas / Innovación -> Cyan Eléctrico (#00E5FF)
-    if any(k in t for k in ["AMAZON", "LAPTOPS", "CONSOLAS", "TIEMPO", "ALGORITMO", "ESFERA", "EDIFICIO", "CELULAR", "BATERÍA", "INTERNET", "CLAUDE", "ELEVENLABS", "RADAR"]):
+    # 3. Tecnología / Gadgets / Conectividad -> Cyan Eléctrico (#00E5FF)
+    if any(k in t for k in ["AMAZON", "LAPTOPS", "CONSOLAS", "TIEMPO", "ALGORITMO", "ESFERA", "EDIFICIO", "CELULAR", "TELÉFONO", "TELEFONO", "BATERÍA", "BATERIA", "INTERNET", "CLAUDE", "ELEVENLABS", "RADAR", "WIFI", "WI-FI", "BLUETOOTH", "AJUSTES", "PROCESADOR", "PANTALLA", "CHIP", "SEGUNDOS"]):
         return (0, 229, 255)
     # 4. Color base -> Amarillo Viral (#FFE500)
     return (255, 230, 0)

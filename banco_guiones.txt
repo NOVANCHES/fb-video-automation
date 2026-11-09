@@ -1,0 +1,405 @@
+# DIRECTRICES PARA EL AGENTE DE ANTIGRAVITY (NO BORRAR)
+# 1. Antes de generar un video, lee este archivo y busca el primer guion con [ESTADO: PENDIENTE].
+# 2. Usa exactamente el [GANCHO], [CUERPO] y [CIERRE] para la voz en off (TTS) y [VISUALES] para buscar clips o generar imágenes.
+# 3. Una vez procesado y subido el video, actualiza la línea de ese guion a [ESTADO: PUBLICADO] y guarda el archivo para no volver a repetirlo jamás.
+
+================================================================================
+ID: VID-001 | CATEGORÍA: Tecnología / IA | [ESTADO: PUBLICADO]
+TÍTULO: El botón oculto de tu teléfono que ahorra el 40% de batería
+VISUALES: close up smartphone battery, dark mode settings, microchip glowing, person charging phone
+GANCHO: Tu teléfono tiene un ajuste oculto que las marcas activan de fábrica y que drena hasta el 40% de tu batería sin que lo notes.
+CUERPO: Se llama "Escaneo continuo de Wi-Fi y Bluetooth". Aunque apagues el Wi-Fi desde la barra rápida, tu celular sigue buscando redes cada 10 segundos en segundo plano para ubicarte. Si entras a Ajustes, escribes "Búsqueda" o "Escaneo" en la lupa y desactivas ambas opciones, el procesador deja de trabajar en reposo y ganas hasta 3 horas extra de pantalla al día.
+CIERRE: Guárdalo antes de que se te olvide y revisa cómo está configurado el tuyo ahora mismo.
+================================================================================
+
+ID: VID-002 | CATEGORÍA: Curiosidades / Ciencia | [ESTADO: PENDIENTE]
+TÍTULO: Por qué nunca debes matar a esta araña en tu casa
+VISUALES: daddy long legs spider corner wall, house insects, macro lens spider web
+GANCHO: Si ves esta araña de patas largas en la esquina de tu cuarto, aplastarla es el peor error que puedes cometer.
+CUERPO: Se conoce como araña patona o de rincón doméstico, y es completamente inofensiva para los humanos. Lo sorprendente es que su telaraña y su rapidez le permiten cazar mosquitos, cucarachas pequeñas e incluso a la peligrosa araña violinista. Tener una en una esquina equivale a tener un exterminador silencioso trabajando gratis las 24 horas.
+CIERRE: ¿La dejas vivir o la sacas de tu casa? Déjalo en los comentarios.
+================================================================================
+
+ID: VID-003 | CATEGORÍA: Psicología / Vida Diaria | [ESTADO: PENDIENTE]
+TÍTULO: La regla de los 3 segundos para saber si alguien te miente
+VISUALES: person eye contact close up, nervous body language, detective interrogation vibe
+GANCHO: Puedes descubrir si alguien te está mintiendo en menos de 3 segundos fijándote solo en qué hace después de terminar su frase.
+CUERPO: Cuando una persona dice la verdad, su cerebro asume que le crees y relaja la mirada. Pero cuando alguien inventa una historia, siente ansiedad por verificar si te convenció. Por eso, el mentiroso mantiene un contacto visual fijo e inusual justo al terminar de hablar y suele tragar saliva o tocarse el cuello para aliviar la tensión.
+CIERRE: Ponlo a prueba hoy mismo y verás que nunca falla.
+================================================================================
+
+ID: VID-004 | CATEGORÍA: Finanzas / Trucos | [ESTADO: PENDIENTE]
+TÍTULO: Por qué los supermercados ponen el pan y la leche al fondo
+VISUALES: supermarket aisles, shopping cart fast motion, bakery section grocery store
+GANCHO: Ningún supermercado diseña sus pasillos al azar; todo está calculado para que gastes el doble de lo que planeabas.
+CUERPO: Los productos de compra diaria como leche, huevo y pan siempre están en las esquinas más alejadas de la entrada. Te obligan a recorrer decenas de pasillos llenos de ofertas visuales. Además, colocan los productos más caros a la altura de tus ojos y los más baratos abajo del todo, donde casi nadie se agacha a mirar.
+CIERRE: La próxima vez que vayas al súper, mira hacia el estante inferior y notarás la diferencia.
+================================================================================
+
+ID: VID-005 | CATEGORÍA: Espacio / Misterios | [ESTADO: PENDIENTE]
+TÍTULO: El sonido real del espacio captado por la NASA
+VISUALES: deep space nebula, black hole simulation, radio telescope dish at night
+GANCHO: Nos dijeron que en el espacio no hay sonido, pero lo que captaron los radiotelescopios cerca de un agujero negro parece sacado de una película de terror.
+CUERPO: En el cúmulo de galaxias de Perseo hay tanto gas caliente que las ondas de presión viajan a través de él. La NASA tradujo esas ondas acústicas al rango que el oído humano puede escuchar, revelando un zumbido grave y profundo que lleva resonando millones de años a través del cosmos.
+CIERRE: ¿Te atreverías a viajar al espacio si escucharas esto por la ventana?
+================================================================================
+
+ID: VID-006 | CATEGORÍA: Salud / Cuerpo Humano | [ESTADO: PENDIENTE]
+TÍTULO: Qué pasa en tu cerebro cuando sientes que te caes al dormir
+VISUALES: person waking up startled in bed, brain neurons firing animation, sleeping night
+GANCHO: ¿Alguna vez estabas a punto de dormirte y sentiste que caías al vacío dando un brinco brusco?
+CUERPO: Ese fenómeno se llama sacudida hipnagógica. Ocurre cuando tus músculos se relajan tan rápido y tu ritmo cardíaco baja tan de golpe que la parte primitiva de tu cerebro cree que tu cuerpo está muriendo o cayendo de un árbol. En respuesta, envía una descarga eléctrica inmediata para despertarte y salvarte la vida.
+CIERRE: Si te ha pasado esta semana, es señal de que necesitas descansar mejor.
+================================================================================
+
+ID: VID-007 | CATEGORÍA: Historia / Curiosidades | [ESTADO: PENDIENTE]
+TÍTULO: El hombre que sobrevivió a dos bombas atómicas
+VISUALES: historical black and white japan, train station vintage, atomic cloud archive style
+GANCHO: Existió un hombre tan desafortunado y a la vez tan suertudo que sobrevivió a las dos bombas atómicas en Japón en la misma semana.
+CUERPO: Tsutomu Yamaguchi estaba en Hiroshima por un viaje de trabajo el 6 de agosto de 1945 cuando cayó la primera bomba. Con quemaduras leves, tomó un tren de regreso a su casa para estar con su familia. Su hogar estaba en Nagasaki, justo donde tres días después cayó la segunda bomba. A pesar de todo, vivió hasta los 93 años.
+CIERRE: Comparte este video si no conocías esta increíble historia real.
+================================================================================
+
+ID: VID-008 | CATEGORÍA: Tecnología / Seguridad | [ESTADO: PENDIENTE]
+TÍTULO: Por qué nunca debes usar los puertos USB públicos del aeropuerto
+VISUALES: airport charging station usb, hacker laptop code, smartphone plugged in cable
+GANCHO: Conectar tu celular a los puertos USB gratuitos del aeropuerto o centros comerciales puede vaciar tu cuenta bancaria en segundos.
+CUERPO: Esta técnica se conoce como "Juice Jacking". Un cable USB no solo transmite energía, también transfiere datos. Los ciberdelincuentes modifican los puertos públicos para instalar un chip oculto que copia tus contraseñas o instala malware apenas conectas el teléfono. Siempre usa tu propio cuadrito cargador conectado al enchufe de pared.
+CIERRE: Envíaselo a esa persona que siempre anda buscando dónde cargar su celular.
+================================================================================
+
+ID: VID-009 | CATEGORÍA: Naturaleza / Animales | [ESTADO: PENDIENTE]
+TÍTULO: El único animal del planeta que es biológicamente inmortal
+VISUALES: glowing jellyfish underwater, deep ocean dark water, microscopic cells regenerating
+GANCHO: Mientras los humanos buscamos el secreto de la juventud, existe un animal en el océano que literalmente no puede morir de viejo.
+CUERPO: Se trata de la medusa Turritopsis dohrnii. Cuando envejece, sufre una herida o no encuentra comida, en lugar de morir, revierte sus células a su estado de bebé, convirtiéndose otra vez en un pólipo joven para empezar su vida desde cero. Puede repetir este ciclo infinitas veces.
+CIERRE: Los científicos ya estudian su ADN para entender cómo detener el envejecimiento.
+================================================================================
+
+ID: VID-010 | CATEGORÍA: Psicología / Productividad | [ESTADO: PENDIENTE]
+TÍTULO: El efecto Zeigarnik o por qué no puedes sacar una canción de tu cabeza
+VISUALES: person listening headphones, vinyl record spinning, brain thinking graphic
+GANCHO: Si tienes una canción pegada en la cabeza todo el día, hay un truco psicológico de 10 segundos para borrarla de inmediato.
+CUERPO: Tu cerebro sufre el "Efecto Zeigarnik", una tendencia a obsesionarse con las tareas que quedan incompletas. Como solo recuerdas el coro de la canción, tu mente la repite en bucle intentando terminarla. La solución es escuchar o cantar el final exacto de esa canción; al darle un cierre, tu cerebro archiva el recuerdo y te deja en paz.
+CIERRE: Pruébalo la próxima vez que no puedas dejar de tararear algo.
+================================================================================
+
+ID: VID-011 | CATEGORÍA: Curiosidades / Objetos | [ESTADO: PENDIENTE]
+TÍTULO: Para qué sirve realmente el agujero extra en tus tenis
+VISUALES: running shoes close up, tying shoelaces runner, athlete marathon track
+GANCHO: El 90% de las personas nunca usa este último agujero en sus tenis porque no sabe para qué fue diseñado.
+CUERPO: No está ahí por adorno. Sirve para crear un "bloqueo de talón". Si pasas la agujeta por ese orificio del mismo lado formando una pequeña oreja y luego cruzas los cordones por dentro antes de atarlos, el calzado sujeta tu tobillo sin apretar el empeine, evitando ampollas y que tu pie resbale al caminar o correr.
+CIERRE: Inténtalo en tus tenis favoritos y sentirás cómo cambia la comodidad al instante.
+================================================================================
+
+ID: VID-012 | CATEGORÍA: Ciencia / Clima | [ESTADO: PENDIENTE]
+TÍTULO: De dónde sale el olor a tierra mojada cuando llueve
+VISUALES: rain drops hitting dry soil, slow motion rain forest, thunderstorm clouds
+GANCHO: El olor a tierra mojada es uno de los aromas más relajantes del mundo, pero en realidad estás oliendo una trampa creada por bacterias.
+CUERPO: Ese aroma se llama "petricor" y proviene de una molécula llamada geosmina, producida por bacterias del suelo cuando todo está seco. Cuando caen las primeras gotas de lluvia, atrapan burbujas de aire que explotan y lanzan esta sustancia al viento. El oído y el olfato humano evolucionaron para detectarla a kilómetros porque significaba encontrar agua para sobrevivir.
+CIERRE: ¿A ti también te encanta este olor cuando empieza a llover?
+================================================================================
+
+ID: VID-013 | CATEGORÍA: Finanzas / Psicología | [ESTADO: PENDIENTE]
+TÍTULO: El truco de los restaurantes con el signo de pesos en el menú
+VISUALES: luxury restaurant menu close up, waiter serving gourmet food, dining table
+GANCHO: Si vas a un restaurante caro y notas que los precios del menú no tienen el signo de pesos o dólares, te están aplicando neuroventas.
+CUERPO: Estudios de la Universidad de Cornell demostraron que ver el símbolo de moneda o la palabra "pesos" activa en el cerebro el centro del dolor asociado a perder dinero. Al poner solo el número "250" limpio y en letra pequeña, gastas hasta un 12% más porque tu mente lo procesa como una cifra neutra y no como un cobro.
+CIERRE: Fíjate en la carta la próxima vez que salgas a comer y lo comprobarás.
+================================================================================
+
+ID: VID-014 | CATEGORÍA: Tecnología / Curiosidades | [ESTADO: PENDIENTE]
+TÍTULO: Por qué las letras del teclado no están en orden alfabético
+VISUALES: mechanical keyboard typing fast, vintage typewriter keys, office desk computer
+GANCHO: ¿Te has preguntado por qué el teclado de tu celular y computadora empieza con las letras Q-W-E-R-T-Y en lugar de A-B-C?
+CUERPO: Todo comenzó con las primeras máquinas de escribir mecánicas en 1870. Los mecanógrafos escribían tan rápido que las varillas de metal de las letras más usadas chocaban entre sí y se atascaban. Para solucionarlo, el inventor separó los pares de letras más comunes en los extremos para obligar a los dedos a recorrer más distancia, y ese diseño se quedó para siempre.
+CIERRE: Aunque hoy las pantallas no se atascan, nadie quiso volver a aprender desde cero.
+================================================================================
+
+ID: VID-015 | CATEGORÍA: Misterios / Geografía | [ESTADO: PENDIENTE]
+TÍTULO: El lugar más solitario del planeta Tierra (Punto Nemo)
+VISUALES: vast ocean waves aerial view, space station orbiting earth, satellite map ocean
+GANCHO: Existe un punto en el océano Pacífico donde estás más cerca de los astronautas en el espacio que de cualquier otro ser humano en la Tierra.
+CUERPO: Se llama Punto Nemo y está a más de 2,688 kilómetros de la isla habitada más cercana. En cambio, la Estación Espacial Internacional pasa por encima a solo 400 kilómetros de altura. Es un lugar tan aislado que las agencias espaciales lo usan como cementerio para estrellar satélites viejos sin riesgo para nadie.
+CIERRE: ¿Qué sentirías si estuvieras en un barco justo en medio de esa coordenada?
+================================================================================
+
+ID: VID-016 | CATEGORÍA: Salud / Hábitos | [ESTADO: PENDIENTE]
+TÍTULO: Por qué nunca debes tomar café apenas te despiertas
+VISUALES: pouring hot coffee mug morning, alarm clock 7am, cortisol hormone graphic
+GANCHO: Si lo primero que haces al levantarte de la cama es tomar una taza de café, estás provocando que te dé sueño al mediodía.
+CUERPO: Al despertar, tu cuerpo libera de forma natural un pico de cortisol, la hormona que te pone alerta. Si metes cafeína en ese momento, tu cerebro reduce su producción natural y genera tolerancia. Lo ideal es esperar 90 minutos después de despertar para tu primera taza; así aprovechas tu energía natural y el café te mantiene activo toda la tarde.
+CIERRE: Prueba retrasar tu café mañana y nota cómo cambia tu energía.
+================================================================================
+
+ID: VID-017 | CATEGORÍA: Aviación / Viajes | [ESTADO: PENDIENTE]
+TÍTULO: Por qué apagan las luces del avión al despegar y aterrizar
+VISUALES: airplane cabin dim lights night, airplane window city lights, pilot cockpit
+GANCHO: Muchos creen que las aerolíneas apagan las luces del avión al aterrizar de noche para ahorrar energía o para que duermas, pero la razón real es mucho más seria.
+CUERPO: El ojo humano tarda entre 10 y 20 minutos en adaptarse por completo a la oscuridad. Si ocurre una emergencia durante el aterrizaje o despegue nocturno y hay que evacuar, tener la cabina ya a oscuras permite que los pasajeros vean de inmediato las tiras luminosas del piso y el exterior sin quedar cegados por el cambio de luz.
+CIERRE: Por esa misma razón te piden subir la persiana de la ventanilla.
+================================================================================
+
+ID: VID-018 | CATEGORÍA: Naturaleza / Ciencia | [ESTADO: PENDIENTE]
+TÍTULO: Qué pasaría si todas las abejas desaparecieran mañana
+VISUALES: honeybee on flower macro, empty supermarket produce aisle, green agriculture field
+GANCHO: Si las abejas desaparecieran hoy mismo de la faz de la Tierra, los supermercados perderían más de la mitad de su comida en menos de tres meses.
+CUERPO: Más del 75% de los cultivos que alimentan a la humanidad dependen de la polinización. Sin abejas, no solo desaparecerían la miel, las almendras, las manzanas y el café, sino también la alfalfa con la que se alimenta al ganado, provocando una crisis alimentaria global sin precedentes.
+CIERRE: Si ves una abeja cansada en tu jardín, ponle una gota de agua con azúcar y sálvala.
+================================================================================
+
+ID: VID-019 | CATEGORÍA: Psicología / Mente | [ESTADO: PENDIENTE]
+TÍTULO: El efecto Mandela más famoso que engaña a tu memoria
+VISUALES: board game monopoly Rich Uncle Pennybags, old VHS tapes, brain memory glitch
+GANCHO: Estoy casi seguro de que recuerdas al señor del juego Monopoly usando un monóculo en el ojo, pero la realidad es que jamás lo tuvo.
+CUERPO: Esto se conoce como Efecto Mandela: cuando millones de personas comparten el recuerdo exacto de algo que nunca existió. Nuestro cerebro no guarda recuerdos como una cámara de video, sino que los reconstruye mezclando conceptos similares, como el traje elegante del personaje con otros dibujos antiguos que sí llevaban monóculo.
+CIERRE: ¿Tú también jurabas que tenía un lente en el ojo? Coméntalo aquí abajo.
+================================================================================
+
+ID: VID-020 | CATEGORÍA: Tecnología / Trucos | [ESTADO: PENDIENTE]
+TÍTULO: Cómo usar la cámara de tu celular para ver rayos infrarrojos
+VISUALES: tv remote control infrared light, smartphone camera screen, living room tv
+GANCHO: Cuando tu control remoto deja de funcionar, no sabes si se le acabaron las pilas o si se descompuso la tele, pero tu celular puede decírtelo en 2 segundos.
+CUERPO: Los controles remotos funcionan enviando un haz de luz infrarroja que el ojo humano es incapaz de ver. Sin embargo, el sensor de la cámara de tu teléfono sí lo detecta. Solo abre la cámara, apunta el foco del control hacia el lente y presiona cualquier botón: si ves un destello morado o blanco en la pantalla, las pilas están buenas.
+CIERRE: Ve por el control de tu sala y haz la prueba ahora mismo.
+================================================================================
+
+ID: VID-021 | CATEGORÍA: Historia / Inventos | [ESTADO: PENDIENTE]
+TÍTULO: El invento accidental que hoy está en todas las cocinas
+VISUALES: microwave oven kitchen, radar military dish vintage, melting chocolate bar
+GANCHO: El horno de microondas no fue creado para cocinar, sino que nació por accidente gracias a una barra de chocolate derretida en un laboratorio militar.
+CUERPO: En 1945, el ingeniero Percy Spencer trabajaba probando magnetrones para radares de alta potencia. Mientras estaba parado frente a uno de los tubos activos, notó que la barra de chocolate que llevaba en el bolsillo se había derretido por completo. Al día siguiente probó poner granos de maíz frente al aparato y cocinó las primeras palomitas por microondas de la historia.
+CIERRE: Un descuido en el bolsillo terminó cambiando todas las cocinas del mundo.
+================================================================================
+
+ID: VID-022 | CATEGORÍA: Ciencia / Espacio | [ESTADO: PENDIENTE]
+TÍTULO: En este planeta llueven diamantes literalmente del cielo
+VISUALES: planet neptune blue gas giant, sparkling diamonds falling animation, outer space
+GANCHO: Mientras en la Tierra los diamantes cuestan una fortuna, en Neptuno y Urano caen del cielo como si fuera granizo.
+CUERPO: La atmósfera de estos planetas gigantes helados tiene grandes cantidades de metano. La presión atmosférica es tan brutal y las tormentas eléctricas tan intensas que separan los átomos de carbono y los comprimen hasta convertirlos en diamantes sólidos que caen como lluvia hacia el núcleo del planeta.
+CIERRE: El único problema es que el viento allá supera los 2,000 kilómetros por hora.
+================================================================================
+
+ID: VID-023 | CATEGORÍA: Vida Diaria /Hogar | [ESTADO: PENDIENTE]
+TÍTULO: Para qué sirve el cajón que está debajo del horno de tu estufa
+VISUALES: kitchen oven bottom drawer, hot food plates, metallic stove kitchen
+GANCHO: Casi todas las familias usan el cajón de abajo de la estufa para guardar sartenes y charolas, pero ese nunca fue su propósito real.
+CUERPO: En la mayoría de las estufas de gas y eléctricas, ese compartimento es un "cajón calentador". Está diseñado para recibir el calor residual del horno y mantener calientes los platos de comida que ya terminaste de cocinar mientras se hornea el resto de la cena, sin que se resequen ni se enfríen.
+CIERRE: ¿Qué guardas tú actualmente debajo de tu horno?
+================================================================================
+
+ID: VID-024 | CATEGORÍA: Cuerpo Humano / Ciencia | [ESTADO: PENDIENTE]
+TÍTULO: Por qué tu voz suena tan diferente cuando te escuchas en un audio
+VISUALES: person recording voice note whatsapp, human ear anatomy graphic, sound waves
+GANCHO: ¿Por qué todos sentimos rechazo al escuchar nuestra propia voz grabada en un audio de WhatsApp?
+CUERPO: Cuando hablas, escuchas tu voz por dos vías: el aire exterior y la vibración de los huesos de tu cráneo. Los huesos transmiten mejor las frecuencias bajas, haciendo que en tu cabeza tu voz suene más grave, cálida y potente. En cambio, la grabación del micrófono capta solo las ondas del aire, mostrándote cómo te escuchan realmente los demás.
+CIERRE: Tranquilo, a los demás tu voz les parece totalmente normal porque así te han escuchado siempre.
+================================================================================
+
+ID: VID-025 | CATEGORÍA: Psicología / Comportamiento | [ESTADO: PENDIENTE]
+TÍTULO: La paradoja de la elección o por qué tardas más en elegir qué ver que en ver la película
+VISUALES: person scrolling netflix tv remote, couch night living room, movie thumbnails
+GANCHO: Pasas 40 minutos buscando qué película ver en las plataformas y al final terminas apagando la tele o viendo la misma serie de siempre.
+CUERPO: Los psicólogos llaman a esto "Paradoja de la Elección". Cuando el cerebro humano tiene menos de 5 opciones, decide rápido y queda satisfecho. Pero cuando tiene miles de películas disponibles, entra en parálisis por análisis: siente miedo de elegir mal y perder el tiempo en algo aburrido, agotando tu energía mental antes de darle al botón de reproducir.
+CIERRE: El truco es elegir tres opciones por la mañana y decidir solo entre esas tres por la noche.
+================================================================================
+
+ID: VID-026 | CATEGORÍA: Naturaleza / Geografía | [ESTADO: PENDIENTE]
+TÍTULO: El bosque que en realidad es un solo árbol gigante (Pando)
+VISUALES: autumn aspen forest golden leaves, tree roots underground network, drone forest shot
+GANCHO: En Utah existe un bosque entero de más de 40,000 árboles que en realidad son un único ser vivo conectado bajo tierra.
+CUERPO: Se conoce como "Pando" y es un organismo clonal de álamos temblones. Todos los troncos que ves en la superficie comparten exactamente el mismo ADN y brotan de una sola red gigantesca de raíces subterráneas que pesa más de 6,000 toneladas y tiene miles de años de antigüedad.
+CIERRE: Es oficialmente uno de los organismos vivos más pesados y antiguos de la Tierra.
+================================================================================
+
+ID: VID-027 | CATEGORÍA: Tecnología / IA | [ESTADO: PENDIENTE]
+TÍTULO: Cómo identificar una llamada clonada con Inteligencia Artificial
+VISUALES: incoming call unknown number smartphone, voice waveform synthesis, worried person phone
+GANCHO: Hoy en día bastan 3 segundos de un audio tuyo en redes sociales para que una inteligencia artificial clone tu voz y llame a tu familia pidiendo dinero.
+CUERPO: Las estafas con clonación de voz están creciendo rápido, pero tienen dos puntos débiles: primero, la IA todavía tiene un retraso de medio segundo al responder cuando la interrumpes a mitad de una frase. Segundo, la forma más segura de protegerte es acordar una "palabra clave familiar" secreta que solo ustedes sepan en caso de emergencia real.
+CIERRE: Comparte este video en el grupo de tu familia y elijan su palabra clave hoy mismo.
+================================================================================
+
+ID: VID-028 | CATEGORÍA: Curiosidades / Diseño | [ESTADO: PENDIENTE]
+TÍTULO: Por qué las tapas de las alcantarillas siempre son redondas
+VISUALES: city street manhole cover, engineering blueprint, workers lifting heavy iron lid
+GANCHO: Las cajas son cuadradas y las puertas rectangulares, entonces ¿por qué las tapas de las alcantarillas en todo el mundo son redondas?
+CUERPO: Es pura geometría e ingeniería práctica. Si una tapa fuera cuadrada o rectangular, podría caerse por el agujero si la giras en diagonal. En cambio, un círculo tiene el mismo diámetro en todas las direcciones, por lo que es físicamente imposible que una tapa redonda caiga dentro de su propio pozo, además de que un solo trabajador puede moverla haciéndola rodar.
+CIERRE: Esta pregunta incluso la usaban en las entrevistas de trabajo de Microsoft.
+================================================================================
+
+ID: VID-029 | CATEGORÍA: Salud / Ojos | [ESTADO: PENDIENTE]
+TÍTULO: Qué son esas manchitas transparentes que flotan en tu vista
+VISUALES: looking at bright blue sky, microscopic eye floaters animation, close up human eye
+GANCHO: Todos hemos visto esos pequeños gusanitos transparentes que flotan frente a tus ojos cuando miras al cielo y que se escapan apenas intentas enfocarlos.
+CUERPO: No están sobre tu ojo ni son polvo exterior. Se llaman "miodesopsias" y son diminutas fibras de colágeno agrupadas dentro del líquido gelatinoso que rellena tu globo ocular. Lo que ves en realidad es la sombra que proyectan sobre tu retina cuando pasa la luz, y se mueven porque flotan en el mismo líquido de tu ojo.
+CIERRE: Son completamente normales, a menos que aparezcan de repente acompañadas de destellos de luz.
+================================================================================
+
+ID: VID-030 | CATEGORÍA: Finanzas / Hábitos | [ESTADO: PENDIENTE]
+TÍTULO: La regla de las 48 horas que evita el 80% de las compras impulsivas
+VISUALES: online shopping cart checkout, credit card in hand, minimalist modern room
+GANCHO: Las tiendas en línea saben que si compras algo en los primeros 5 minutos de verlo, estás comprando con dopamina y no con lógica.
+CUERPO: Cuando ves un producto en oferta, tu cerebro libera dopamina anticipando la recompensa, no por necesitar el objeto. Si aplicas la regla de las 48 horas —dejar el producto en el carrito dos días sin pagarlo—, el pico químico desaparece. En 8 de cada 10 ocasiones, al tercer día ya ni siquiera te interesa comprarlo.
+CIERRE: Aplícalo en tu próxima compra en línea y verás cuánto dinero se queda en tu cuenta.
+================================================================================
+
+ID: VID-031 | CATEGORÍA: Historia / Misterios | [ESTADO: PENDIENTE]
+TÍTULO: La biblioteca perdida que retrasó a la humanidad mil años
+VISUALES: ancient library of alexandria burning, papyrus scrolls, ancient egypt architecture
+GANCHO: Se calcula que si la Biblioteca de Alejandría no hubiera sido destruida, el ser humano habría llegado a la Luna en el año 1800.
+CUERPO: En sus estantes se guardaban hasta medio millón de rollos de papiro con conocimientos avanzados de astronomía, medicina y matemáticas, incluyendo los primeros diseños de máquinas de vapor creados por Herón de Alejandría y cálculos de que la Tierra giraba alrededor del Sol siglos antes de Galileo.
+CIERRE: Gran parte de ese conocimiento tardó más de mil años en volver a descubrirse.
+================================================================================
+
+ID: VID-032 | CATEGORÍA: Ciencia / Física | [ESTADO: PENDIENTE]
+TÍTULO: Por qué el hielo resbala tanto bajo tus pies
+VISUALES: ice skating Rink blade macro, person slipping on icy sidewalk, water molecules crystal
+GANCHO: El vidrio es igual de liso y duro que el hielo, pero puedes caminar sobre vidrio sin resbalarte. ¿Por qué el hielo es tan traicionero?
+CUERPO: Durante años se creyó que la presión del zapato derretía el hielo, pero la física moderna demostró otra cosa: las moléculas de agua en la superficie superior del hielo no tienen otras moléculas arriba a las cuales sujetarse, por lo que quedan vibrando sueltas como una capa microscópica de canicas líquidas, incluso a temperaturas bajo cero.
+CIERRE: Literalmente estás pisando una alfombra invisible de moléculas rodantes.
+================================================================================
+
+ID: VID-033 | CATEGORÍA: Animales / Curiosidades | [ESTADO: PENDIENTE]
+TÍTULO: Por qué los gatos traen objetos o insectos a tu cama
+VISUALES: cute cat looking at owner, cat carrying toy in mouth, domestic cat home
+GANCHO: Si tu gato te deja un juguete o un insecto a los pies de tu cama, no te está dando un regalo de agradecimiento: cree que no sabes cazar.
+CUERPO: Para el instinto felino, tú eres parte de su colonia, pero como nunca te ve atrapar presas por tu cuenta, asume que eres un cazador torpe que corre peligro de pasar hambre. Al llevarte sus trofeos, está cumpliendo el rol que hacen las madres gatas para enseñar a sus crías a alimentarse.
+CIERRE: Aunque no te guste el regalo, para tu gato es la máxima prueba de que te cuida.
+================================================================================
+
+ID: VID-034 | CATEGORÍA: Tecnología / Wi-Fi | [ESTADO: PENDIENTE]
+TÍTULO: El peor lugar de tu casa para colocar el router del Wi-Fi
+VISUALES: wifi router blinking lights, living room tv stand, metal appliances kitchen
+GANCHO: Si tu internet se siente lento aunque pagues muchos megas, es muy probable que tengas el módem en uno de estos tres lugares prohibidos.
+CUERPO: Las ondas de Wi-Fi son absorbidas por el agua y rebotan en el metal y los espejos. Si pones tu router detrás de la televisión, cerca del microondas o junto a una pecera o espejo grande, pierdes hasta la mitad de la señal. El lugar perfecto es en un punto central de la casa, elevado a más de un metro del suelo y a la vista.
+CIERRE: Muévelo solo unos centímetros lejos de la tele y haz una prueba de velocidad.
+================================================================================
+
+ID: VID-035 | CATEGORÍA: Psicología / Sueño | [ESTADO: PENDIENTE]
+TÍTULO: El método militar para quedarse dormido en 2 minutos
+VISUALES: person sleeping peacefully dark room, breathing relaxation exercise, night sky stars
+GANCHO: Los pilotos de combate usan una técnica física para quedarse dormidos en menos de 2 minutos, incluso en ambientes ruidosos.
+CUERPO: Primero, relaja por completo los músculos de la cara, soltando la mandíbula y la lengua. Segundo, deja caer los hombros hacia el colchón y suelta los brazos. Tercero, exhala lento relajando el pecho y las piernas. Por último, imagina durante 10 segundos que estás acostado en una canoa sobre un lago quieto mirando el cielo azul.
+CIERRE: Con unos días de práctica funciona en el 96% de las personas. Guárdalo para esta noche.
+================================================================================
+
+ID: VID-036 | CATEGORÍA: Curiosidades / Comida | [ESTADO: PENDIENTE]
+TÍTULO: El único alimento en tu cocina que dura más de 3,000 años sin pudrirse
+VISUALES: golden honey dripping wooden spoon, Egyptian pyramids desert, glass jar honey
+GANCHO: Hay un alimento que tienes ahora mismo en tu alacena que jamás caduca, aunque en el envase venga impresa una fecha de vencimiento.
+CUERPO: Es la miel pura de abeja. Los arqueólogos han encontrado vasijas de miel en tumbas egipcias de más de 3,000 años de antigüedad que sigue siendo perfectamente comestible. Su bajísima humedad y su acidez natural crean un entorno donde ninguna bacteria ni hongo puede sobrevivir. Si se cristaliza y se pone dura, solo ponla en baño maría y vuelve a quedar líquida.
+CIERRE: La fecha del frasco solo la ponen por regulación comercial del envase.
+================================================================================
+
+ID: VID-037 | CATEGORÍA: Ciencia / Espacio | [ESTADO: PENDIENTE]
+TÍTULO: Por qué las huellas de los astronautas en la Luna durarán millones de años
+VISUALES: footprint on moon surface, astronaut walking moon, earth rising from moon
+GANCHO: Las primeras huellas que dejaron los astronautas en la Luna en 1969 siguen hoy intactas como si las hubieran pisado hace cinco minutos.
+CUERPO: A diferencia de la Tierra, la Luna no tiene atmósfera, ni viento, ni lluvia, ni actividad volcánica que borre las marcas del suelo. Lo único que puede alterar la superficie lunar es la caída de micrometeoritos, un proceso tan lento que esas pisadas seguirán ahí durante al menos 10 millones de años.
+CIERRE: Es el monumento humano más duradero que hemos dejado fuera de nuestro planeta.
+================================================================================
+
+ID: VID-038 | CATEGORÍA: Vida Diaria / Autos | [ESTADO: PENDIENTE]
+TÍTULO: El secreto de la flecha junto al icono de gasolina en tu auto
+VISUALES: car dashboard fuel gauge close up, gas station pump, driver inside car
+GANCHO: Si rentas un auto o usas uno prestado, no necesitas bajarte a ver de qué lado está el tapón de la gasolina al llegar a la estación.
+CUERPO: Mira el tablero de instrumentos justo donde aparece el dibujo de la bomba de combustible. Al lado del icono verás un pequeño triángulo o flecha apuntando a la izquierda o a la derecha. Esa flecha te indica con exactitud de qué costado del vehículo se encuentra la compuerta del tanque.
+CIERRE: Un detalle de diseño simple que te ahorra maniobras incómodas en la gasolinera.
+================================================================================
+
+ID: VID-039 | CATEGORÍA: Psicología / Memoria | [ESTADO: PENDIENTE]
+TÍTULO: Por qué olvidas a qué ibas apenas cruzas la puerta de un cuarto
+VISUALES: person standing confused in doorway, modern house hallway, brain thought bubble
+GANCHO: Entras a la cocina decidido a buscar algo, cruzas la puerta y de pronto tu mente se queda en blanco sin recordar a qué ibas.
+CUERPO: Los neurocientíficos lo llaman "Efecto Umbral". Tu cerebro organiza los pensamientos por entornos espaciales como si fueran capítulos de un libro. Cuando atraviesas una puerta y cambias de habitación, tu mente interpreta que cambiaste de escena, archiva lo que estabas pensando en el cuarto anterior y limpia la memoria de trabajo para el nuevo espacio.
+CIERRE: Por eso cuando regresas al cuarto donde estabas, te acuerdas al instante.
+================================================================================
+
+ID: VID-040 | CATEGORÍA: Naturaleza / Océano | [ESTADO: PENDIENTE]
+TÍTULO: Qué hay realmente en el fondo de la Fosa de las Marianas
+VISUALES: deep sea submarine light in dark, bioluminescent fish, ocean trench animation
+GANCHO: Si pusieras el Monte Everest en el fondo de la Fosa de las Marianas, su cumbre todavía quedaría bajo más de dos kilómetros de agua.
+CUERPO: A casi 11,000 metros de profundidad, la oscuridad es total y la presión equivale a tener 50 aviones comerciales aplastándote por cada centímetro. Aun así, cuando los submarinos bajaron, encontraron criaturas transparentes como el pez caracol, camarones gigantes y organismos que viven sin luz solar alimentándose de químicos térmicos.
+CIERRE: Conocemos mejor la superficie de Marte que el fondo de nuestros propios océanos.
+================================================================================
+
+ID: VID-041 | CATEGORÍA: Tecnología / Almacenamiento | [ESTADO: PENDIENTE]
+TÍTULO: Cómo liberar gigas de espacio oculto en WhatsApp sin borrar tus chats
+VISUALES: whatsapp storage settings screen, smartphone memory full warning, cleaning files icon
+GANCHO: Tu celular dice que tienes la memoria llena aunque ya borraste fotos, pero el verdadero culpable está escondido dentro de WhatsApp.
+CUERPO: Cada vez que reenvías un video o se descargan archivos automáticos de los grupos, se guardan copias duplicadas en una carpeta interna. Entra a Ajustes de WhatsApp, toca en "Almacenamiento y datos" y luego en "Administrar almacenamiento". Ahí verás la sección "De más de 5 MB", donde puedes borrar en 10 segundos gigas enteros de videos pesados sin perder tus conversaciones.
+CIERRE: Hazlo ahora y dime en los comentarios cuántos gigas lograste recuperar.
+================================================================================
+
+ID: VID-042 | CATEGORÍA: Historia / Curiosidades | [ESTADO: PENDIENTE]
+TÍTULO: El año en que no hubo verano en todo el planeta (1816)
+VISUALES: volcano eruption ash cloud, snowy summer landscape painting, dark sky storm
+GANCHO: En el año 1816 ocurrió algo tan extraño que en pleno mes de julio cayó nieve y se congelaron los lagos en Norteamérica y Europa.
+CUERPO: Pasó a la historia como "El año sin verano". La causa fue la colosal erupción del volcán Tambora en Indonesia meses antes, que lanzó tantas toneladas de ceniza y azufre a la estratósfera que creó un escudo global que bloqueó la luz del Sol, bajando la temperatura de todo el planeta y tiñendo los atardeceres de rojo durante más de un año.
+CIERRE: Durante encerrona por el frío en ese verano frío se escribió la novela de Frankenstein.
+================================================================================
+
+ID: VID-043 | CATEGORÍA: Ciencia / Cuerpo Humano | [ESTADO: PENDIENTE]
+TÍTULO: Por qué se nos arrugan los dedos en el agua (no es por absorberla)
+VISUALES: wrinkled fingers after bath close up, swimming pool water, human nervous system graphic
+GANCHO: Toda la vida nos dijeron que los dedos se arrugan en el agua porque la piel se esponja como una toalla, pero la ciencia demostró que es un reflejo del cerebro.
+CUERPO: Si una persona sufre daño en los nervios de un dedo, ese dedo jamás se arruga aunque pase horas bajo el agua. En realidad, tu sistema nervioso contrae los vasos sanguíneos bajo la piel a propósito para crear canales de drenaje, exactamente igual que el dibujo de las llantas de lluvia de un auto, dándote mejor agarre sobre superficies mojadas.
+CIERRE: Es una adaptación evolutiva brillante para no resbalar bajo la lluvia.
+================================================================================
+
+ID: VID-044 | CATEGORÍA: Psicología / Comunicación | [ESTADO: PENDIENTE]
+TÍTULO: Cómo hacer que cualquier persona te caiga bien usando el Efecto Ben Franklin
+VISUALES: two people talking coffee shop, friendly handshake office, lending a book
+GANCHO: Si sientes que alguien en tu trabajo o escuela es frío contigo, no le hagas un favor para caerle bien; pídele tú un favor pequeño a él.
+CUERPO: Se llama "Efecto Ben Franklin". Si le pides algo mínimo que no le cueste esfuerzo, como prestarte una pluma por un minuto o recomendarte un lugar para comer, su cerebro resuelve la contradicción interna pensando: "Si le acabo de hacer un favor, debe ser porque me cae bien". Esto rompe la barrera de desconfianza de forma inmediata.
+CIERRE: Un truco de psicología social simple que cambia cualquier ambiente tenso.
+================================================================================
+
+ID: VID-045 | CATEGORÍA: Curiosidades / Objetos | [ESTADO: PENDIENTE]
+TÍTULO: Para qué sirve el pequeño bolsillo dentro del bolsillo de tus jeans
+VISUALES: blue jeans small pocket close up, vintage pocket watch 1800s, denim fabric texture
+GANCHO: Todos los pantalones de mezclilla tienen ese diminuto bolsillo cuadrado donde apenas caben dos monedas, pero fue diseñado hace 150 años para otra cosa.
+CUERPO: En 1873, cuando Levi Strauss diseñó los primeros pantalones resistentes para mineros y vaqueros, los relojes de pulsera aún no eran comunes. Los hombres usaban relojes de bolsillo con cadena que se rompían fácilmente al trabajar. Ese pequeño compartimento fue cosido a la medida exacta para guardar el reloj ajustado y evitar que se golpeara.
+CIERRE: Aunque ya nadie usa reloj de cadena, el bolsillo se mantuvo como sello clásico.
+================================================================================
+
+ID: VID-046 | CATEGORÍA: Naturaleza / Plantas | [ESTADO: PENDIENTE]
+TÍTULO: El olor a pasto recién cortado es en realidad una señal de auxilio
+VISUALES: lawnmower cutting green grass, sunny backyard garden, microscopic plant cells
+GANCHO: Ese olor fresco a pasto recién cortado que tanto nos gusta es en realidad un grito químico de auxilio que lanzan las plantas.
+CUERPO: Cuando las hojas del césped son cortadas, liberan compuestos orgánicos volátiles de hoja verde. Esta nube química cumple dos funciones en la naturaleza: estimular la formación de células nuevas para sellar la herida de la planta y atraer insectos depredadores desde lejos para que se coman a las orugas que estarían mordiendo las hojas.
+CIERRE: Nunca volverás a ver tu jardín igual después de saber esto.
+================================================================================
+
+ID: VID-047 | CATEGORÍA: Tecnología / Pantallas | [ESTADO: PENDIENTE]
+TÍTULO: La regla 20-20-20 que salva tu vista si usas mucho el celular o la PC
+VISUALES: person working computer glasses, looking out window trees, eye strain animation
+GANCHO: Cuando miras la pantalla del celular o la computadora, tu frecuencia de parpadeo se reduce a menos de la mitad sin que te des cuenta.
+CUERPO: Eso reseca la córnea y agota el músculo ciliar que enfoca de cerca. Los oftalmólogos recomiendan la regla 20-20-20: cada 20 minutos de pantalla, levanta la vista durante 20 segundos y enfoca cualquier objeto que esté a unos 20 pies (6 metros) de distancia, como un árbol por la ventana. Esto relaja el cristalino al instante y evita el dolor de cabeza al final del día.
+CIERRE: Despega la vista de esta pantalla 20 segundos justo al terminar este video.
+================================================================================
+
+ID: VID-048 | CATEGORÍA: Aviación / Curiosidades | [ESTADO: PENDIENTE]
+TÍTULO: Por qué las ventanas de los aviones siempre son ovaladas y nunca cuadradas
+VISUALES: airplane window oval view clouds, commercial jet flying sky, engineering stress lines
+GANCHO: En los años 50 los aviones comerciales tenían ventanas cuadradas como las de una casa, hasta que descubrieron un peligro fatal en pleno vuelo.
+CUERPO: A gran altitud, la cabina presurizada se expande ligeramente. En una ventana cuadrada, toda la tensión física del metal se concentra en las cuatro esquinas de 90 grados, provocando grietas por fatiga que hicieron fallar a los primeros aviones a reacción. Al hacerlas ovaladas y curvas, la presión fluye de manera uniforme sin puntos débiles.
+CIERRE: Ese cambio en el diseño hizo de la aviación el transporte más seguro del mundo.
+================================================================================
+
+ID: VID-049 | CATEGORÍA: Ciencia / Tiempo | [ESTADO: PENDIENTE]
+TÍTULO: Por qué sientes que los años pasan más rápido mientras más creces
+VISUALES: clock hands spinning fast, childhood nostalgia photo album, calendar pages flying
+GANCHO: Cuando tenías 8 años sentías que las vacaciones de verano duraban una eternidad, pero hoy sientes que el año se te va en un parpadeo.
+CUERPO: Hay dos razones científicas: primero, la teoría de la proporción: a los 5 años, un año representa el 20% de toda tu vida vivida, mientras que a los 30 años es apenas el 3%. Segundo, de niño todo es nuevo y tu cerebro graba miles de detalles por segundo; de adulto vives en rutina y tu mente comprime los días repetitivos al recordarlos.
+CIERRE: Si quieres que el tiempo vuelva a sentirse largo, haz actividades nuevas cada fin de semana.
+================================================================================
+
+ID: VID-050 | CATEGORÍA: Misterios / Naturaleza | [ESTADO: PENDIENTE]
+TÍTULO: Las piedras que caminan solas por el desierto del Valle de la Muerte
+VISUALES: death valley sailing stones trail, cracked desert mud, night desert timelapse
+GANCHO: Durante décadas nadie pudo explicar cómo rocas de hasta 300 kilos se movían solas por el desierto dejando largos rastros en la tierra sin que nadie las tocara.
+CUERPO: En el Valle de la Muerte, en California, el misterio se resolvió cuando colocaron cámaras con GPS. Descubrieron que en las noches raras de invierno se forma una capa de agua de pocos centímetros que se congela como cristal delgado. Al salir el sol, el hielo se rompe en placas flotantes que, empujadas por una brisa suave, arrastran las pesadas rocas sobre el lodo resbaladizo antes de que todo se evapore.
+CIERRE: Una combinación perfecta de hielo, viento y desierto que parecía magia.
+================================================================================

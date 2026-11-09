@@ -23,6 +23,7 @@ from config import ELEVENLABS_API_KEY, OUTPUT_DIR
 from editorial_animator import render_editorial_package
 from editorial_topics import get_next_editorial_topic
 from fluid_animator import render_fluid_video
+from script_bank_manager import get_next_pending_script, mark_script_as_published
 from uploader import upload_feed_post_to_facebook, upload_video_to_facebook
 from viral_topics import get_viral_story_by_id_or_random
 from youtube_uploader import upload_to_youtube_shorts
@@ -40,8 +41,8 @@ def _choose_next_format(requested_format: str) -> str:
         except Exception:
             history = []
 
-    # 80% videos virales fluidos, 20% postales carrusel HD
-    cycle = ["video", "video", "video", "photo", "video"]
+    # Alterna automáticamente entre Video (Reels), Foto (Postal Editorial HD) y Texto (Debate)
+    cycle = ["video", "video", "photo", "video", "text"]
     next_fmt = cycle[len(history) % len(cycle)]
     history.append(next_fmt)
     fmt_history_path.write_text(json.dumps(history[-40:], ensure_ascii=False, indent=2), encoding="utf-8")
@@ -63,8 +64,14 @@ def run_full_pipeline(
     print("=" * 65)
 
     if chosen_format == "video":
-        # Usar guiones virales de alta retención para video fluido
-        topic_data = get_viral_story_by_id_or_random(topic if topic != "auto" else "")
+        # Priorizar el Banco Masivo de 50 Guiones del usuario
+        bank_script = get_next_pending_script()
+        if bank_script and (not topic or topic.strip().lower() == "auto"):
+            topic_data = bank_script
+            print(f"[Banco Guiones] Seleccionado guion pendiente: {topic_data['id']} - {topic_data['title']}")
+        else:
+            # Usar catálogo de respaldo si no hay banco o se solicitó un tema específico
+            topic_data = get_viral_story_by_id_or_random(topic if topic != "auto" else "")
     else:
         # Usar catálogo editorial para carrusel de diapositivas
         topic_data = get_next_editorial_topic()
@@ -125,6 +132,11 @@ def run_full_pipeline(
             print(f"  YouTube Shorts:   {'✅ ' + yt_url if yt_url else '❌ FALLIDO'}")
             print("─" * 65)
 
+            # Si el guion proviene del banco masivo, marcar como PUBLICADO para no repetirlo
+            if topic_data.get("id", "").startswith("VID-") and (fb_ok or yt_url):
+                mark_script_as_published(topic_data["id"], video_url=yt_url or "facebook_published")
+                print(f"[Banco Guiones] Guion {topic_data['id']} marcado como PUBLICADO con éxito.")
+
     # ──────────────────────────────────────────────────────────────────────
     # FORMATO FOTO: Carrusel Editorial HD -> Facebook Post
     # ──────────────────────────────────────────────────────────────────────
@@ -140,9 +152,27 @@ def run_full_pipeline(
             print("\n>>> FASE 2: Publicando Postal Editorial en FACEBOOK...")
             fb_ok = False
             try:
-                upload_feed_post_to_facebook(image_path=main_slide, text=chosen_caption, headless=headless)
+                upload_feed_post_to_facebook(story_text=chosen_caption, image_path=main_slide, headless=headless)
                 fb_ok = True
                 print("      [Facebook] ✅ Postal publicada con éxito.")
+            except Exception as e:
+                print(f"      [Facebook] ❌ Error: {e}")
+
+    # ──────────────────────────────────────────────────────────────────────
+    # FORMATO TEXT: Historia / Pregunta de Debate en Texto -> Facebook Post
+    # ──────────────────────────────────────────────────────────────────────
+    elif chosen_format == "text":
+        print("\n>>> FASE 1: Preparando Historia de Debate en Texto...")
+        story_content = chosen_caption or script_text
+        print(f"\n[Texto listo]:\n{story_content[:150]}...")
+
+        if not skip_upload:
+            print("\n>>> FASE 2: Publicando Historia de Debate en FACEBOOK...")
+            fb_ok = False
+            try:
+                upload_feed_post_to_facebook(story_text=story_content, image_path=None, headless=headless)
+                fb_ok = True
+                print("      [Facebook] ✅ Historia de debate publicada con éxito.")
             except Exception as e:
                 print(f"      [Facebook] ❌ Error: {e}")
 
