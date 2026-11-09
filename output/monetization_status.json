@@ -1,23 +1,17 @@
 {
-  "timestamp": "2026-11-09T14:15:59.383075",
+  "timestamp": "2026-11-09T23:16:57.030301",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 1156,
+    "shorts_total_views": 1140,
     "shorts_list": [
-      {
-        "video_id": "nySDD8GZxfw",
-        "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
-        "views": 17,
-        "url": "https://www.youtube.com/shorts/nySDD8GZxfw"
-      },
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 1110,
+        "views": 1111,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -187,6 +181,12 @@
         "title": "🔍 Por qué nunca debes matar a esta araña en tu casa #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/MRMgpnqX6hI"
+      },
+      {
+        "video_id": "VFeanOgzvxQ",
+        "title": "🔍 La regla de los 3 segundos para saber si alguien te miente #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/VFeanOgzvxQ"
       }
     ],
     "milestones": {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 1156,
+          "current": 1140,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 1156,
+          "current": 1140,
           "target": 10000000,
           "reached": false
         }
@@ -226,7 +226,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 31,
+      "reels": 32,
       "photos_with_stories": 0,
       "text_debates": 0
     },

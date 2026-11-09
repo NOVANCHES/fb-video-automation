@@ -20,7 +20,7 @@ CUERPO: Se conoce como araña patona o de rincón doméstico, y es completamente
 CIERRE: ¿La dejas vivir o la sacas de tu casa? Déjalo en los comentarios.
 ================================================================================
 
-ID: VID-003 | CATEGORÍA: Psicología / Vida Diaria | [ESTADO: PENDIENTE]
+ID: VID-003 | CATEGORÍA: Psicología / Vida Diaria | [ESTADO: PUBLICADO]
 TÍTULO: La regla de los 3 segundos para saber si alguien te miente
 VISUALES: person eye contact close up, nervous body language, detective interrogation vibe
 GANCHO: Puedes descubrir si alguien te está mintiendo en menos de 3 segundos fijándote solo en qué hace después de terminar su frase.
