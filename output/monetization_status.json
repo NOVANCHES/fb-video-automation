@@ -1,19 +1,13 @@
 {
-  "timestamp": "2026-11-09T10:43:46.293392",
+  "timestamp": "2026-11-09T14:15:59.383075",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 1239,
+    "shorts_total_views": 1156,
     "shorts_list": [
-      {
-        "video_id": "wBisq_D9INQ",
-        "title": "🌿 Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
-        "views": 86,
-        "url": "https://www.youtube.com/shorts/wBisq_D9INQ"
-      },
       {
         "video_id": "nySDD8GZxfw",
         "title": "🌊 El misterio de la Fosa de las Marianas: qué vive realmente a 11 kilómetros bajo el océano",
@@ -75,22 +69,22 @@
         "url": "https://www.youtube.com/shorts/7Cq5LJC9-ZI"
       },
       {
-        "video_id": "KXFErHiTUo4",
+        "video_id": "7RGg8SEDVy8",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
-        "url": "https://www.youtube.com/shorts/KXFErHiTUo4"
+        "url": "https://www.youtube.com/shorts/7RGg8SEDVy8"
       },
       {
-        "video_id": "h9ILoF1YWxg",
-        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "video_id": "QAUJ62C10XQ",
+        "title": "🔍 La bola de 660 toneladas suspendida en el cielo #Shorts",
         "views": 1,
-        "url": "https://www.youtube.com/shorts/h9ILoF1YWxg"
+        "url": "https://www.youtube.com/shorts/QAUJ62C10XQ"
       },
       {
-        "video_id": "vY5wwehbom4",
-        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 1,
-        "url": "https://www.youtube.com/shorts/vY5wwehbom4"
+        "video_id": "qpw6OxXxBzE",
+        "title": "🔍 La trampa secreta de las aerolíneas con tus cookies #Shorts",
+        "views": 3,
+        "url": "https://www.youtube.com/shorts/qpw6OxXxBzE"
       },
       {
         "video_id": "5EqqwpwnVw0",
@@ -183,10 +177,16 @@
         "url": "https://www.youtube.com/shorts/EWkdXQzhJH4"
       },
       {
-        "video_id": "FaYR-tHV2So",
-        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "video_id": "zABw5l8qxI0",
+        "title": "🔍 El botón oculto de tu teléfono que ahorra el 40% de batería #Shorts",
+        "views": 1,
+        "url": "https://www.youtube.com/shorts/zABw5l8qxI0"
+      },
+      {
+        "video_id": "MRMgpnqX6hI",
+        "title": "🔍 Por qué nunca debes matar a esta araña en tu casa #Shorts",
         "views": 0,
-        "url": "https://www.youtube.com/shorts/FaYR-tHV2So"
+        "url": "https://www.youtube.com/shorts/MRMgpnqX6hI"
       }
     ],
     "milestones": {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 1239,
+          "current": 1156,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 1239,
+          "current": 1156,
           "target": 10000000,
           "reached": false
         }
@@ -226,8 +226,8 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 29,
-      "photos_with_stories": 7,
+      "reels": 31,
+      "photos_with_stories": 0,
       "text_debates": 0
     },
     "milestones": {

@@ -12,7 +12,7 @@ CUERPO: Se llama "Escaneo continuo de Wi-Fi y Bluetooth". Aunque apagues el Wi-F
 CIERRE: Guárdalo antes de que se te olvide y revisa cómo está configurado el tuyo ahora mismo.
 ================================================================================
 
-ID: VID-002 | CATEGORÍA: Curiosidades / Ciencia | [ESTADO: PENDIENTE]
+ID: VID-002 | CATEGORÍA: Curiosidades / Ciencia | [ESTADO: PUBLICADO]
 TÍTULO: Por qué nunca debes matar a esta araña en tu casa
 VISUALES: daddy long legs spider corner wall, house insects, macro lens spider web
 GANCHO: Si ves esta araña de patas largas en la esquina de tu cuarto, aplastarla es el peor error que puedes cometer.
