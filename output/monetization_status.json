@@ -1,19 +1,13 @@
 {
-  "timestamp": "2026-11-09T03:55:29.276179",
+  "timestamp": "2026-11-09T10:43:46.293392",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 2417,
+    "shorts_total_views": 1239,
     "shorts_list": [
-      {
-        "video_id": "aK2WULkmgKo",
-        "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de emergencia",
-        "views": 1180,
-        "url": "https://www.youtube.com/shorts/aK2WULkmgKo"
-      },
       {
         "video_id": "wBisq_D9INQ",
         "title": "🌿 Por qué existen zonas del Amazonas donde ni los drones ni los satélites pueden ver el suelo",
@@ -29,7 +23,7 @@
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 1108,
+        "views": 1110,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -187,6 +181,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/EWkdXQzhJH4"
+      },
+      {
+        "video_id": "FaYR-tHV2So",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/FaYR-tHV2So"
       }
     ],
     "milestones": {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2417,
+          "current": 1239,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2417,
+          "current": 1239,
           "target": 10000000,
           "reached": false
         }
@@ -226,7 +226,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 28,
+      "reels": 29,
       "photos_with_stories": 7,
       "text_debates": 0
     },
