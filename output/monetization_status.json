@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-09T00:35:06.836816",
+  "timestamp": "2026-11-09T03:55:29.276179",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
-    "shorts_tracked_count": 29,
-    "shorts_total_views": 2414,
+    "shorts_tracked_count": 30,
+    "shorts_total_views": 2417,
     "shorts_list": [
       {
         "video_id": "aK2WULkmgKo",
@@ -29,7 +29,7 @@
       {
         "video_id": "c5SAtsJsYy8",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado?",
-        "views": 1107,
+        "views": 1108,
         "url": "https://www.youtube.com/shorts/c5SAtsJsYy8"
       },
       {
@@ -137,7 +137,7 @@
       {
         "video_id": "Yj0zxFJBNu8",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 1,
+        "views": 3,
         "url": "https://www.youtube.com/shorts/Yj0zxFJBNu8"
       },
       {
@@ -181,6 +181,12 @@
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/0NCMQajnuQc"
+      },
+      {
+        "video_id": "EWkdXQzhJH4",
+        "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/EWkdXQzhJH4"
       }
     ],
     "milestones": {
@@ -191,12 +197,12 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2414,
+          "current": 2417,
           "target": 3000000,
           "reached": false
         },
         "videos_90d": {
-          "current": 29,
+          "current": 30,
           "target": 3,
           "reached": true
         }
@@ -208,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 2414,
+          "current": 2417,
           "target": 10000000,
           "reached": false
         }
@@ -220,7 +226,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 27,
+      "reels": 28,
       "photos_with_stories": 7,
       "text_debates": 0
     },
