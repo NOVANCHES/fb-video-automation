@@ -52,7 +52,7 @@ CUERPO: Ese fenómeno se llama sacudida hipnagógica. Ocurre cuando tus músculo
 CIERRE: Si te ha pasado esta semana, es señal de que necesitas descansar mejor.
 ================================================================================
 
-ID: VID-007 | CATEGORÍA: Historia / Curiosidades | [ESTADO: PENDIENTE]
+ID: VID-007 | CATEGORÍA: Historia / Curiosidades | [ESTADO: PUBLICADO]
 TÍTULO: El hombre que sobrevivió a dos bombas atómicas
 VISUALES: historical black and white japan, train station vintage, atomic cloud archive style
 GANCHO: Existió un hombre tan desafortunado y a la vez tan suertudo que sobrevivió a las dos bombas atómicas en Japón en la misma semana.
