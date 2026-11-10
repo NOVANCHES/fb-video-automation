@@ -36,7 +36,7 @@ CUERPO: Los productos de compra diaria como leche, huevo y pan siempre están en
 CIERRE: La próxima vez que vayas al súper, mira hacia el estante inferior y notarás la diferencia.
 ================================================================================
 
-ID: VID-005 | CATEGORÍA: Espacio / Misterios | [ESTADO: PENDIENTE]
+ID: VID-005 | CATEGORÍA: Espacio / Misterios | [ESTADO: PUBLICADO]
 TÍTULO: El sonido real del espacio captado por la NASA
 VISUALES: deep space nebula, black hole simulation, radio telescope dish at night
 GANCHO: Nos dijeron que en el espacio no hay sonido, pero lo que captaron los radiotelescopios cerca de un agujero negro parece sacado de una película de terror.
