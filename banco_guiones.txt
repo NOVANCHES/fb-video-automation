@@ -44,7 +44,7 @@ CUERPO: En el cúmulo de galaxias de Perseo hay tanto gas caliente que las ondas
 CIERRE: ¿Te atreverías a viajar al espacio si escucharas esto por la ventana?
 ================================================================================
 
-ID: VID-006 | CATEGORÍA: Salud / Cuerpo Humano | [ESTADO: PENDIENTE]
+ID: VID-006 | CATEGORÍA: Salud / Cuerpo Humano | [ESTADO: PUBLICADO]
 TÍTULO: Qué pasa en tu cerebro cuando sientes que te caes al dormir
 VISUALES: person waking up startled in bed, brain neurons firing animation, sleeping night
 GANCHO: ¿Alguna vez estabas a punto de dormirte y sentiste que caías al vacío dando un brinco brusco?

@@ -1,19 +1,13 @@
 {
-  "timestamp": "2026-11-10T10:42:40.782989",
+  "timestamp": "2026-11-10T13:45:00.188425",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 33,
+    "shorts_total_views": 28,
     "shorts_list": [
-      {
-        "video_id": "jKX4BG4HLdg",
-        "title": "🏝️ Cómo sobrevivirías si quedaras atrapado en una isla prohibida durante 30 días #Shorts",
-        "views": 4,
-        "url": "https://www.youtube.com/shorts/jKX4BG4HLdg"
-      },
       {
         "video_id": "jrTFn1Zf4wQ",
         "title": "⚠️ Los 5 errores que el 95 por ciento de las personas cometería en una evacuación de… #Shorts",
@@ -173,7 +167,7 @@
       {
         "video_id": "VFeanOgzvxQ",
         "title": "🔍 La regla de los 3 segundos para saber si alguien te miente #Shorts",
-        "views": 1,
+        "views": 0,
         "url": "https://www.youtube.com/shorts/VFeanOgzvxQ"
       },
       {
@@ -187,6 +181,12 @@
         "title": "🔍 El sonido real del espacio captado por la NASA #Shorts",
         "views": 0,
         "url": "https://www.youtube.com/shorts/E0TdAqDO8fQ"
+      },
+      {
+        "video_id": "RXescBWFaBI",
+        "title": "🔍 Qué pasa en tu cerebro cuando sientes que te caes al dormir #Shorts",
+        "views": 0,
+        "url": "https://www.youtube.com/shorts/RXescBWFaBI"
       }
     ],
     "milestones": {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 33,
+          "current": 28,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 33,
+          "current": 28,
           "target": 10000000,
           "reached": false
         }
@@ -226,7 +226,7 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 34,
+      "reels": 35,
       "photos_with_stories": 1,
       "text_debates": 1
     },
