@@ -28,7 +28,7 @@ CUERPO: Cuando una persona dice la verdad, su cerebro asume que le crees y relaj
 CIERRE: Ponlo a prueba hoy mismo y verás que nunca falla.
 ================================================================================
 
-ID: VID-004 | CATEGORÍA: Finanzas / Trucos | [ESTADO: PENDIENTE]
+ID: VID-004 | CATEGORÍA: Finanzas / Trucos | [ESTADO: PUBLICADO]
 TÍTULO: Por qué los supermercados ponen el pan y la leche al fondo
 VISUALES: supermarket aisles, shopping cart fast motion, bakery section grocery store
 GANCHO: Ningún supermercado diseña sus pasillos al azar; todo está calculado para que gastes el doble de lo que planeabas.
