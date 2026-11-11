@@ -60,7 +60,7 @@ CUERPO: Tsutomu Yamaguchi estaba en Hiroshima por un viaje de trabajo el 6 de ag
 CIERRE: Comparte este video si no conocías esta increíble historia real.
 ================================================================================
 
-ID: VID-008 | CATEGORÍA: Tecnología / Seguridad | [ESTADO: PENDIENTE]
+ID: VID-008 | CATEGORÍA: Tecnología / Seguridad | [ESTADO: PUBLICADO]
 TÍTULO: Por qué nunca debes usar los puertos USB públicos del aeropuerto
 VISUALES: airport charging station usb, hacker laptop code, smartphone plugged in cable
 GANCHO: Conectar tu celular a los puertos USB gratuitos del aeropuerto o centros comerciales puede vaciar tu cuenta bancaria en segundos.
