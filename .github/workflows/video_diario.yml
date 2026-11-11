@@ -103,7 +103,8 @@ jobs:
           # Guardar archivos modificados en temp
           cp banco_guiones.txt /tmp/banco_guiones.txt 2>/dev/null || true
           cp output/published_scripts.json /tmp/published_scripts.json 2>/dev/null || true
-          cp output/viral_history.json /tmp/viral_history.json 2>/dev/null || true
+          cp output/gaming_history.json \
+            output/viral_history.json /tmp/viral_history.json 2>/dev/null || true
           cp output/published_topics.json /tmp/published_topics.json 2>/dev/null || true
           cp output/published_formats.json /tmp/published_formats.json 2>/dev/null || true
           cp output/voice_ab_history.json /tmp/voice_ab_history.json 2>/dev/null || true
@@ -117,7 +118,9 @@ jobs:
 
           cp /tmp/banco_guiones.txt banco_guiones.txt 2>/dev/null || true
           cp /tmp/published_scripts.json output/published_scripts.json 2>/dev/null || true
-          cp /tmp/viral_history.json output/viral_history.json 2>/dev/null || true
+          cp /tmp/gaming_history.json output/gaming_history.json 2>/dev/null || true
+          cp /tmp/viral_history.json output/gaming_history.json \
+            output/viral_history.json 2>/dev/null || true
           cp /tmp/published_topics.json output/published_topics.json 2>/dev/null || true
           cp /tmp/published_formats.json output/published_formats.json 2>/dev/null || true
           cp /tmp/voice_ab_history.json output/voice_ab_history.json 2>/dev/null || true
@@ -127,6 +130,7 @@ jobs:
           git add \
             banco_guiones.txt \
             output/published_scripts.json \
+            output/gaming_history.json \
             output/viral_history.json \
             output/published_topics.json \
             output/published_formats.json \
