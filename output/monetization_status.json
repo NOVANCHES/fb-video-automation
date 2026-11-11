@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-11T12:57:11.946333",
+  "timestamp": "2026-11-11T23:40:23.939731",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 28,
+    "shorts_total_views": 33,
     "shorts_list": [
       {
         "video_id": "jrTFn1Zf4wQ",
@@ -23,7 +23,7 @@
       {
         "video_id": "hky86czSBWU",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado? #Shorts",
-        "views": 6,
+        "views": 7,
         "url": "https://www.youtube.com/shorts/hky86czSBWU"
       },
       {
@@ -125,7 +125,7 @@
       {
         "video_id": "aNBUec4C_rI",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/aNBUec4C_rI"
       },
       {
@@ -155,7 +155,7 @@
       {
         "video_id": "zABw5l8qxI0",
         "title": "🔍 El botón oculto de tu teléfono que ahorra el 40% de batería #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/zABw5l8qxI0"
       },
       {
@@ -179,13 +179,13 @@
       {
         "video_id": "E0TdAqDO8fQ",
         "title": "🔍 El sonido real del espacio captado por la NASA #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/E0TdAqDO8fQ"
       },
       {
         "video_id": "RXescBWFaBI",
         "title": "🔍 Qué pasa en tu cerebro cuando sientes que te caes al dormir #Shorts",
-        "views": 0,
+        "views": 1,
         "url": "https://www.youtube.com/shorts/RXescBWFaBI"
       }
     ],
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 28,
+          "current": 33,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 28,
+          "current": 33,
           "target": 10000000,
           "reached": false
         }
@@ -226,9 +226,9 @@
     "professional_mode": true,
     "total_publications": 16,
     "breakdown": {
-      "reels": 36,
-      "photos_with_stories": 2,
-      "text_debates": 2
+      "reels": 31,
+      "photos_with_stories": 0,
+      "text_debates": 0
     },
     "milestones": {
       "ads_on_reels": {
