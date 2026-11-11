@@ -68,7 +68,7 @@ CUERPO: Esta técnica se conoce como "Juice Jacking". Un cable USB no solo trans
 CIERRE: Envíaselo a esa persona que siempre anda buscando dónde cargar su celular.
 ================================================================================
 
-ID: VID-009 | CATEGORÍA: Naturaleza / Animales | [ESTADO: PENDIENTE]
+ID: VID-009 | CATEGORÍA: Naturaleza / Animales | [ESTADO: PUBLICADO]
 TÍTULO: El único animal del planeta que es biológicamente inmortal
 VISUALES: glowing jellyfish underwater, deep ocean dark water, microscopic cells regenerating
 GANCHO: Mientras los humanos buscamos el secreto de la juventud, existe un animal en el océano que literalmente no puede morir de viejo.
