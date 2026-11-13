@@ -30,7 +30,6 @@
   "video",
   "video",
   "video",
-  "video",
   "photo",
   "video",
   "text",
@@ -38,5 +37,6 @@
   "video",
   "photo",
   "video",
-  "text"
+  "text",
+  "video"
 ]
