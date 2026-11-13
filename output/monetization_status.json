@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-13T20:46:54.614418",
+  "timestamp": "2026-11-13T22:50:35.664721",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 32,
+    "shorts_total_views": 33,
     "shorts_list": [
       {
         "video_id": "jrTFn1Zf4wQ",
@@ -23,7 +23,7 @@
       {
         "video_id": "hky86czSBWU",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado? #Shorts",
-        "views": 7,
+        "views": 8,
         "url": "https://www.youtube.com/shorts/hky86czSBWU"
       },
       {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 32,
+          "current": 33,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 32,
+          "current": 33,
           "target": 10000000,
           "reached": false
         }
