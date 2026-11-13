@@ -217,15 +217,25 @@ def _switch_to_page_profile_if_needed(driver: webdriver.Remote, page_name: str) 
 
 
 def upload_video_to_facebook(
-    video_path: Path = OUTPUT_DIR / "video_final.mp4",
+    video_path: Path,
     caption: str = "¡Mira este video hasta el final! #reels #viral",
     headless: bool = False,
 ) -> None:
     video_abs_path = str(video_path.resolve())
     if not video_path.exists():
-        raise FileNotFoundError(f"No se encontró el archivo de video a subir: {video_abs_path}")
+        raise FileNotFoundError(f"ERROR CRÍTICO: No se encontró el archivo de video a subir: {video_abs_path}")
 
-    print(f"[Subida] Iniciando navegador para publicar: {video_abs_path}")
+    # REGLA 5 OBLIGATORIA: Validar que el archivo .mp4 fue recién creado en los últimos 2 minutos (120 segundos)
+    file_age_seconds = time.time() - os.path.getmtime(video_path)
+    MAX_ALLOWED_AGE_SEC = 120.0
+    if file_age_seconds > MAX_ALLOWED_AGE_SEC:
+        raise ValueError(
+            f"ERROR CRÍTICO: El archivo de video '{video_path.name}' tiene una antigüedad de {file_age_seconds:.1f}s "
+            f"(máximo permitido: {MAX_ALLOWED_AGE_SEC}s / 2 minutos). "
+            f"Selenium tiene estrictamente prohibido subir videos antiguos o reutilizados. Abortando subida."
+        )
+
+    print(f"[Subida] Video verificado recién creado ({file_age_seconds:.1f}s de antigüedad). Iniciando navegador: {video_abs_path}")
     driver = _create_driver(headless=headless)
 
     try:
@@ -236,7 +246,7 @@ def upload_video_to_facebook(
         driver.get("https://www.facebook.com/reels/create")
         time.sleep(5)
 
-        # Si aparece la pantalla de confirmación de cuenta 'Continuar como Bruno Schiller'
+        # Si aparece la pantalla de confirmación de cuenta 'Continuar'
         try:
             continue_btns = driver.find_elements(
                 By.XPATH,

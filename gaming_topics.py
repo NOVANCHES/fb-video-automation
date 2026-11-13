@@ -1,8 +1,9 @@
 """
 gaming_topics.py
 ================
-Catálogo exclusivo de Historias y Curiosidades Virales de Videojuegos para Bruno Schiller.
+Catálogo exclusivo de Historias y Curiosidades Virales de Videojuegos.
 Secretos, mitos, errores de programación históricos y misterios de PlayStation, Nintendo, Xbox, PC y GTA.
+Cada historia incluye 3 prompts visuales exclusivos e independientes centrados 100% en el videojuego correspondiente.
 """
 
 import json
@@ -26,8 +27,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "El inicio de la PS2 no era una simple animación: era un mapa en tiempo real de tu Memory Card. 🕹️💾 "
             "¿Llegaste a tener la pantalla llena de torres gigantes? "
-            "#PlayStation #PS2 #Gaming #Videojuegos #Curiosidades #Gamer #Nostalgia #BrunoSchiller #Shorts #Reels"
+            "#PlayStation #PS2 #Gaming #Videojuegos #Curiosidades #Gamer #Nostalgia #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Cinematic vertical 9:16 macro shot of a sleek black PlayStation 2 console with glowing blue power LED light, retro gaming television display in background, atmospheric moody blue volumetric lighting, high resolution video game aesthetic",
+            "Vertical 9:16 cosmic digital dimension with glowing 3D crystal monolith towers and blocks floating in dense blue mist, iconic PS2 boot screen startup sequence visual, cinematic data particles, octane render 4k",
+            "Vertical 9:16 detailed close-up shot of an original black 8MB retro console Memory Card resting on a gaming table, subtle magical data glow and neon reflections, retro gaming memorabilia, 4k video game capture",
+        ],
     },
     {
         "id": "gaming_minecraft_creeper",
@@ -46,8 +52,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "El Creeper existe gracias a un bug en el modelo del cerdo de Minecraft. 💥🐷 "
             "¿Cuál ha sido tu peor susto con un Creeper? "
-            "#Minecraft #Creeper #Gamer #Gaming #Curiosidades #Videojuegos #Notch #BrunoSchiller #Shorts #Reels"
+            "#Minecraft #Creeper #Gamer #Gaming #Curiosidades #Videojuegos #Notch #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Vertical 9:16 3D wireframe glitch render of a Minecraft pig model distorted vertically, tall standing slender pink blocky pig creature with 4 stubby legs at bottom, developer debugging software screen, pixelated game art 4k",
+            "Vertical 9:16 developer terminal monitor displaying green Java code matrix on dark background, on the right side a 3D Minecraft Creeper texture being applied, iconic pixelated camouflage green texture with hollow black eyes and frowning mouth, 4k",
+            "Vertical 9:16 dramatic gameplay perspective inside a dark dense Minecraft oak forest at night under a bright square moon, a menacing green Creeper flashing white with sizzling TNT sparks about to explode, cinematic blocky voxel graphics 4k",
+        ],
     },
     {
         "id": "gaming_gta_sa_planes",
@@ -66,8 +77,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "Rockstar finalmente explicó el misterio de los aviones suicidas de GTA San Andreas. 🌆💥 "
             "Comenta cuál fue la avioneta que casi te aplasta mientras jugabas con CJ. "
-            "#GTA #GTASanAndreas #RockstarGames #Gaming #Videojuegos #Misterios #Gamer #BrunoSchiller #Shorts #Reels"
+            "#GTA #GTASanAndreas #RockstarGames #Gaming #Videojuegos #Misterios #Gamer #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Vertical 9:16 cinematic golden hour shot of Los Santos skyline in GTA San Andreas, retro low-poly video game architecture, vintage cars driving along Vinewood Boulevard, iconic palm trees, dramatic warm sunset lighting 4k",
+            "Vertical 9:16 dramatic action shot of a vintage propeller airplane diving uncontrollably between downtown Los Santos skyscrapers, wings clipping concrete buildings with fiery sparks and smoke trails, dynamic motion blur 4k",
+            "Vertical 9:16 technical radar HUD overlay with 3D wireframe city mesh collision map showing flight vector path crashing into high-rise building collision box, retro game engine debug visualization, 4k",
+        ],
     },
     {
         "id": "gaming_mario_clouds",
@@ -86,8 +102,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "Las nubes y los arbustos de Mario Bros son exactamente el mismo sprite con otro color. ☁️🌳 "
             "¿Te habías dado cuenta o acabas de desbloquear este recuerdo? "
-            "#SuperMario #Nintendo #RetroGaming #NES #Videojuegos #Gamer #Curiosidades #BrunoSchiller #Shorts #Reels"
+            "#SuperMario #Nintendo #RetroGaming #NES #Videojuegos #Gamer #Curiosidades #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Vertical 9:16 retro 8-bit NES video game level World 1-1, vibrant blue sky, brick blocks and green warp pipes, authentic pixel art aesthetic, nostalgic retro console CRT screen scanlines 4k",
+            "Vertical 9:16 split screen comparison graphic: on top a fluffy white cloud sprite in light blue sky, on bottom the identical green bush sprite on grassy terrain, pixel grid alignment overlay demonstrating identical geometry, 4k",
+            "Vertical 9:16 macro shot of an authentic grey NES game cartridge circuit board showing the ROM microchip with 40KB capacity, golden circuit traces glowing with retro nostalgic amber lighting, 4k",
+        ],
     },
     {
         "id": "gaming_pokemon_lavender",
@@ -106,8 +127,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "La ciencia detrás de la misteriosa música de Pueblo Lavanda en Pokémon. 🎵💀 "
             "¿Recuerdas el miedo que daba entrar a la Torre Pokémon de noche? "
-            "#Pokemon #PuebloLavanda #Nintendo #GameBoy #Videojuegos #Gaming #Misterios #BrunoSchiller #Shorts #Reels"
+            "#Pokemon #PuebloLavanda #Nintendo #GameBoy #Videojuegos #Gaming #Misterios #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Vertical 9:16 moody atmospheric render of Lavender Town from Pokémon, purple foggy streets with the towering silhouette of the Pokémon Tower graveyard, ghostly purple lanterns and eerie mist, pixel aesthetic 4k",
+            "Vertical 9:16 sound frequency oscilloscope display showing harsh dissonant high-pitch square soundwaves vibrating against dark purple grid, audio engineering frequency spectrum analysis visual 4k",
+            "Vertical 9:16 close-up of a classic grey Game Boy handheld console running the game with purple screen glow reflecting on buttons, moody dark room ambiance, retro gaming nostalgia 4k",
+        ],
     },
     {
         "id": "gaming_rdr2_horse_detail",
@@ -125,8 +151,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "El nivel de detalle y realismo de Red Dead Redemption 2 sigue insuperable. 🐎❄️ "
             "Comenta tu momento favorito en el mundo de Arthur Morgan. "
-            "#RDR2 #RedDeadRedemption #RockstarGames #Gaming #Videojuegos #Gamer #Detalles #BrunoSchiller #Shorts #Reels"
+            "#RDR2 #RedDeadRedemption #RockstarGames #Gaming #Videojuegos #Gamer #Detalles #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Vertical 9:16 cinematic ultra-realistic western landscape in snowy Rocky Mountains, Arthur Morgan riding a majestic thoroughbred horse through deep snowdrifts, breath vapor visible in freezing air, 4k video game capture",
+            "Vertical 9:16 extreme macro shot of horse coat and musculature reacting to extreme blizzard conditions, realistic frost on fur and detailed procedural weather physics, cinematic lighting 4k",
+            "Vertical 9:16 atmospheric wild west valley at sunset, lush pine forests and dramatic mountain backdrop with god rays breaking through storm clouds, Red Dead Redemption open world scale 4k",
+        ],
     },
     {
         "id": "gaming_zelda_oot_water_temple",
@@ -144,8 +175,13 @@ GAMING_STORIES: List[Dict[str, Any]] = [
         "caption": (
             "El Templo del Agua: el laberinto que traumatizó a todos los jugadores de Nintendo 64. 🌊⚔️ "
             "Comenta cuántas horas te quedaste atascado buscando la última llave. "
-            "#Zelda #OcarinaOfTime #Nintendo #N64 #RetroGaming #Gaming #Videojuegos #BrunoSchiller #Shorts #Reels"
+            "#Zelda #OcarinaOfTime #Nintendo #N64 #RetroGaming #Gaming #Videojuegos #Shorts #Reels"
         ),
+        "scene_prompts": [
+            "Vertical 9:16 epic subterranean Water Temple interior from Legend of Zelda Ocarina of Time, massive multi-level submerged central pillar with water sluice gates and glowing runes under dark turquoise water, 4k",
+            "Vertical 9:16 first-person perspective sinking to temple floor wearing heavy metallic Iron Boots with chains, air bubbles rising rapidly toward water surface, aquatic caustic reflections on ancient stone bricks 4k",
+            "Vertical 9:16 iconic glowing golden small key resting inside a submerged stone corridor alcove, illuminated by underwater torches and magical blue water refractions, 4k cinematic render",
+        ],
     },
 ]
 
