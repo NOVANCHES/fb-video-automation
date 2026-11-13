@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-13T13:26:15.772178",
+  "timestamp": "2026-11-13T20:46:54.614418",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 33,
+    "shorts_total_views": 32,
     "shorts_list": [
       {
         "video_id": "jrTFn1Zf4wQ",
@@ -155,7 +155,7 @@
       {
         "video_id": "zABw5l8qxI0",
         "title": "🔍 El botón oculto de tu teléfono que ahorra el 40% de batería #Shorts",
-        "views": 1,
+        "views": 0,
         "url": "https://www.youtube.com/shorts/zABw5l8qxI0"
       },
       {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 33,
+          "current": 32,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 33,
+          "current": 32,
           "target": 10000000,
           "reached": false
         }
