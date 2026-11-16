@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-16T00:50:19.227219",
+  "timestamp": "2026-11-16T04:06:56.600440",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 34,
+    "shorts_total_views": 37,
     "shorts_list": [
       {
         "video_id": "jrTFn1Zf4wQ",
@@ -23,7 +23,7 @@
       {
         "video_id": "hky86czSBWU",
         "title": "🦕 ¿Cuánto tiempo sobrevivirías en cada era prehistórica si viajaras al pasado? #Shorts",
-        "views": 8,
+        "views": 9,
         "url": "https://www.youtube.com/shorts/hky86czSBWU"
       },
       {
@@ -89,7 +89,7 @@
       {
         "video_id": "rSZ_ICA-95E",
         "title": "🔍 El negocio oculto de las devoluciones de Amazon #Shorts",
-        "views": 6,
+        "views": 7,
         "url": "https://www.youtube.com/shorts/rSZ_ICA-95E"
       },
       {
@@ -161,7 +161,7 @@
       {
         "video_id": "MRMgpnqX6hI",
         "title": "🔍 Por qué nunca debes matar a esta araña en tu casa #Shorts",
-        "views": 1,
+        "views": 2,
         "url": "https://www.youtube.com/shorts/MRMgpnqX6hI"
       },
       {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 34,
+          "current": 37,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 34,
+          "current": 37,
           "target": 10000000,
           "reached": false
         }
