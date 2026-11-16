@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-16T13:58:02.048373",
+  "timestamp": "2026-11-16T23:11:39.758069",
   "youtube": {
     "channel_id": "UCsSt3vnxhQvg2UmNhPAw-sQ",
     "channel_url": "https://www.youtube.com/channel/UCsSt3vnxhQvg2UmNhPAw-sQ",
     "subscribers": 0,
     "total_channel_videos": 1,
     "shorts_tracked_count": 30,
-    "shorts_total_views": 37,
+    "shorts_total_views": 39,
     "shorts_list": [
       {
         "video_id": "jrTFn1Zf4wQ",
@@ -179,7 +179,7 @@
       {
         "video_id": "E0TdAqDO8fQ",
         "title": "🔍 El sonido real del espacio captado por la NASA #Shorts",
-        "views": 1,
+        "views": 3,
         "url": "https://www.youtube.com/shorts/E0TdAqDO8fQ"
       },
       {
@@ -197,7 +197,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 37,
+          "current": 39,
           "target": 3000000,
           "reached": false
         },
@@ -214,7 +214,7 @@
           "reached": false
         },
         "shorts_views": {
-          "current": 37,
+          "current": 39,
           "target": 10000000,
           "reached": false
         }
