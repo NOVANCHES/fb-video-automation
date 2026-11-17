@@ -67,7 +67,7 @@ def _choose_next_format(requested_format: str) -> str:
         except Exception:
             history = []
 
-    cycle = ["video", "video", "photo", "video", "text"]
+    cycle = ["video"]  # Solo video — foto y texto desactivados (producen errores)
     next_fmt = cycle[len(history) % len(cycle)]
     history.append(next_fmt)
     fmt_history_path.write_text(json.dumps(history[-40:], ensure_ascii=False, indent=2), encoding="utf-8")
@@ -224,6 +224,23 @@ def run_full_pipeline(
     print("\n" + "=" * 65)
     print(" ¡PROCESO COMPLETADO!")
     print("=" * 65)
+
+    # Respaldar archivos de historial en /tmp para que el workflow de GitHub
+    # Actions los pueda recuperar después del git reset --hard
+    import shutil
+    _backups = {
+        OUTPUT_DIR / "gaming_history.json": "/tmp/gaming_history_run.json",
+        OUTPUT_DIR / "image_hashes_history.json": "/tmp/image_hashes_run.json",
+        OUTPUT_DIR / "published_formats.json": "/tmp/published_formats_run.json",
+        OUTPUT_DIR / "monetization_status.json": "/tmp/monetization_run.json",
+        Path(__file__).parent / "banco_guiones.txt": "/tmp/banco_guiones_run.txt",
+    }
+    for src, dst in _backups.items():
+        try:
+            if src.exists():
+                shutil.copy2(src, dst)
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
