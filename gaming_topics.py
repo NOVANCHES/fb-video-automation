@@ -505,6 +505,83 @@ GAMING_STORIES: List[Dict[str, Any]] = [
             "Vertical 9:16 alien ocean planet surface in No Man's Sky, turquoise waves under three moons in night sky, exotic sea creatures visible in shallow neon-lit water, atmospheric alien world 4k",
         ],
     },
+    # ── GTA 6 ─────────────────────────────────────────────────────────────
+    {
+        "id": "gaming_gta6_launch_record",
+        "theme_id": "gaming_gta6",
+        "game": "GTA VI",
+        "topic": "GTA 6 rompe todos los records de la historia del entretenimiento",
+        "title": "🌴 GTA 6 acaba de romper el record mas grande de la historia #Shorts",
+        "script": (
+            "GTA Seis acaba de lanzarse y en menos de veinticuatro horas ya rompió todos los récords que existían en la historia del entretenimiento. "
+            "El tráiler de revelación de GTA Seis acumuló cien millones de vistas en menos de veinticuatro horas, superando a cualquier trailer de película o serie en la historia de YouTube. "
+            "Rockstar Games invirtió más de dos mil millones de dólares en el desarrollo durante más de doce años, convirtiéndolo en la producción más cara de la historia del entretenimiento, superando incluso a las películas de Marvel. "
+            "El juego presenta por primera vez en la historia de GTA a una protagonista femenina llamada Lucia, ambientada en el estado ficticio de Leonida, inspirado completamente en Florida. "
+            "La ciudad de Vice City regresa completamente reconstruida con el motor gráfico más avanzado que Rockstar ha creado. "
+            "¿Ya tienes tu copia reservada de GTA Seis?"
+        ),
+        "caption": (
+            "GTA 6 rompió todos los récords de entretenimiento en menos de 24 horas. 🌴🔥 "
+            "¿Vas a comprarlo el primer dia? "
+            "#GTA6 #GTAVI #RockstarGames #GrandTheftAuto #Gaming #Videojuegos #Viral #Shorts #Reels"
+        ),
+        "scene_prompts": [
+            "Vertical 9:16 cinematic aerial view of Vice City from GTA 6, stunning ultra-realistic Miami-inspired neon skyline at sunset with Ocean Drive art deco hotels and palm trees, Rockstar game engine 4k photorealistic",
+            "Vertical 9:16 dramatic close-up of Lucia the female protagonist from GTA 6 in a cinematic pose, athletic latina woman in casual street clothes, Vice City beach and neon lights in background, ultra realistic game render 4k",
+            "Vertical 9:16 hyper-realistic GTA 6 gameplay scene of sports car chase through Vice City boulevard at night, neon reflections on wet pavement, police helicopters in pursuit, cinematic motion blur 4k",
+        ],
+    },
+    {
+        "id": "gaming_gta6_lucia_protagonist",
+        "theme_id": "gaming_gta6",
+        "game": "GTA VI",
+        "topic": "Por que Lucia es la protagonista mas importante de la historia de GTA",
+        "title": "🔥 Lucia de GTA 6: la protagonista que cambio los videojuegos para siempre #Shorts",
+        "script": (
+            "Lucia, la protagonista de GTA Seis, no es solo el primer personaje femenino jugable en la historia principal de Grand Theft Auto: es una revolución en el diseño narrativo de los videojuegos. "
+            "Rockstar pasó años investigando para crear una protagonista latina auténtica que no fuera un estereotipo, contratando escritores y actores de doblaje de origen latinoamericano para darle profundidad real. "
+            "Lucia comienza el juego saliendo de prisión en el estado de Leonida y busca construir su propia vida en un mundo donde todos quieren usarla. "
+            "Su arco narrativo fue comparado por los críticos con personajes cinematográficos de nivel Oscar, algo que muy pocos videojuegos habían logrado antes. "
+            "El hecho de que Rockstar pusiera a una mujer latina como protagonista principal de la franquicia más grande del entretenimiento es histórico. "
+            "¿Crees que Lucia se va a convertir en el personaje más icónico de GTA?"
+        ),
+        "caption": (
+            "Lucia es la protagonista mas importante en la historia de GTA y esto es por que. 🔥🌴 "
+            "¿Lucia te parece mejor protagonista que Trevor, Michael o Franklin? "
+            "#GTA6 #Lucia #GTAVI #RockstarGames #Gaming #Videojuegos #Historia #Shorts #Reels"
+        ),
+        "scene_prompts": [
+            "Vertical 9:16 cinematic portrait shot of GTA 6 protagonist Lucia walking out of prison gates into bright Florida sunshine, determined expression, palm trees and blue sky behind her, ultra realistic game capture 4k",
+            "Vertical 9:16 dramatic GTA 6 scene of Lucia and her partner Jason on a motorcycle speeding through Vice City Everglades swamp highway at golden hour, Bonnie and Clyde aesthetic, 4k cinematic game render",
+            "Vertical 9:16 atmospheric Vice City skyline at dusk from GTA 6, art deco hotels with neon signs lit up along oceanfront boulevard, vibrant Florida sunset colors reflected on ocean waves, ultra realistic 4k",
+        ],
+    },
+    {
+        "id": "gaming_gta6_vice_city_detail",
+        "theme_id": "gaming_gta6",
+        "game": "GTA VI",
+        "topic": "Los detalles imposibles de Vice City en GTA 6 que nadie habia visto antes",
+        "title": "😱 Los detalles de GTA 6 que hacen que Vice City se sienta 100% real #Shorts",
+        "script": (
+            "GTA Seis llevó el realismo de mundo abierto a un nivel que ningún videojuego había alcanzado antes. "
+            "Vice City en GTA Seis tiene clima en tiempo real que cambia el comportamiento de los NPCs: cuando llueve los peatones sacan paraguas, los conductores encienden limpiaparabrisas y los semáforos parpadean diferente. "
+            "Los animales de la fauna de Florida son completamente simulados: cocodrilos que atacan si te metes al pantano, pelícanos que roban comida a los turistas en la playa, y manatíes nadando bajo el agua. "
+            "Cada NPC en la ciudad tiene una rutina de vida de veinticuatro horas: van al trabajo, comen, hacen ejercicio y duermen en horarios reales. Si los atacas una vez y los dejas vivos, te recordarán y reaccionarán diferente si los vuelves a encontrar. "
+            "Rockstar puso más de ochocientas pistas de radio licenciadas reales, el doble que cualquier GTA anterior. "
+            "¿Cuál detalle de GTA Seis te dejó más impresionado?"
+        ),
+        "caption": (
+            "GTA 6 tiene detalles que hacen que Vice City se sienta mas real que cualquier juego anterior. 😱🌴 "
+            "¿Cuál detalle te parece el mas increible? "
+            "#GTA6 #GTAVI #ViceCity #RockstarGames #Detalles #Gaming #Videojuegos #Shorts #Reels"
+        ),
+        "scene_prompts": [
+            "Vertical 9:16 ultra realistic GTA 6 Vice City beach scene during tropical rainstorm, pedestrians opening umbrellas, wet pavement reflections of neon signs, palm trees bending in wind, photorealistic Rockstar graphics 4k",
+            "Vertical 9:16 hyper-detailed GTA 6 Florida Everglades swamp environment, realistic American alligator lurking in murky water among cypress trees with Spanish moss, atmospheric subtropical wildlife 4k game render",
+            "Vertical 9:16 vibrant GTA 6 Vice City nightlife scene, art deco neon-lit boulevard packed with realistic NPCs socializing outside clubs, sports cars parked outside, Miami Beach aesthetic, ultra realistic 4k",
+        ],
+    },
+    # ── Last of Us (ya existente, se mantiene al final) ────────────────────
     {
         "id": "gaming_last_of_us_clicker_science",
         "theme_id": "gaming_lastofus",

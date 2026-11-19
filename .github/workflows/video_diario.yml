@@ -1,26 +1,22 @@
-name: "Publicación Automática Diaria — Videojuegos (Facebook + YouTube)"
+name: "Video Diario Gaming - Facebook Reels"
 
 on:
   schedule:
-    # 1. Mañana:   8:00 AM Ciudad de México (14:00 UTC)
+    # 8:00 AM Mexico (14:00 UTC)
     - cron: "0 14 * * *"
-    # 2. Mediodía: 12:00 PM Ciudad de México (18:00 UTC)
+    # 12:00 PM Mexico (18:00 UTC)
     - cron: "0 18 * * *"
-    # 3. Tarde:    4:00 PM Ciudad de México (22:00 UTC)
+    # 4:00 PM Mexico (22:00 UTC)
     - cron: "0 22 * * *"
-    # 4. Noche:    9:00 PM Ciudad de México (03:00 UTC)
+    # 9:00 PM Mexico (03:00 UTC)
     - cron: "0 3 * * *"
 
   workflow_dispatch:
     inputs:
       topic:
-        description: 'Tema específico (deja "auto" para rotación automática)'
+        description: "Tema especifico (auto = rotacion automatica)"
         required: false
         default: "auto"
-      format:
-        description: 'Formato: "video" (siempre video)'
-        required: false
-        default: "video"
 
 permissions:
   contents: write
@@ -43,10 +39,10 @@ jobs:
       ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
 
     steps:
-      - name: Descargar repositorio
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Configurar Python 3.11
+      - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -55,64 +51,42 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends \
-            fonts-liberation fonts-dejavu-core ffmpeg imagemagick
+            fonts-liberation fonts-dejavu-core ffmpeg imagemagick \
+            chromium-browser chromium-chromedriver xvfb
 
-      - name: Instalar dependencias de Python
+      - name: Instalar dependencias Python
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Restaurar historial de publicaciones
+      - name: Mostrar historial actual
         run: |
-          # Restaurar archivos de historial desde el repo (ya están commiteados)
-          echo "[Historial] Archivos de historial cargados del repositorio:"
+          echo "=== gaming_history.json ==="
           cat output/gaming_history.json 2>/dev/null || echo "[]"
+          echo "=== image_hashes_history.json ==="
+          cat output/image_hashes_history.json 2>/dev/null | python3 -c "import json,sys; h=json.load(sys.stdin); print(f'{len(h)} hashes registrados')" 2>/dev/null || echo "0 hashes"
 
       - name: Generar y publicar video
         run: |
           TOPIC="${{ github.event.inputs.topic || 'auto' }}"
-          FORMAT="${{ github.event.inputs.format || 'video' }}"
-          python -u main.py --topic "$TOPIC" --format "$FORMAT" --headless
+          python -u main.py --topic "$TOPIC" --format video --headless
 
-      - name: Guardar historial actualizado en el repo
+      - name: Guardar historial en repositorio
         if: always()
         run: |
           git config user.name "Gaming Bot"
           git config user.email "bot@users.noreply.github.com"
 
-          # Intentar hasta 3 veces en caso de conflicto de push
           for i in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
 
-            # Restaurar archivos modificados por el pipeline
-            # (ya están en el directorio de trabajo porque el checkout los tiene)
-            # Volvemos a ejecutar solo para guardar el historial actualizado
-            python -c "
-import json, os
-from pathlib import Path
-
-# Leer historial que main.py escribió en disco durante el run
-hist_file = Path('output/gaming_history.json')
-hashes_file = Path('output/image_hashes_history.json')
-banco_file = Path('banco_guiones.txt')
-formats_file = Path('output/published_formats.json')
-
-print('[Bot] Archivos de historial listos para commit.')
-if hist_file.exists():
-    h = json.loads(hist_file.read_text())
-    print(f'  gaming_history: {h[-3:]}')
-if hashes_file.exists():
-    hh = json.loads(hashes_file.read_text())
-    print(f'  image_hashes: {len(hh)} registros')
-" 2>/dev/null || true
-
-            # Restaurar historial generado en este run desde /tmp si existe
+            # Restaurar historiales generados en este run (guardados en /tmp por main.py)
             cp /tmp/gaming_history_run.json output/gaming_history.json 2>/dev/null || true
             cp /tmp/image_hashes_run.json output/image_hashes_history.json 2>/dev/null || true
-            cp /tmp/banco_guiones_run.txt banco_guiones.txt 2>/dev/null || true
             cp /tmp/published_formats_run.json output/published_formats.json 2>/dev/null || true
             cp /tmp/monetization_run.json output/monetization_status.json 2>/dev/null || true
+            cp /tmp/banco_guiones_run.txt banco_guiones.txt 2>/dev/null || true
 
             git add \
               output/gaming_history.json \
@@ -122,9 +96,9 @@ if hashes_file.exists():
               banco_guiones.txt \
               2>/dev/null || true
 
-            git diff --staged --quiet && echo "[Bot] Sin cambios que commitear." && break
+            git diff --staged --quiet && echo "Sin cambios." && break
 
             git commit -m "bot: actualiza historial post-publicacion [skip ci]" && \
             git push origin main && break || \
-            echo "[Bot] Reintento $i de push..." && sleep 5
+            echo "Reintento $i..." && sleep 5
           done
